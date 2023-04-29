@@ -21,6 +21,10 @@ public class DesignReqInfo extends BaseTimeEntity {
     @Column(name = "design_reg_info_id")
     private Long id;
 
+    @Column(length = 500)
+    @Comment("요청 내용")
+    private String content;
+
     @Column(length = 1)
     @Comment("삭제 여부")
     @ColumnDefault("N")
