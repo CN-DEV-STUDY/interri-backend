@@ -1,12 +1,15 @@
 package com.cn.interri.user.domain.User;
 
 import com.cn.interri.common.BaseTimeEntity;
+import com.cn.interri.design.domain.DesignReq;
 import com.cn.interri.user.constant.SignType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -33,4 +36,7 @@ public class User extends BaseTimeEntity {
 
     @Column(length = 20)
     private String phone; // 사용자 전화번호
+
+    @OneToMany(mappedBy = "user")
+    private List<DesignReq> designReqArrayList = new ArrayList<>();
 }
