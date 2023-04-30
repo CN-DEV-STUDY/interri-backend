@@ -41,6 +41,4 @@ public class DesignReqInfo extends BaseTimeEntity {
     @OneToMany(mappedBy = "designReqInfo")
     private List<DesignReqRoomType> designReqRoomTypeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "designReqInfo")
-    private List<DesignReqSize> designReqSizeList = new ArrayList<>();
 }

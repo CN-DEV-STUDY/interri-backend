@@ -66,4 +66,7 @@ public class DesignReq extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "designReq")
     private List<DesignReqStyle> designReqStyleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "designReq")
+    private List<DesignReqSize> designReqSizeList = new ArrayList<>();
 }

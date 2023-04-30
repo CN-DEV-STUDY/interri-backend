@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class FileDesignRes extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_design_id")
+    @Column(name = "file_design_res_id")
     @Comment("파일 id")
     private Long id;
 

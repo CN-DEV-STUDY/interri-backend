@@ -23,5 +23,5 @@ public class DesignReqSize {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "design_req_id")
-    private DesignReqInfo designReqInfo;
+    private DesignReq designReq;
 }
