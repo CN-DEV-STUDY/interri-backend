@@ -13,15 +13,15 @@ import javax.persistence.*;
 public class DesignReqRoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "design_reg_room_type_id")
+    @Column(name = "design_req_room_type_id")
     private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_reg_info_id")
+    @JoinColumn(name = "design_req_info_id")
     private DesignReqInfo designReqInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rood_type_id")
+    @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 }

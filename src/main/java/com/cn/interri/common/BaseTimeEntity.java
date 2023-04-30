@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 public class BaseTimeEntity {
     @Comment("등록 일자")
     @CreatedDate
-    private LocalDateTime regDt;
+    private LocalDateTime regDate;
 
     @Comment("수정 일자")
     @LastModifiedDate
-    private LocalDateTime modDt;
+    private LocalDateTime modDate;
 }

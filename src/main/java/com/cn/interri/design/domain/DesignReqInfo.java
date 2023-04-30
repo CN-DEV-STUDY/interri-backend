@@ -18,7 +18,7 @@ import java.util.List;
 public class DesignReqInfo extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "design_reg_info_id")
+    @Column(name = "design_req_info_id")
     private Long id;
 
     @Column(length = 500)

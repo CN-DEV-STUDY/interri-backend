@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class RoomType {
     @Id
-    @Column(name = "rood_type_id")
+    @Column(name = "room_type_id")
     @Comment("공간 id")
     private int id;
 

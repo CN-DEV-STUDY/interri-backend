@@ -5,6 +5,7 @@ import com.cn.interri.user.domain.User.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class DesignRes extends BaseTimeEntity {
 
     @Column(length = 1, nullable = false)
     @Comment("삭제 여부")
+    @ColumnDefault("N")
     private String delYn;
 
     @Comment("조회수")

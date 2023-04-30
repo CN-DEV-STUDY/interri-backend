@@ -52,7 +52,7 @@ public class DesignReq extends BaseTimeEntity {
 
     @Comment("스크랩수")
     @ColumnDefault("0")
-    private int scabCnt;
+    private int scrabCnt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
