@@ -1,6 +1,6 @@
 package com.cn.interri.design.domain;
 
-import com.cn.interri.common.BaseTimeEntity;
+import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.domain.User.User;
 import lombok.AccessLevel;
 import lombok.Getter;

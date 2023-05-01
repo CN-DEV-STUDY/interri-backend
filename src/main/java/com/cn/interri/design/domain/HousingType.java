@@ -22,6 +22,6 @@ public class HousingType {
     @Comment("주거 형태 타입")
     private String housingTypeNm;
 
-    @OneToMany(mappedBy = "housingType")
-    private List<DesignReqHousingType> designReqHousingTypeList = new ArrayList<>();
+    @OneToOne(mappedBy = "housingType")
+    private DesignReq designReq;
 }
