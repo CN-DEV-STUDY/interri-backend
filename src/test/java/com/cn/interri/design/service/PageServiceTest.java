@@ -1,5 +1,6 @@
 package com.cn.interri.design.service;
 
+import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.dto.ReqRegistrationResource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,4 +42,24 @@ class PageServiceTest {
                 .isNotNull()
                 .hasSize(8);
     }
+
+    @DisplayName("디자인 요청 상세 페이지에 필요한 자원을 조회한다.")
+    @Test
+    void getDesignReqDetails() {
+
+        // given
+        ReqDetailReqResource designReqDetails = pageService.getDesignReqDetails();
+
+        // then
+        assertThat(designReqDetails.getUserId().equals("sumon"));
+        assertThat(designReqDetails.getSizeNm().equals("10평 미만"));
+        assertThat(designReqDetails.getHousingTypeNm().equals("원룸"));
+        assertThat(designReqDetails.getMainColor().equals("black"));
+        assertThat(designReqDetails.getSubColor().equals("white"));
+
+
+    }
+
+
+
 }

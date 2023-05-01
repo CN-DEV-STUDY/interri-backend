@@ -1,5 +1,7 @@
 package com.cn.interri.design.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
 import java.time.LocalDate;
@@ -8,7 +10,8 @@ import java.util.List;
 /**
  * design_req_detail 디자인 요청 response dto
  */
-@Value
+@Getter
+@Setter
 public class ReqDetailReqResource {
     // 사용자 아이디
     String userId;
