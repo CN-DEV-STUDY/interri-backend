@@ -4,6 +4,7 @@ import com.cn.interri.common.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -18,11 +19,6 @@ public class FileDesignRes extends BaseTimeEntity {
     @Column(name = "file_design_res_id")
     @Comment("파일 id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_res_id")
-    @Comment("디자인 응답")
-    private DesignRes designRes;
 
     @Column(length = 100, nullable = false)
     @Comment("파일 저장 경로")
@@ -39,4 +35,14 @@ public class FileDesignRes extends BaseTimeEntity {
     @Column(length = 1, nullable = false)
     @Comment("삭제 여부")
     private String delYn;
+
+    @Column(length = 1, nullable = false)
+    @ColumnDefault("N")
+    @Comment("대표 사진 지정 여부")
+    private String repYn;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "design_res_id")
+    @Comment("디자인 응답")
+    private DesignRes designRes;
 }
