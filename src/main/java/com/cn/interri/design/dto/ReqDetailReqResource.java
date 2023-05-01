@@ -13,6 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 public class ReqDetailReqResource {
+
+    // 디자인 요청 id
+    Long id;
+
     // 사용자 아이디
     String userId;
 

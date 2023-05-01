@@ -1,10 +1,8 @@
 package com.cn.interri.design.service.impl;
 
+import com.cn.interri.design.domain.*;
+import com.cn.interri.design.dto.ReqInfoDetailResource;
 import com.cn.interri.design.enums.Colors;
-import com.cn.interri.design.domain.HousingType;
-import com.cn.interri.design.domain.RoomType;
-import com.cn.interri.design.domain.Size;
-import com.cn.interri.design.domain.Style;
 import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.repository.*;
 import com.cn.interri.design.service.PageService;
@@ -52,8 +50,13 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public ReqDetailReqResource getDesignReqDetails() {
-        ReqDetailReqResource reqDetail = designReqRepository.getReqDetail();
+    public ReqDetailReqResource getDesignReqDetails(Long id) {
+
+        ReqDetailReqResource reqDetail = designReqRepository.getReqDetail(id);
+        List<ReqInfoDetailResource> reqInfoDetail = designReqInfoRepository.getReqInfoDetail(id);
+
+        reqDetail.setReqInfoDetailResources(reqInfoDetail);
+
         return reqDetail;
     }
 }

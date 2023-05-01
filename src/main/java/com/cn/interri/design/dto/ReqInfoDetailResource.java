@@ -9,7 +9,7 @@ import lombok.Value;
 public class ReqInfoDetailResource {
 
     // 공간
-    String roomType;
+    String roomTypeNm;
 
     // 이미지 저장 경로
     String imgPath;

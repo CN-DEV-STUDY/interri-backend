@@ -22,6 +22,6 @@ public class RoomType {
     @Comment("공간명")
     private String roomTypeNm;
 
-    @OneToMany(mappedBy = "roomType")
-    private List<DesignReqRoomType> designReqRoomTypeList = new ArrayList<>();
+    @OneToOne(mappedBy = "roomType",fetch = FetchType.LAZY)
+    private DesignReqInfo designReqInfo;
 }
