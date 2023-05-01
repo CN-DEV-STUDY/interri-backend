@@ -1,4 +1,4 @@
-package com.cn.interri.dto;
+package com.cn.interri.design.dto;
 
 import com.cn.interri.design.domain.HousingType;
 import com.cn.interri.design.domain.RoomType;
@@ -12,7 +12,7 @@ import java.util.List;
  * 등록화면에 필요한 리소스
  */
 @Value
-public class RegistrationResource {
+public class ReqRegistrationResource {
 
     // 평수
     List<Size> sizeList;

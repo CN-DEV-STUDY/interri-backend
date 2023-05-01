@@ -1,4 +1,4 @@
-package com.cn.interri.user.constant;
+package com.cn.interri.user.enums;
 
 public enum SignType {
     I, // 자제 로그인

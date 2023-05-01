@@ -1,6 +1,6 @@
 package com.cn.interri.design.service.impl;
 
-import com.cn.interri.design.constant.Colors;
+import com.cn.interri.design.enums.Colors;
 import com.cn.interri.design.domain.HousingType;
 import com.cn.interri.design.domain.RoomType;
 import com.cn.interri.design.domain.Size;
@@ -11,7 +11,7 @@ import com.cn.interri.design.repository.RoomTypeRepository;
 import com.cn.interri.design.repository.SizeRepository;
 import com.cn.interri.design.repository.StyleRepository;
 import com.cn.interri.design.service.PageService;
-import com.cn.interri.design.dto.RegistrationResource;
+import com.cn.interri.design.dto.ReqRegistrationResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class PageServiceImpl implements PageService {
     private final StyleRepository styleRepository;
 
     @Override
-    public RegistrationResource getRegistrationPageResource() {
+    public ReqRegistrationResource getRegistrationPageResource() {
         // 평수
         List<Size> sizeList = sizeRepository.findAll();
         // 주거 형태
@@ -43,8 +43,7 @@ public class PageServiceImpl implements PageService {
         // 스타일
         List<Style> styleList = styleRepository.findAll();
 
-
-        return new RegistrationResource(sizeList,
+        return new ReqRegistrationResource(sizeList,
                 housingTypeList,
                 colorList,
                 roomTypeList,
