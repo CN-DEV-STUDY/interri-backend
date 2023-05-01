@@ -38,7 +38,9 @@ public class DesignReqInfo extends BaseTimeEntity {
     @JoinColumn(name = "file_design_req_id")
     private FileDesignReq fileDesignReq;
 
-    @OneToMany(mappedBy = "designReqInfo")
-    private List<DesignReqRoomType> designReqRoomTypeList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_type_id")
+    private RoomType roomType;
+
 
 }
