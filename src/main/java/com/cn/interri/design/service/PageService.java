@@ -1,8 +1,8 @@
 package com.cn.interri.design.service;
 
-import com.cn.interri.dto.RegistrationResource;
+import com.cn.interri.design.dto.ReqRegistrationResource;
 
 public interface PageService {
 
-    RegistrationResource getRegistrationPageResource();
+    ReqRegistrationResource getRegistrationPageResource();
 }

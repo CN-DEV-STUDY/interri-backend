@@ -1,4 +1,4 @@
-package com.cn.interri.design.constant;
+package com.cn.interri.design.enums;
 
 import java.util.Arrays;
 import java.util.List;

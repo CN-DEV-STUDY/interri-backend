@@ -1,6 +1,6 @@
 package com.cn.interri.user.domain.User;
 
-import com.cn.interri.user.constant.DesignType;
+import com.cn.interri.user.enums.DesignType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
