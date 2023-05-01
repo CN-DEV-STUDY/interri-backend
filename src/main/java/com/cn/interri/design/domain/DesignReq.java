@@ -1,6 +1,6 @@
 package com.cn.interri.design.domain;
 
-import com.cn.interri.common.BaseTimeEntity;
+import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.domain.User.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -61,12 +61,15 @@ public class DesignReq extends BaseTimeEntity {
     @OneToMany(mappedBy = "designReq")
     private List<DesignReqInfo> designReqInfoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "designReq")
-    private List<DesignReqHousingType> designReqHousingTypeList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "housing_type_id")
+    private HousingType housingType;
 
-    @OneToMany(mappedBy = "designReq")
-    private List<DesignReqStyle> designReqStyleList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "style_id")
+    private Style style;
 
-    @OneToMany(mappedBy = "designReq")
-    private List<DesignReqSize> designReqSizeList = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "size_id")
+    private Size size;
 }

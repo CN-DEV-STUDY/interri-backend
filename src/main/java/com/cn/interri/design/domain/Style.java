@@ -22,6 +22,6 @@ public class Style {
     @Comment("스타일명")
     private String styleNm;
 
-    @OneToMany(mappedBy = "style")
-    private List<DesignReqStyle> designReqStyleList = new ArrayList<>();
+    @OneToOne(mappedBy = "style")
+    private DesignReq designReq;
 }

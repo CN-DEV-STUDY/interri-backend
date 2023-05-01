@@ -22,6 +22,6 @@ public class Size {
     @Comment("평수명")
     private String sizeNm;
 
-    @OneToMany(mappedBy = "size")
-    private List<DesignReqSize> designReqSizeList = new ArrayList<>();
+    @OneToOne(mappedBy = "size")
+    private DesignReq designReq;
 }

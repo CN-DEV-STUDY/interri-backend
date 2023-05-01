@@ -1,4 +1,4 @@
-package com.cn.interri.common;
+package com.cn.interri.common.entity;
 
 import lombok.Getter;
 import org.hibernate.annotations.Comment;

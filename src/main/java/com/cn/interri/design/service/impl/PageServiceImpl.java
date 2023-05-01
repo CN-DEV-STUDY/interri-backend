@@ -5,6 +5,7 @@ import com.cn.interri.design.domain.HousingType;
 import com.cn.interri.design.domain.RoomType;
 import com.cn.interri.design.domain.Size;
 import com.cn.interri.design.domain.Style;
+import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.repository.HousingTypeRepository;
 import com.cn.interri.design.repository.RoomTypeRepository;
 import com.cn.interri.design.repository.SizeRepository;
@@ -15,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -45,5 +48,11 @@ public class PageServiceImpl implements PageService {
                 colorList,
                 roomTypeList,
                 styleList);
+    }
+
+    @Override
+    public ReqDetailReqResource getDesignReqDetails() {
+
+        return null;
     }
 }

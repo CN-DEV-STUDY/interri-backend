@@ -1,6 +1,6 @@
 package com.cn.interri.design.domain;
 
-import com.cn.interri.common.BaseTimeEntity;
+import com.cn.interri.common.entity.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
