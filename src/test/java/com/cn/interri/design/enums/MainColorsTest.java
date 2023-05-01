@@ -1,4 +1,4 @@
-package com.cn.interri.design.constant;
+package com.cn.interri.design.enums;
 
 import org.junit.jupiter.api.Test;
 
