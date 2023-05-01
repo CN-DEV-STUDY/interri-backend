@@ -6,15 +6,13 @@ import com.cn.interri.design.domain.RoomType;
 import com.cn.interri.design.domain.Size;
 import com.cn.interri.design.domain.Style;
 import com.cn.interri.design.dto.ReqDetailReqResource;
-import com.cn.interri.design.repository.HousingTypeRepository;
-import com.cn.interri.design.repository.RoomTypeRepository;
-import com.cn.interri.design.repository.SizeRepository;
-import com.cn.interri.design.repository.StyleRepository;
+import com.cn.interri.design.repository.*;
 import com.cn.interri.design.service.PageService;
 import com.cn.interri.design.dto.ReqRegistrationResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +21,15 @@ import java.util.Map;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PageServiceImpl implements PageService {
 
     private final SizeRepository sizeRepository;
     private final HousingTypeRepository housingTypeRepository;
     private final RoomTypeRepository roomTypeRepository;
     private final StyleRepository styleRepository;
+    private final DesignReqRepository designReqRepository;
+    private final DesignReqInfoRepository designReqInfoRepository;
 
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
@@ -52,7 +53,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public ReqDetailReqResource getDesignReqDetails() {
-
-        return null;
+        ReqDetailReqResource reqDetail = designReqRepository.getReqDetail();
+        return reqDetail;
     }
 }
