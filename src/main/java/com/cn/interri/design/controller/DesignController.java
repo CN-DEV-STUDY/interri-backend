@@ -30,7 +30,7 @@ public class DesignController {
                         .build());
     }
 
-    @GetMapping("/design/{id}/details")
+    @GetMapping("/req/{id}/details")
     public ResponseEntity<ResponseDto<ReqDetailReqResource>> getDesignReqDetails(@PathVariable("id") Long id) throws Exception {
         ReqDetailReqResource resource = pageService.getDesignReqDetails(id);
         return ResponseEntity.ok()
