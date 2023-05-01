@@ -32,7 +32,7 @@ public class PageServiceImpl implements PageService {
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
         // 평수
-        List<Size> sizeList = sizeRepository.findAll();
+        List<Size> sizeList = sizeRepository.findAllSize();
         // 주거 형태
         List<HousingType> housingTypeList = housingTypeRepository.findAll();
         // 메인, 서브 컬러
