@@ -42,5 +42,5 @@ public class ReqDetailReqResource {
     List<ReqInfoDetailResource> reqInfoDetailResources;
 
     // 디자인 요청 응답 목록
-//    List<ReqDetailResResource> reqDetailResResources;
+    List<ReqDetailResResource> reqDetailResResources;
 }
