@@ -1,8 +1,10 @@
 package com.cn.interri.design.service.impl;
 
+import com.cn.interri.design.domain.FileDesignRes;
 import com.cn.interri.design.dto.*;
 import com.cn.interri.design.enums.Colors;
 import com.cn.interri.design.repository.*;
+import com.cn.interri.design.repository.custom.DesignResRepository;
 import com.cn.interri.design.service.PageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -23,6 +26,8 @@ public class PageServiceImpl implements PageService {
     private final StyleRepository styleRepository;
     private final DesignReqRepository designReqRepository;
     private final DesignReqInfoRepository designReqInfoRepository;
+    private final DesignResRepository designResRepository;
+    private final FileDesignResRepository fileDesignResRepository;
 
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
@@ -49,8 +54,19 @@ public class PageServiceImpl implements PageService {
 
         ReqDetailReqResource reqDetail = designReqRepository.getReqDetail(id);
         List<ReqInfoDetailResource> reqInfoDetail = designReqInfoRepository.getReqInfoDetail(id);
+        List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id);
+
+        List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
+            FileDesignRes fileDesignRes = fileDesignResRepository.findByDesignRes_IdAndRepYn(res.getId(), "Y");
+
+            res.setFilePath(fileDesignRes.getFilePath());
+            res.setFileNm(fileDesignRes.getFileNm());
+            return res;
+        }).collect(Collectors.toList());
+
 
         reqDetail.setReqInfoDetailResources(reqInfoDetail);
+        reqDetail.setReqDetailResResources(reqDetailResList);
 
         return reqDetail;
     }
