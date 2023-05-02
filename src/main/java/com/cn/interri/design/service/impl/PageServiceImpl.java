@@ -1,20 +1,15 @@
 package com.cn.interri.design.service.impl;
 
-import com.cn.interri.design.domain.*;
-import com.cn.interri.design.dto.ReqInfoDetailResource;
+import com.cn.interri.design.dto.*;
 import com.cn.interri.design.enums.Colors;
-import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.repository.*;
 import com.cn.interri.design.service.PageService;
-import com.cn.interri.design.dto.ReqRegistrationResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -32,20 +27,20 @@ public class PageServiceImpl implements PageService {
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
         // 평수
-        List<Size> sizeList = sizeRepository.findAll();
+        List<SizeDto> sizeDtoList = sizeRepository.findAllSize();
         // 주거 형태
-        List<HousingType> housingTypeList = housingTypeRepository.findAll();
+        List<HousingTypeDto> housingTypeList = housingTypeRepository.findAllHousingType();
         // 메인, 서브 컬러
         List<String> colorList = Colors.getList();
         // 공간
-        List<RoomType> roomTypeList = roomTypeRepository.findAll();
+        List<RoomTypeDto> roomTypeDtoList = roomTypeRepository.findAllRoomType();
         // 스타일
-        List<Style> styleList = styleRepository.findAll();
+        List<StyleDto> styleList = styleRepository.findAllStyle();
 
-        return new ReqRegistrationResource(sizeList,
+        return new ReqRegistrationResource(sizeDtoList,
                 housingTypeList,
                 colorList,
-                roomTypeList,
+                roomTypeDtoList,
                 styleList);
     }
 

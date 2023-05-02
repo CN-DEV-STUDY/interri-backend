@@ -22,6 +22,6 @@ public class HousingType {
     @Comment("주거 형태 타입")
     private String housingTypeNm;
 
-    @OneToOne(mappedBy = "housingType")
+    @OneToOne(mappedBy = "housingType", fetch = FetchType.LAZY)
     private DesignReq designReq;
 }

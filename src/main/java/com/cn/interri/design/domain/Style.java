@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "style")
@@ -22,6 +20,6 @@ public class Style {
     @Comment("스타일명")
     private String styleNm;
 
-    @OneToOne(mappedBy = "style")
+    @OneToOne(mappedBy = "style", fetch = FetchType.LAZY)
     private DesignReq designReq;
 }
