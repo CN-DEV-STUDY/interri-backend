@@ -20,11 +20,6 @@ public class DesignRes extends BaseTimeEntity {
     @Comment("디자인 응답 id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    @Comment("사용자")
-    private User user; // 사용자
-
     @Column(nullable = false)
     @Comment("응답 가격")
     private Integer price; // 응답 가격
@@ -43,4 +38,12 @@ public class DesignRes extends BaseTimeEntity {
 
     @Comment("스크랩 수")
     private Integer scrabCnt;
+
+    @Comment("디자인 요청 id")
+    private Long designReqId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @Comment("사용자")
+    private User user; // 사용자
 }

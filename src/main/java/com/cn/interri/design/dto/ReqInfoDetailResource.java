@@ -1,11 +1,15 @@
 package com.cn.interri.design.dto;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
 /**
  * design_req_detail 이미지 dto
  */
-@Value
+@Getter
+@Setter
 public class ReqInfoDetailResource {
 
     // 공간
