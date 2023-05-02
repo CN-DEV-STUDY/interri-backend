@@ -1,8 +1,6 @@
 package com.cn.interri.design.dto;
 
 import com.cn.interri.design.domain.HousingType;
-import com.cn.interri.design.domain.RoomType;
-import com.cn.interri.design.domain.Size;
 import com.cn.interri.design.domain.Style;
 import lombok.Value;
 
@@ -15,17 +13,17 @@ import java.util.List;
 public class ReqRegistrationResource {
 
     // 평수
-    List<Size> sizeList;
+    List<SizeDto> sizeList;
 
     // 주거 형태
-    List<HousingType> housingTypeList;
+    List<HousingTypeDto> housingTypeList;
 
     // 메인, 서브 컬러
     List<String> colorList;
 
     // 공간
-    List<RoomType> roomTypeList;
+    List<RoomTypeDto> roomTypeList;
 
     // 스타일
-    List<Style> styleList;
+    List<StyleDto> styleList;
 }
