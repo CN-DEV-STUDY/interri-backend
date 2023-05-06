@@ -1,6 +1,7 @@
 package com.cn.interri.design.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.cn.interri.design.domain.FileDesignReq;
 import com.cn.interri.design.domain.FileDesignRes;
 import com.cn.interri.design.dto.*;
 import com.cn.interri.design.enums.Colors;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ public class PageServiceImpl implements PageService {
     private final DesignReqInfoRepository designReqInfoRepository;
     private final DesignResRepository designResRepository;
     private final FileDesignResRepository fileDesignResRepository;
+    private final FileDesignReqRepository fileDesignReqRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -59,11 +62,25 @@ public class PageServiceImpl implements PageService {
     @Override
     public ReqDetailReqResource getDesignReqDetails(Long id) {
 
+
         // 디자인 요청 내용
         ReqDetailReqResource reqDetail = designReqRepository.getReqDetail(id);
         List<ReqInfoDetailResource> reqInfoDetail = designReqInfoRepository.getReqInfoDetail(id);
 
-        reqInfoDetail.stream().map(this::getUrl).collect(Collectors.toList()); // s3 imgUrl로 update
+        // 디자인 요청 상세 정보는 여러개가 올 수 있으며, 상세 정보에서도 이미지가 여러개 올 수있다.
+        reqInfoDetail.stream().map(req->{
+            List<FileDesignReq> designReqInfo = fileDesignReqRepository.findByDesignReqInfo_Id(req.getInfoId()); // 디자인 요청 상세에 맞는 file을 가져온다.
+
+            List<String> reqImgPathList = new ArrayList<>();
+
+            for (FileDesignReq file : designReqInfo) { // file 개수만큼 반복문을 돌며 s3 이미지 저장 경로로 바꿔서 List에 넣어준다.
+                reqImgPathList.add(amazonS3Client.getUrl(bucket, file.getFilePath()).toString());
+            }
+
+            req.setImgPathList(reqImgPathList); // dto의 imageList를 s3 bucket 경로로 바뀐 데이터로 업데이트 한다.
+            return req;
+        }).collect(Collectors.toList());
+
 
         // 디자인 요청에 대한 답변 내용
         List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id);
@@ -80,9 +97,9 @@ public class PageServiceImpl implements PageService {
         return reqDetail;
     }
 
-    private ReqInfoDetailResource getUrl(ReqInfoDetailResource rep) {
-        String imgUrl = amazonS3Client.getUrl(bucket, rep.getImgPath()).toString();
-        rep.setImgPath(imgUrl);
-        return rep;
-    }
+//    private ReqInfoDetailResource getUrl(ReqInfoDetailResource rep) {
+//        String imgUrl = amazonS3Client.getUrl(bucket, rep.getImgPath()).toString();
+//        rep.setImgPath(imgUrl);
+//        return rep;
+//    }
 }

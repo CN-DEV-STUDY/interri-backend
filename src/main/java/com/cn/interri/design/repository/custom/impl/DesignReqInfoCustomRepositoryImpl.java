@@ -25,13 +25,12 @@ public class DesignReqInfoCustomRepositoryImpl implements DesignReqInfoCustomRep
     public List<ReqInfoDetailResource> getReqInfoDetail(Long id) {
         return queryFactory
                 .select(Projections.fields(ReqInfoDetailResource.class,
+                        designReqInfo.id.as("infoId"),
                         roomType.roomTypeNm.as("roomTypeNm"),
-                        fileDesignReq.filePath.as("imgPath"),
                         designReqInfo.content.as("content")
                         ))
                 .from(designReqInfo)
                 .leftJoin(designReqInfo.roomType, roomType)
-                .leftJoin(designReqInfo.fileDesignReq , fileDesignReq)
                 .where(designReqInfo.designReq.id.eq(id))
                 .fetch();
     }
