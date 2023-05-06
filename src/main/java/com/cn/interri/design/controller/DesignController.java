@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,8 +29,11 @@ public class DesignController {
     }
 
     @GetMapping("/req/{id}/details")
-    public ResponseEntity<ResponseDto<ReqDetailReqResource>> getDesignReqDetails(@PathVariable("id") Long id) throws Exception {
-        ReqDetailReqResource resource = pageService.getDesignReqDetails(id);
+    public ResponseEntity<ResponseDto<ReqDetailReqResource>> getDesignReqDetails(
+            @PathVariable("id") Long id,
+            @RequestParam(value = "sortType" , required = false) String sortType
+    ) throws Exception {
+        ReqDetailReqResource resource = pageService.getDesignReqDetails(id,sortType);
         return ResponseEntity.ok()
                 .body(ResponseDto.<ReqDetailReqResource>builder()
                         .data(resource)
