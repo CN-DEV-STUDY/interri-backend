@@ -60,7 +60,7 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public ReqDetailReqResource getDesignReqDetails(Long id) {
+    public ReqDetailReqResource getDesignReqDetails(Long id,String sortType) {
 
 
         // 디자인 요청 내용
@@ -83,7 +83,7 @@ public class PageServiceImpl implements PageService {
 
 
         // 디자인 요청에 대한 답변 내용
-        List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id);
+        List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id , sortType);
         List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
             FileDesignRes fileDesignRes = fileDesignResRepository.findByDesignRes_IdAndRepYn(res.getId(), "Y");
 

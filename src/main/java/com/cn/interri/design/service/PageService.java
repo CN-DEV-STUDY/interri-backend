@@ -7,5 +7,5 @@ public interface PageService {
 
     ReqRegistrationResource getRegistrationPageResource();
 
-    ReqDetailReqResource getDesignReqDetails(Long id);
+    ReqDetailReqResource getDesignReqDetails(Long id, String sortType);
 }
