@@ -28,15 +28,13 @@ public class FileDesignReq extends BaseTimeEntity {
     @Comment("파일 이름")
     private String fileNm;
 
-    @Column(length = 5, nullable = false)
-    @Comment("파일 확장자")
-    private String fileExt;
 
     @Column(length = 1)
     @Comment("삭제 여부")
     @ColumnDefault("N")
     private String delYn;
 
-    @OneToOne(mappedBy = "fileDesignReq",fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "design_req_info_id")
     private DesignReqInfo designReqInfo;
 }

@@ -28,10 +28,6 @@ public class FileDesignRes extends BaseTimeEntity {
     @Comment("파일 이름")
     private String fileNm;
 
-    @Column(length = 5, nullable = false)
-    @Comment("파일 확장자")
-    private String fileExt;
-
     @Column(length = 1, nullable = false)
     @Comment("삭제 여부")
     private String delYn;
