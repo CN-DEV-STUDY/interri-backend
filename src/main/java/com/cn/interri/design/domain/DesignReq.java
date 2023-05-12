@@ -56,20 +56,25 @@ public class DesignReq extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @Comment("디자인 요청 글쓴이")
     private User user;
 
     @OneToMany(mappedBy = "designReq")
+    @Comment("디자인 요청 정보 리스트")
     private List<DesignReqInfo> designReqInfoList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "housing_type_id")
+    @Comment("공간")
     private HousingType housingType;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "style_id")
+    @Comment("스타일")
     private Style style;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
+    @Comment("평답")
     private Size size;
 }

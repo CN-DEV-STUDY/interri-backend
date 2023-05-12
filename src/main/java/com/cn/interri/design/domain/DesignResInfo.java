@@ -6,28 +6,24 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "file_design_req")
+@Table(name = "design_res_info")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FileDesignReq extends BaseTimeEntity {
-
+public class DesignResInfo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_design_req_id")
+    @Column(name = "design_res_info_id")
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    @Comment("파일 저장 경로")
-    private String filePath;
-
-    @Column(length = 100, nullable = false)
-    @Comment("파일 이름")
-    private String fileNm;
-
+    @Column(length = 500)
+    @Comment("응답 내용")
+    private String content;
 
     @Column(length = 1)
     @Comment("삭제 여부")
@@ -35,7 +31,9 @@ public class FileDesignReq extends BaseTimeEntity {
     private String delYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_req_info_id")
-    @Comment("디자인 요청 정보 id")
-    private DesignReqInfo designReqInfo;
+    @JoinColumn(name = "design_res_id")
+    private DesignRes designRes;
+
+    @OneToMany(mappedBy = "designResInfo")
+    private List<FileDesignRes> fileDesignResList = new ArrayList<>();
 }

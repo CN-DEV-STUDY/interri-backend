@@ -38,7 +38,7 @@ public class FileDesignRes extends BaseTimeEntity {
     private String repYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_res_id")
-    @Comment("디자인 응답")
-    private DesignRes designRes;
+    @JoinColumn(name = "design_res_info_id")
+    @Comment("디자인 응답 정보 id")
+    private DesignResInfo designResInfo;
 }
