@@ -9,6 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "design_res")
@@ -24,10 +26,6 @@ public class DesignRes extends BaseTimeEntity {
     @Comment("응답 가격")
     private Integer price; // 응답 가격
 
-    @Column(length = 500, nullable = false)
-    @Comment("응답 내용")
-    private String content;
-
     @Column(length = 1, nullable = false)
     @Comment("삭제 여부")
     @ColumnDefault("N")
@@ -42,8 +40,12 @@ public class DesignRes extends BaseTimeEntity {
     @Comment("디자인 요청 id")
     private Long designReqId;
 
+    @OneToMany(mappedBy = "designRes")
+    @Comment("디자인 응답 정보 리스트")
+    private List<DesignResInfo> designResInfoList = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @Comment("사용자")
+    @Comment("디자인 응답 글쓴이")
     private User user; // 사용자
 }
