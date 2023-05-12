@@ -32,11 +32,6 @@ public class FileDesignRes extends BaseTimeEntity {
     @Comment("삭제 여부")
     private String delYn;
 
-    @Column(length = 1, nullable = false)
-    @ColumnDefault("N")
-    @Comment("대표 사진 지정 여부")
-    private String repYn;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "design_res_info_id")
     @Comment("디자인 응답 정보 id")

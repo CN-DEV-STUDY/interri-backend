@@ -32,5 +32,5 @@ public class ReqDetailResResource {
     int adoptionCnt;
 
     // 대표 이미지 저장 경로
-    String filePath;
+    String repImgPath;
 }

@@ -1,6 +1,7 @@
 package com.cn.interri.design.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.cn.interri.design.domain.DesignResInfo;
 import com.cn.interri.design.domain.FileDesignReq;
 import com.cn.interri.design.domain.FileDesignRes;
 import com.cn.interri.design.dto.*;
@@ -30,6 +31,7 @@ public class PageServiceImpl implements PageService {
     private final StyleRepository styleRepository;
     private final DesignReqRepository designReqRepository;
     private final DesignReqInfoRepository designReqInfoRepository;
+    private final DesignResInfoRepository designResInfoRepository;
     private final DesignResRepository designResRepository;
     private final FileDesignResRepository fileDesignResRepository;
     private final FileDesignReqRepository fileDesignReqRepository;
@@ -62,12 +64,11 @@ public class PageServiceImpl implements PageService {
     @Override
     public ReqDetailReqResource getDesignReqDetails(Long id,String sortType) {
 
-
         // 디자인 요청 내용
         ReqDetailReqResource reqDetail = designReqRepository.getReqDetail(id);
         List<ReqInfoDetailResource> reqInfoDetail = designReqInfoRepository.getReqInfoDetail(id);
 
-        // 디자인 요청 상세 정보는 여러개가 올 수 있으며, 상세 정보에서도 이미지가 여러개 올 수있다.
+        // 디자인 요청 상세 정보는 여러 개가 올 수 있으며, 상세 정보에서도 이미지가 여러 개 올 수있다.
         reqInfoDetail.stream().map(req->{
             List<FileDesignReq> designReqInfo = fileDesignReqRepository.findByDesignReqInfo_Id(req.getInfoId()); // 디자인 요청 상세에 맞는 file을 가져온다.
 
@@ -84,10 +85,12 @@ public class PageServiceImpl implements PageService {
 
         // 디자인 요청에 대한 답변 내용
         List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id , sortType);
-        List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
-            FileDesignRes fileDesignRes = fileDesignResRepository.findByDesignRes_IdAndRepYn(res.getId(), "Y");
 
-            res.setFilePath(amazonS3Client.getUrl(bucket,fileDesignRes.getFilePath()).toString());
+        List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
+            DesignResInfo designResInfo = designResInfoRepository.findTopByDesignRes_IdAndDelYn(id,"N");
+            FileDesignRes fileDesignRes = fileDesignResRepository.findTopByDesignResInfo_IdAndDelYn(designResInfo.getId(),"N");
+
+            res.setRepImgPath(amazonS3Client.getUrl(bucket,fileDesignRes.getFilePath()).toString());
             return res;
         }).collect(Collectors.toList());
 
