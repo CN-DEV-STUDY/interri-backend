@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface FileDesignResRepository extends JpaRepository<FileDesignRes, Long> {
-    FileDesignRes findByDesignRes_IdAndRepYn(Long id, String repYn);
-
+    FileDesignRes findTopByDesignResInfo_IdAndDelYn(Long id,String delYn);
 }
