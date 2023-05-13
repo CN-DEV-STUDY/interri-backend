@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDto<T> {
     private T data;
-    private String message;
+    private String message = "통신 성공!";
 }
