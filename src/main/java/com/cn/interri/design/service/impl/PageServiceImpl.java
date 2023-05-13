@@ -1,6 +1,7 @@
 package com.cn.interri.design.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.cn.interri.design.domain.DesignReq;
 import com.cn.interri.design.domain.DesignResInfo;
 import com.cn.interri.design.domain.FileDesignReq;
 import com.cn.interri.design.domain.FileDesignRes;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,9 +102,21 @@ public class PageServiceImpl implements PageService {
         return reqDetail;
     }
 
-//    private ReqInfoDetailResource getUrl(ReqInfoDetailResource rep) {
-//        String imgUrl = amazonS3Client.getUrl(bucket, rep.getImgPath()).toString();
-//        rep.setImgPath(imgUrl);
-//        return rep;
-//    }
+    @Override
+    public List<String> getResRoomTypeNm(Long id) {
+
+        List<String> roomTypeNmList = new ArrayList<>();
+
+        DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        designReq.getDesignReqInfoList().stream().map(info -> {
+            roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
+            return info;
+        }).collect(Collectors.toList());
+
+        return roomTypeNmList;
+
+    }
+
+
 }

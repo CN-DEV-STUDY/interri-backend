@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -19,7 +21,7 @@ public class DesignController {
     private final PageService pageService;
 
     @GetMapping(value = "/req", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<ReqRegistrationResource>> getRegistrationPage() {
+    public ResponseEntity<ResponseDto<ReqRegistrationResource>> getReqRegistrationPage() {
         ReqRegistrationResource resource = pageService.getRegistrationPageResource();
 
         return ResponseEntity.ok()
@@ -36,6 +38,16 @@ public class DesignController {
         ReqDetailReqResource resource = pageService.getDesignReqDetails(id,sortType);
         return ResponseEntity.ok()
                 .body(ResponseDto.<ReqDetailReqResource>builder()
+                        .data(resource)
+                        .build());
+    }
+
+    /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
+    @GetMapping("/res/{id}")
+    public ResponseEntity<ResponseDto<List<String>>> getResRegistrationPage(@PathVariable("id") Long id){
+        List<String> resource = pageService.getResRoomTypeNm(id);
+        return ResponseEntity.ok()
+                .body(ResponseDto.<List<String>>builder()
                         .data(resource)
                         .build());
     }
