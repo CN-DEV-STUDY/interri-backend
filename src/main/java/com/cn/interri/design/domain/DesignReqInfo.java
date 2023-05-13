@@ -43,4 +43,7 @@ public class DesignReqInfo extends BaseTimeEntity {
     private RoomType roomType;
 
 
+    public DesignReqInfo(String content) {
+        this.content = content;
+    }
 }
