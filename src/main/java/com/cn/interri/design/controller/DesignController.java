@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -21,7 +20,7 @@ public class DesignController {
     private final PageService pageService;
 
     @GetMapping(value = "/req", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<ReqRegistrationResource>> getReqRegistrationPage() {
+    public ResponseEntity<ResponseDto<ReqRegistrationResource>> getRegistrationPage() {
         ReqRegistrationResource resource = pageService.getRegistrationPageResource();
 
         return ResponseEntity.ok()
