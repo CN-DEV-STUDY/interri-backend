@@ -1,5 +1,6 @@
 package com.cn.interri.design.service.impl;
 
+import com.cn.interri.common.service.FileService;
 import com.cn.interri.design.domain.*;
 import com.cn.interri.design.dto.ReqRegistrationParam;
 import com.cn.interri.design.repository.*;
@@ -18,16 +19,19 @@ import java.util.List;
 @Slf4j
 public class RegisterDesignServiceImpl implements RegisterDesignService {
 
+
+
     private final UserRepository userRepository;
     private final HousingTypeRepository housingTypeRepository;
     private final StyleRepository styleRepository;
     private final SizeRepository sizeRepository;
     private final RoomTypeRepository roomTypeRepository;
+    private final FileService fileService;
 
     @Override
     public void saveDesignRequest(ReqRegistrationParam req) {
 
-        // TODO: Exception Handler에 추가
+        // TODO: EntityNotFoundException > Exception Handler에 추가
         User user = getUser(req.getUserId());
         HousingType housingType = getHousingType(req.getHousingTypeId());
         Style style = getStyle(req.getStyleId());
@@ -37,6 +41,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
         for (int i = 0; i < req.getMultipartFiles().size(); i++) {
             DesignReqInfo designReqInfo = new DesignReqInfo(req.getContent().get(i));
             RoomType roomType = getRoomType(req.getRoomTypes().get(i));
+
 
         }
 
