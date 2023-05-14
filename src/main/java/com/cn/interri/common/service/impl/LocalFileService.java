@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class LocalFileService implements FileService {
 
     @Override
-    public void uploadFile(MultipartFile multipartFile) {
-
+    public String uploadFile(MultipartFile multipartFile) {
+        return null;
     }
 
     @Override
