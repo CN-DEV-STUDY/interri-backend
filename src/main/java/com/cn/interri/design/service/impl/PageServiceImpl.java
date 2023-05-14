@@ -41,7 +41,7 @@ public class PageServiceImpl implements PageService {
     private final AmazonS3Client amazonS3Client;
 
     @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+    private String bucketName;
 
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
@@ -77,7 +77,7 @@ public class PageServiceImpl implements PageService {
             List<String> reqImgPathList = new ArrayList<>();
 
             for (FileDesignReq file : designReqInfo) { // file 개수만큼 반복문을 돌며 s3 이미지 저장 경로로 바꿔서 List에 넣어준다.
-                reqImgPathList.add(amazonS3Client.getUrl(bucket, file.getFilePath()).toString());
+                reqImgPathList.add(amazonS3Client.getUrl(bucketName, file.getFilePath()).toString());
             }
 
             req.setImgPathList(reqImgPathList); // dto의 imageList를 s3 bucket 경로로 바뀐 데이터로 업데이트 한다.
@@ -92,7 +92,7 @@ public class PageServiceImpl implements PageService {
             DesignResInfo designResInfo = designResInfoRepository.findTopByDesignRes_IdAndDelYn(id,"N");
             FileDesignRes fileDesignRes = fileDesignResRepository.findTopByDesignResInfo_IdAndDelYn(designResInfo.getId(),"N");
 
-            res.setRepImgPath(amazonS3Client.getUrl(bucket,fileDesignRes.getFilePath()).toString());
+            res.setRepImgPath(amazonS3Client.getUrl(bucketName,fileDesignRes.getFilePath()).toString());
             return res;
         }).collect(Collectors.toList());
 
@@ -109,7 +109,7 @@ public class PageServiceImpl implements PageService {
 
         DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        designReq.getDesignReqInfoList().stream().map(info -> {
+        designReq.getDesignReqInfos().stream().map(info -> {
             roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
             return info;
         }).collect(Collectors.toList());

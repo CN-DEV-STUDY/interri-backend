@@ -41,4 +41,7 @@ public class DesignReqInfo extends BaseTimeEntity {
     @OneToMany(mappedBy = "designReqInfo")
     private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
 
+    public DesignReqInfo(String content) {
+        this.content = content;
+    }
 }

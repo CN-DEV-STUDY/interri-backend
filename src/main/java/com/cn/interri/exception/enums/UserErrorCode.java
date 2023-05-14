@@ -1,12 +1,13 @@
-package com.cn.interri.exception;
+package com.cn.interri.exception.enums;
 
+import com.cn.interri.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum UserErrorCode implements ErrorCode{
+public enum UserErrorCode implements ErrorCode {
 
     INACTIVE_USER(HttpStatus.FORBIDDEN, "User is inactive"),
     ;

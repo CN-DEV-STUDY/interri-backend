@@ -14,9 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "design_req")
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class DesignReq extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "design_req_id" ,nullable = false)
@@ -61,7 +59,7 @@ public class DesignReq extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "designReq")
     @Comment("디자인 요청 정보 리스트")
-    private List<DesignReqInfo> designReqInfoList = new ArrayList<>();
+    private List<DesignReqInfo> designReqInfos = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "housing_type_id")

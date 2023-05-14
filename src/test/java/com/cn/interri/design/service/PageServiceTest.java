@@ -1,6 +1,5 @@
 package com.cn.interri.design.service;
 
-import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.dto.ReqRegistrationResource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
