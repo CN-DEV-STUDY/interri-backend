@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public class FileUtils {
 
+    public static final String REQUEST_PATH = "request/";
+
     /**
      * UUID 파일 이름 조회
      */
