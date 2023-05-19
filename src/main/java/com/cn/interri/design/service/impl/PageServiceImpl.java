@@ -109,7 +109,7 @@ public class PageServiceImpl implements PageService {
 
         DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        designReq.getDesignReqInfos().stream().map(info -> {
+        designReq.getDesignReqInfoList().stream().map(info -> {
             roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
             return info;
         }).collect(Collectors.toList());
