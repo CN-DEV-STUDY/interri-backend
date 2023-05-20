@@ -4,6 +4,7 @@ import com.cn.interri.common.service.FileService;
 import com.cn.interri.design.domain.*;
 import com.cn.interri.design.dto.ReqRegistrationDto;
 import com.cn.interri.design.dto.ReqRegistrationParam;
+import com.cn.interri.design.dto.ResRegistrationParam;
 import com.cn.interri.design.repository.*;
 import com.cn.interri.design.service.RegisterDesignService;
 import com.cn.interri.user.domain.User.User;
@@ -100,7 +101,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
     }
 
     @Override
-    public void saveDesignResponse() {
+    public void saveDesignResponse(Long designReqId, ResRegistrationParam res) {
 
     }
 }
