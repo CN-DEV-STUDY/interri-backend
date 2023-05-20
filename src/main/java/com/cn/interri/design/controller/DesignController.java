@@ -64,7 +64,7 @@ public class DesignController {
     public ResponseEntity<ResponseDto<String>> registerDesignResponse(
             @PathVariable("id") Long id,
             ResRegistrationParam res
-    ){
+    ) throws Exception {
         registerDesignService.saveDesignResponse(id, res);
         return null;
     }

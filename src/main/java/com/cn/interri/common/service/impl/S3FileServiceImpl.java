@@ -31,11 +31,11 @@ public class S3FileServiceImpl implements FileService {
      * https://www.sunny-son.space/spring/Springboot%EB%A1%9C%20S3%20%ED%8C%8C%EC%9D%BC%20%EC%97%85%EB%A1%9C%EB%93%9C/
      */
     @Override
-    public String uploadFile(MultipartFile multipartFile) {
+    public String uploadFile(MultipartFile multipartFile , String purpose) {
         // 1. 파일 유효성 검사
         validateFileExists(multipartFile);
 
-        String fileName = multipartFile.getOriginalFilename();
+        String fileName = purpose + multipartFile.getOriginalFilename();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());

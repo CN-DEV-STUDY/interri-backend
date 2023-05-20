@@ -3,6 +3,8 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -14,6 +16,6 @@ public class ResRegistrationParam {
     private int price;
 
     @Comment("디자인 응답 목록")
-    private ResInfoRegistrationParam[] params;
+    private List<ResInfoRegistrationParam> params;
 
 }
