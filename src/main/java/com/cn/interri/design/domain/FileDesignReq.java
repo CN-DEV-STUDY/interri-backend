@@ -51,9 +51,7 @@ public class FileDesignReq extends BaseTimeEntity {
     public static List<FileDesignReq> createFileDesignReq(List<MultipartFile> multipartFiles) {
         return multipartFiles.stream()
                     .map(multipartFile -> {
-                        String fileExt = FileUtils.getExt(multipartFile.getOriginalFilename());
-                        String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(fileExt);
-
+                        String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
                         return new FileDesignReq(filePath, multipartFile.getOriginalFilename());
                     })
                     .collect(Collectors.toList());

@@ -34,6 +34,6 @@ public class DesignResInfo extends BaseTimeEntity {
     @JoinColumn(name = "design_res_id")
     private DesignRes designRes;
 
-    @OneToMany(mappedBy = "designResInfo")
+    @OneToMany(mappedBy = "designResInfo" , cascade = CascadeType.ALL)
     private List<FileDesignRes> fileDesignResList = new ArrayList<>();
 }
