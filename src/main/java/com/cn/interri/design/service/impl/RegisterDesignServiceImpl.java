@@ -2,6 +2,7 @@ package com.cn.interri.design.service.impl;
 
 import com.cn.interri.common.service.FileService;
 import com.cn.interri.design.domain.*;
+import com.cn.interri.design.dto.ReqRegistrationDto;
 import com.cn.interri.design.dto.ReqRegistrationParam;
 import com.cn.interri.design.dto.ResRegistrationParam;
 import com.cn.interri.design.repository.*;
@@ -10,17 +11,18 @@ import com.cn.interri.user.domain.User.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.cn.interri.design.domain.FileDesignReq.createFileDesignReq;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RegisterDesignServiceImpl implements RegisterDesignService {
-
-
+    private final DesignReqRepository designReqRepository;
 
     private final UserRepository userRepository;
     private final HousingTypeRepository housingTypeRepository;
@@ -30,24 +32,47 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
     private final FileService fileService;
 
     @Override
-    public void saveDesignRequest(ReqRegistrationParam req) {
+    public void saveDesignRequest(ReqRegistrationParam req) throws Exception {
 
         // TODO: EntityNotFoundException > Exception Handler에 추가
         User user = getUser(req.getUserId());
+        Size size = getSize(req.getSizeId());
         HousingType housingType = getHousingType(req.getHousingTypeId());
         Style style = getStyle(req.getStyleId());
-        Size size = getSize(req.getSizeId());
 
-        List<DesignReqInfo> designReqInfos = new ArrayList<>();
-        for (int i = 0; i < req.getMultipartFiles().size(); i++) {
-            DesignReqInfo designReqInfo = new DesignReqInfo(req.getContent().get(i));
-            RoomType roomType = getRoomType(req.getRoomTypes().get(i));
+        List<DesignReqInfo> designReqInfoList = null;
+        for (ReqRegistrationDto reqDto : req.getReqRegistrationDtoList()) {
+            uploadFiles(reqDto.getMultipartFiles());
 
-
+            // TODO: controller에서 파라미터에 대한 유효성 검사 필요
+            DesignReqInfo designReqInfo = DesignReqInfo.builder()
+                    .content(reqDto.getContent())
+                    .roomType(getRoomType(reqDto.getRoomTypeId()))
+                    .fileDesignReqList(createFileDesignReq(reqDto.getMultipartFiles()))
+                    .build();
+            designReqInfoList.add(designReqInfo);
         }
 
+        DesignReq designReq = DesignReq.builder()
+                .mainColor(req.getMainColor())
+                .subColor(req.getSubColor())
+                .maxPrice(req.getMaxPrice())
+                .dueDate(req.getDueDate())
+                .tempYn(req.getTempYn())
+                .user(user)
+                .designReqInfoList(designReqInfoList)
+                .housingType(housingType)
+                .style(style)
+                .size(size)
+                .build();
 
+        designReqRepository.save(designReq);
+    }
 
+    private void uploadFiles(List<MultipartFile> multipartFiles) {
+        for (MultipartFile multipartFile : multipartFiles) {
+            fileService.uploadFile(multipartFile);
+        }
     }
 
     private RoomType getRoomType(long roomTypeId) {
@@ -73,14 +98,6 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
     private Size getSize(long sizeId) {
         return sizeRepository.findById(sizeId)
                 .orElseThrow(EntityNotFoundException::new);
-    }
-
-    /**
-     * 임시 저장
-     */
-    @Override
-    public void saveDesignRequestTemp() {
-
     }
 
     @Override

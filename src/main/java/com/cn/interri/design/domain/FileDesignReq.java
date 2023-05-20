@@ -1,11 +1,15 @@
 package com.cn.interri.design.domain;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
+import com.cn.interri.common.utils.FileUtils;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "file_design_req")
@@ -38,4 +42,20 @@ public class FileDesignReq extends BaseTimeEntity {
     @JoinColumn(name = "design_req_info_id")
     @Comment("디자인 요청 정보 id")
     private DesignReqInfo designReqInfo;
+
+    public FileDesignReq(String filePath, String fileNm) {
+        this.filePath = filePath;
+        this.fileNm = fileNm;
+    }
+
+    public static List<FileDesignReq> createFileDesignReq(List<MultipartFile> multipartFiles) {
+        return multipartFiles.stream()
+                    .map(multipartFile -> {
+                        String fileExt = FileUtils.getExt(multipartFile.getOriginalFilename());
+                        String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(fileExt);
+
+                        return new FileDesignReq(filePath, multipartFile.getOriginalFilename());
+                    })
+                    .collect(Collectors.toList());
+    }
 }
