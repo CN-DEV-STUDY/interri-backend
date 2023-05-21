@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface SizeRepository extends JpaRepository<Size, Long> {
+public interface SizeRepository extends JpaRepository<Size, Integer> {
 
     @Query("SELECT new com.cn.interri.design.dto.SizeDto(z.id, z.sizeNm) FROM Size z")
     List<SizeDto> findAllSize();

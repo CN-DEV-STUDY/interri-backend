@@ -14,7 +14,7 @@ public class Size {
     @Id
     @Column(name = "size_id")
     @Comment("평수 id")
-    private int id;
+    private Integer id;
 
     @Column(length = 10)
     @Comment("평수명")

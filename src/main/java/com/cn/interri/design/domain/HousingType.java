@@ -16,7 +16,7 @@ public class HousingType {
     @Id
     @Column(name = "housing_type_id")
     @Comment("주거 형태 id")
-    private int id;
+    private Integer id;
 
     @Column(length = 10)
     @Comment("주거 형태 타입")

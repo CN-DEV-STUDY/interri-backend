@@ -5,6 +5,7 @@ import com.cn.interri.common.utils.FileUtils;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -43,9 +44,14 @@ public class FileDesignReq extends BaseTimeEntity {
     @Comment("디자인 요청 정보 id")
     private DesignReqInfo designReqInfo;
 
-    public FileDesignReq(String filePath, String fileNm) {
+    public void setDesignReqInfo(DesignReqInfo designReqInfo) {
+        this.designReqInfo = designReqInfo;
+    }
+
+    public FileDesignReq(String filePath, String fileNm, String delYn) {
         this.filePath = filePath;
         this.fileNm = fileNm;
+        this.delYn = delYn;
     }
 
     public static List<FileDesignReq> createFileDesignReq(List<MultipartFile> multipartFiles) {
@@ -54,8 +60,10 @@ public class FileDesignReq extends BaseTimeEntity {
                         String fileExt = FileUtils.getExt(multipartFile.getOriginalFilename());
                         String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(fileExt);
 
-                        return new FileDesignReq(filePath, multipartFile.getOriginalFilename());
+                        return new FileDesignReq(filePath, multipartFile.getOriginalFilename(), "N");
                     })
                     .collect(Collectors.toList());
     }
+
+
 }

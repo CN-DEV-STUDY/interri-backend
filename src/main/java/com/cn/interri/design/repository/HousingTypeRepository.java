@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface HousingTypeRepository extends JpaRepository<HousingType, Long> {
+public interface HousingTypeRepository extends JpaRepository<HousingType, Integer> {
 
     @Query("SELECT new com.cn.interri.design.dto.HousingTypeDto(ht.id, ht.housingTypeNm) FROM HousingType ht")
     List<HousingTypeDto> findAllHousingType();
