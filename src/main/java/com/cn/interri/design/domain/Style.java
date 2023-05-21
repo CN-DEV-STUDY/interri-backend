@@ -20,6 +20,6 @@ public class Style {
     @Comment("스타일명")
     private String styleNm;
 
-    @OneToOne(mappedBy = "style", fetch = FetchType.LAZY)
-    private DesignReq designReq;
+//    @OneToOne(mappedBy = "style", fetch = FetchType.LAZY)
+//    private DesignReq designReq;
 }
