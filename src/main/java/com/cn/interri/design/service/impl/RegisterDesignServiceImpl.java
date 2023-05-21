@@ -81,7 +81,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
         for (ResInfoRegistrationParam info : res.getParams()) {
             uploadFiles(info.getImgFiles(), RESPONSE); // s3에 이미지 업로드
 
-            DesignResInfo resInfo = createDesignResInfo(info.getContent(), "N", createFileDesignRes(info.getImgFiles(), RESPONSE));
+            DesignResInfo resInfo = createDesignResInfo(info.getContent(), "N", getRoomType(info.getRoomType()), createFileDesignRes(info.getImgFiles(), RESPONSE));
             designResInfoList.add(resInfo);
         }
 

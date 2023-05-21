@@ -41,9 +41,10 @@ public class FileDesignRes extends BaseTimeEntity {
     @Comment("디자인 응답 정보 id")
     private DesignResInfo designResInfo;
 
-    public FileDesignRes(String filePath, String fileNm) {
+    public FileDesignRes(String filePath, String fileNm , String delYn) {
         this.filePath = filePath;
         this.fileNm = fileNm;
+        this.delYn = delYn;
     }
 
     public void setDesignResInfo(DesignResInfo designResInfo) {
@@ -55,7 +56,7 @@ public class FileDesignRes extends BaseTimeEntity {
         return multipartFiles.stream()
                 .map(multipartFile -> {
                     String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
-                    return new FileDesignRes(filePath, multipartFile.getOriginalFilename());
+                    return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
                 }).collect(Collectors.toList());
     }
 }

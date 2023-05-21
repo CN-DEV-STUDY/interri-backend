@@ -37,6 +37,10 @@ public class DesignResInfo extends BaseTimeEntity {
     @OneToMany(mappedBy = "designResInfo" , cascade = CascadeType.ALL)
     private List<FileDesignRes> fileDesignResList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_type_id")
+    private RoomType roomType;
+
     public void setDesignRes(DesignRes designRes) {
         this.designRes = designRes;
     }
@@ -48,11 +52,12 @@ public class DesignResInfo extends BaseTimeEntity {
     }
 
     //=== 생성 메서드  ===//
-    public static DesignResInfo createDesignResInfo(String content , String delYn, List<FileDesignRes> fileDesignResList){
+    public static DesignResInfo createDesignResInfo(String content , String delYn, RoomType roomType, List<FileDesignRes> fileDesignResList){
         DesignResInfo info = new DesignResInfo();
 
         info.content = content;
         info.delYn = delYn;
+        info.roomType = roomType;
 
         for (FileDesignRes file : fileDesignResList) {
             info.addFileDesignRes(file);
