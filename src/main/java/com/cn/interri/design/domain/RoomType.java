@@ -22,6 +22,6 @@ public class RoomType {
     @Comment("공간명")
     private String roomTypeNm;
 
-    @OneToOne(mappedBy = "roomType",fetch = FetchType.LAZY)
-    private DesignReqInfo designReqInfo;
+//    @OneToOne(mappedBy = "roomType",fetch = FetchType.LAZY)
+//    private DesignReqInfo designReqInfo;
 }

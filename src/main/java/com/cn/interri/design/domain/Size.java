@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "size")
@@ -20,6 +22,6 @@ public class Size {
     @Comment("평수명")
     private String sizeNm;
 
-    @OneToOne(mappedBy = "size", fetch = FetchType.LAZY)
-    private DesignReq designReq;
+//    @OneToMany(mappedBy = "size", fetch = FetchType.LAZY)
+//    private List<DesignReq> designReqList = new ArrayList<>();
 }
