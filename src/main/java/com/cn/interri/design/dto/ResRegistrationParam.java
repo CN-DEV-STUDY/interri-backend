@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 public class ResRegistrationParam {
     @Comment("글 등록 사용자 id")
-    private Long userId;
+    private long userId;
 
     @Comment("가격 합계")
     private int price;
