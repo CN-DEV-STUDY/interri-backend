@@ -5,6 +5,7 @@ import com.cn.interri.user.domain.User.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,8 +16,6 @@ import java.util.List;
 @Table(name = "design_req")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
-@AllArgsConstructor
 public class DesignReq extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "design_req_id" ,nullable = false)
@@ -59,7 +58,7 @@ public class DesignReq extends BaseTimeEntity {
     @Comment("디자인 요청 글쓴이")
     private User user;
 
-    @OneToMany(mappedBy = "designReq")
+    @OneToMany(mappedBy = "designReq", cascade = CascadeType.ALL)
     @Comment("디자인 요청 정보 리스트")
     private List<DesignReqInfo> designReqInfoList = new ArrayList<>();
 
@@ -77,4 +76,22 @@ public class DesignReq extends BaseTimeEntity {
     @JoinColumn(name = "size_id")
     @Comment("평답")
     private Size size;
+
+    public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, String delYn, User user, List<DesignReqInfo> designReqInfoList, HousingType housingType, Style style, Size size) {
+        this.mainColor = mainColor;
+        this.subColor = subColor;
+        this.maxPrice = maxPrice;
+        this.dueDate = dueDate;
+        this.tempYn = tempYn;
+        this.delYn = delYn;
+        this.user = user;
+        for (DesignReqInfo designReqInfo : designReqInfoList) {
+            this.designReqInfoList.add(designReqInfo);
+            designReqInfo.setDesignReq(this);
+        }
+        this.housingType = housingType;
+        this.style = style;
+        this.size = size;
+    }
+
 }

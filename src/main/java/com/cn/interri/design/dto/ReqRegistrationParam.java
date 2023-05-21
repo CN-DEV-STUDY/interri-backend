@@ -10,13 +10,13 @@ import java.util.List;
 @Setter
 public class ReqRegistrationParam {
     private long userId; // 유저 아이디
-    private long sizeId; // 평수
-    private long housingTypeId; // 주거 형태
+    private int sizeId; // 평수
+    private int housingTypeId; // 주거 형태
     private String mainColor; // 메인 컬러
     private String subColor; // 서브 컬러
     private int maxPrice; // 최대 가격
     private LocalDate dueDate; // 마감 기한
-    private long styleId; // 스타일
+    private int styleId; // 스타일
     private String tempYn;
 
     private List<ReqRegistrationDto> reqRegistrationDtoList;

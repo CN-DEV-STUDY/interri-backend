@@ -14,7 +14,7 @@ public class Style {
     @Id
     @Column(name = "style_id")
     @Comment("스타일 id")
-    private int id;
+    private Integer id;
 
     @Column(length = 10)
     @Comment("스타일명")

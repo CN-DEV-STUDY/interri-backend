@@ -24,11 +24,12 @@ public class S3FileServiceImpl implements FileService {
 
     private final AmazonS3Client amazonS3Client;
 
-    @Value("{cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
     /**
      * https://www.sunny-son.space/spring/Springboot%EB%A1%9C%20S3%20%ED%8C%8C%EC%9D%BC%20%EC%97%85%EB%A1%9C%EB%93%9C/
+     * https://wakestand.tistory.com/300
      */
     @Override
     public String uploadFile(MultipartFile multipartFile , String purpose) {
@@ -39,6 +40,7 @@ public class S3FileServiceImpl implements FileService {
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());
+        objectMetadata.setContentLength(multipartFile.getSize());
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, objectMetadata)
