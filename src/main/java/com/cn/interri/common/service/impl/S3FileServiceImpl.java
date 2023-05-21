@@ -32,11 +32,11 @@ public class S3FileServiceImpl implements FileService {
      * https://wakestand.tistory.com/300
      */
     @Override
-    public String uploadFile(MultipartFile multipartFile) {
+    public String uploadFile(MultipartFile multipartFile , String purpose) {
         // 1. 파일 유효성 검사
         validateFileExists(multipartFile);
 
-        String fileName = multipartFile.getOriginalFilename();
+        String fileName = purpose + multipartFile.getOriginalFilename();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());

@@ -3,7 +3,9 @@ package com.cn.interri.design.controller;
 import com.cn.interri.common.dto.ResponseDto;
 import com.cn.interri.design.dto.ReqDetailReqResource;
 import com.cn.interri.design.dto.ReqRegistrationResource;
+import com.cn.interri.design.dto.ResRegistrationParam;
 import com.cn.interri.design.service.PageService;
+import com.cn.interri.design.service.RegisterDesignService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import java.util.List;
 public class DesignController {
 
     private final PageService pageService;
+    private final RegisterDesignService registerDesignService;
 
     @GetMapping(value = "/req", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<ReqRegistrationResource>> getRegistrationPage() {
@@ -42,13 +45,28 @@ public class DesignController {
     }
 
     /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
-    @GetMapping("/res/{id}")
-    public ResponseEntity<ResponseDto<List<String>>> getResRegistrationPage(@PathVariable("id") Long id){
+    @GetMapping("/res/{id}/room")
+    public ResponseEntity<ResponseDto<List<String>>> getResRegistrationPage(
+            @PathVariable("id") Long id
+    ){
         List<String> resource = pageService.getResRoomTypeNm(id);
         return ResponseEntity.ok()
                 .body(ResponseDto.<List<String>>builder()
                         .data(resource)
                         .build());
+    }
+
+    /**
+     * formData postman test 방법
+     * @See https://velog.io/@myway00/postman-list-DTO%EB%A5%BC-form-data%EB%A1%9C-%EB%B3%B4%EB%82%B4%EA%B8%B0
+     */
+    @PostMapping("/res/{id}")
+    public ResponseEntity<ResponseDto<String>> registerDesignResponse(
+            @PathVariable("id") Long id,
+            ResRegistrationParam res
+    ) throws Exception {
+        registerDesignService.saveDesignResponse(id, res);
+        return null;
     }
 
 

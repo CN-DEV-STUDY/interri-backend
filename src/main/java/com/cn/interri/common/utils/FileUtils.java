@@ -9,7 +9,10 @@ public class FileUtils {
     /**
      * UUID 파일 이름 조회
      */
-    public static String getUuidFileName (String fileExt){
+    public static String getUuidFileName (String fileName){
+
+        String fileExt = getExt(fileName);
+
         UUID uuid = UUID.randomUUID();
         return uuid.toString() + fileExt;
     }
