@@ -72,7 +72,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
 
     @Override
     @Transactional
-    public void saveDesignResponse(Long designReqId, ResRegistrationParam res) throws Exception{
+    public void saveDesignResponse(long designReqId, ResRegistrationParam res) throws Exception{
 
         User user = getUser(res.getUserId()); // 글 등록자
 

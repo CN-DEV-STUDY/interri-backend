@@ -47,7 +47,7 @@ public class DesignController {
     /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
     @GetMapping("/res/{id}/room")
     public ResponseEntity<ResponseDto<List<String>>> getResRegistrationPage(
-            @PathVariable("id") Long id
+            @PathVariable("id") long id
     ){
         List<String> resource = pageService.getResRoomTypeNm(id);
         return ResponseEntity.ok()
@@ -62,7 +62,7 @@ public class DesignController {
      */
     @PostMapping("/res/{id}")
     public ResponseEntity<ResponseDto<String>> registerDesignResponse(
-            @PathVariable("id") Long id,
+            @PathVariable("id") long id,
             ResRegistrationParam res
     ) throws Exception {
         registerDesignService.saveDesignResponse(id, res);

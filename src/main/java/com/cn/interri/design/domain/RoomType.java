@@ -25,6 +25,6 @@ public class RoomType {
     @OneToMany(mappedBy = "roomType")
     private List<DesignResInfo> designResInfoList = new ArrayList<>();
 
-//    @OneToOne(mappedBy = "roomType",fetch = FetchType.LAZY)
+//    @OneToOne(mappedBy = "roomType",fetch = FetchType.LAZY) 
 //    private DesignReqInfo designReqInfo;
 }

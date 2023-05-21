@@ -6,6 +6,6 @@ import com.cn.interri.design.dto.ResRegistrationParam;
 public interface RegisterDesignService {
 
     void saveDesignRequest(ReqRegistrationParam reqRegistrationParam) throws Exception;
-    void saveDesignResponse(Long designReqId, ResRegistrationParam res) throws Exception;
+    void saveDesignResponse(long designReqId, ResRegistrationParam res) throws Exception;
 
 }
