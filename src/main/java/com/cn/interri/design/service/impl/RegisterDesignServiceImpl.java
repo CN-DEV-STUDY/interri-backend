@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.cn.interri.design.domain.DesignRes.createDesignRes;
+import static com.cn.interri.design.domain.DesignResInfo.createDesignResInfo;
 import static com.cn.interri.design.domain.FileDesignReq.createFileDesignReq;
+import static com.cn.interri.design.domain.FileDesignRes.*;
 
 @Service
 @RequiredArgsConstructor
@@ -74,28 +77,17 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
 
         User user = getUser(res.getUserId()); // 글 등록자
 
-        List<DesignResInfo> designResInfoList = null;
+        List<DesignResInfo> designResInfoList  = new ArrayList<>();
 
         for (ResInfoRegistrationParam info : res.getParams()) {
             uploadFiles(info.getImgFiles(), RESPONSE); // s3에 이미지 업로드
 
-            DesignResInfo resInfo = DesignResInfo.builder()
-                    .content(info.getContent())
-                    .fileDesignResList(FileDesignRes.createFileDesignRes(info.getImgFiles(), RESPONSE))
-                    .delYn("N")
-                    .build();
+            DesignResInfo resInfo = createDesignResInfo(info.getContent(), "N", createFileDesignRes(info.getImgFiles(), RESPONSE));
             designResInfoList.add(resInfo);
         }
 
-        designResRepository.save(
-        DesignRes.builder()
-                .user(user)
-                .designReqId(designReqId)
-                .designResInfoList(designResInfoList)
-                .price(res.getPrice())
-                .delYn("N")
-                .build()
-        );
+        DesignRes designRes = createDesignRes(designReqId, user, res.getPrice(), "N", designResInfoList);
+        designResRepository.save(designRes);
     }
 
     private void uploadFiles(List<MultipartFile> multipartFiles , String purpose) {
