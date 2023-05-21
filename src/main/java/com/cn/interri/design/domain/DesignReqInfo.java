@@ -4,6 +4,7 @@ import com.cn.interri.common.entity.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,9 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "design_req_info")
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class DesignReqInfo extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +37,21 @@ public class DesignReqInfo extends BaseTimeEntity {
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 
-    @OneToMany(mappedBy = "designReqInfo")
+    @OneToMany(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
     private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
 
-    public DesignReqInfo(String content) {
+    public void setDesignReq(DesignReq designReq) {
+        this.designReq = designReq;
+    }
+
+    public DesignReqInfo(String content, String delYn, RoomType roomType, List<FileDesignReq> fileDesignReqList) {
         this.content = content;
+        this.delYn = delYn;
+        this.roomType = roomType;
+        for (FileDesignReq fileDesignReq : fileDesignReqList) {
+            this.fileDesignReqList.add(fileDesignReq);
+            fileDesignReq.setDesignReqInfo(this);
+        }
+        this.fileDesignReqList = fileDesignReqList;
     }
 }
