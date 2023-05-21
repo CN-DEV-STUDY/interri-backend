@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.cn.interri.design.domain.FileDesignReq.createFileDesignReq;
 
