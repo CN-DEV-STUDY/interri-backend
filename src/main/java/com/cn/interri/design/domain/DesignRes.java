@@ -48,4 +48,26 @@ public class DesignRes extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     @Comment("디자인 응답 글쓴이")
     private User user; // 사용자
+
+    //=== 양방향 메서드 ===//
+    public void addDesignResInfo(DesignResInfo info){
+        designResInfoList.add(info);
+        info.setDesignRes(this);
+    }
+
+    //=== 생성 메서드  ===//
+    public static DesignRes createDesignRes(Long designReqId, User user, int price, String delYn, List<DesignResInfo> designResInfoList){
+        DesignRes res = new DesignRes();
+        res.designReqId = designReqId;
+        res.user = user;
+        res.price = price;
+        res.delYn = delYn;
+
+        // 양방향으로 데이터 넣어줌
+        for (DesignResInfo info : designResInfoList) {
+            res.addDesignResInfo(info);
+        }
+
+        return res;
+    }
 }

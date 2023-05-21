@@ -46,6 +46,11 @@ public class FileDesignRes extends BaseTimeEntity {
         this.fileNm = fileNm;
     }
 
+    public void setDesignResInfo(DesignResInfo designResInfo) {
+        this.designResInfo = designResInfo;
+    }
+
+
     public static List<FileDesignRes> createFileDesignRes(List<MultipartFile> multipartFiles, String resPath){
         return multipartFiles.stream()
                 .map(multipartFile -> {
