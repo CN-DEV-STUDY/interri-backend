@@ -5,6 +5,7 @@ import com.cn.interri.common.utils.FileUtils;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -63,4 +64,6 @@ public class FileDesignReq extends BaseTimeEntity {
                     })
                     .collect(Collectors.toList());
     }
+
+
 }
