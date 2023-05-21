@@ -64,6 +64,4 @@ public class FileDesignReq extends BaseTimeEntity {
                     })
                     .collect(Collectors.toList());
     }
-
-
 }
