@@ -26,6 +26,9 @@ public class ReqDetailReqResource {
     // 주거 형태
     String housingTypeNm;
 
+    // 스타일
+    String styleNm;
+
     // 메인 컬러
     String mainColor;
 
@@ -37,6 +40,12 @@ public class ReqDetailReqResource {
 
     // 마감 기한
     LocalDate dueDate;
+
+    // 조회수
+    int viewCnt;
+
+    // 스크랩수
+    int scrabCnt;
 
     // 디자인 요청 정보 목록
     List<ReqInfoDetailResource> reqInfoDetailResources;
