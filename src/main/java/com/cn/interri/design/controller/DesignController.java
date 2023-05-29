@@ -2,6 +2,7 @@ package com.cn.interri.design.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
 import com.cn.interri.design.dto.ReqDetailReqResource;
+import com.cn.interri.design.dto.ReqRegistrationParam;
 import com.cn.interri.design.dto.ReqRegistrationResource;
 import com.cn.interri.design.dto.ResRegistrationParam;
 import com.cn.interri.design.service.PageService;
@@ -29,6 +30,15 @@ public class DesignController {
         return ResponseEntity.ok()
                 .body(ResponseDto.<ReqRegistrationResource>builder()
                         .data(resource)
+                        .build());
+    }
+
+    @PostMapping("/req")
+    public ResponseEntity<ResponseDto<String>> registerDesignRequest(@RequestBody ReqRegistrationParam designRequest) throws Exception {
+        registerDesignService.saveDesignRequest(designRequest);
+        return ResponseEntity.ok()
+                .body(ResponseDto.<String>builder()
+                        .message("등록 성공")
                         .build());
     }
 
