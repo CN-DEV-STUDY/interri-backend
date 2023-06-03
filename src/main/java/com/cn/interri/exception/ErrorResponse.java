@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,12 @@ public class ErrorResponse {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("errors")
-    private List<CustomFieldError> customFieldErrors;
+    private List<CustomFieldError> customFieldErrors = new ArrayList<>();
+
+    public ErrorResponse(HttpStatus httpStatus, String message) {
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
 
     @Builder
     public ErrorResponse(HttpStatus httpStatus, String message, List<FieldError> fieldErrors) {
