@@ -8,16 +8,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -61,6 +66,47 @@ public class User extends BaseTimeEntity {
     @Comment("프로필 이미지 저장 경로")
     private String profileImgPath;
 
+    @Column(length = 1)
+    @Comment("사용여부")
+    private String enableYn;
+
     @OneToMany(mappedBy = "user")
     private List<DesignReq> designReqArrayList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+    private List<Authorities> authorities = new ArrayList<>();
+
+    // ### UserDetails 메서드 구현
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities.stream()
+                .map(authority -> authority.getAuthority())
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

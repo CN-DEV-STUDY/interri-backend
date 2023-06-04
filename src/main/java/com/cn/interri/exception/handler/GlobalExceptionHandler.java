@@ -78,10 +78,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
         log.error("handleException", e);
 
-        ErrorResponse response = ErrorResponse.builder()
-                .httpStatus(CommonErrorCode.INTERNAL_SERVER_ERROR.getHttpStatus())
-                .message(CommonErrorCode.INTERNAL_SERVER_ERROR.getMessage())
-                .build();
+        ErrorResponse response = new ErrorResponse(
+                CommonErrorCode.INTERNAL_SERVER_ERROR.getHttpStatus(),
+                CommonErrorCode.INTERNAL_SERVER_ERROR.getMessage()
+        );
 
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
