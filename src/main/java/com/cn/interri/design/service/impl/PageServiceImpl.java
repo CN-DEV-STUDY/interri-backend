@@ -10,13 +10,13 @@ import com.cn.interri.design.enums.Colors;
 import com.cn.interri.design.repository.*;
 import com.cn.interri.design.repository.custom.DesignResRepository;
 import com.cn.interri.design.service.PageService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

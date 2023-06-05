@@ -2,13 +2,14 @@ package com.cn.interri.design.domain;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.common.utils.FileUtils;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.DynamicInsert;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

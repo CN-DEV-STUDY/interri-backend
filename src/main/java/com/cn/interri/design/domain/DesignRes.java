@@ -2,11 +2,11 @@ package com.cn.interri.design.domain;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.domain.User.User;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,6 +3,7 @@ package com.cn.interri.user.domain.User;
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.design.domain.DesignReq;
 import com.cn.interri.user.enums.SignType;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +42,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 1, nullable = false)
+    @Column(nullable = false)
     @Comment("가입 타입")
     private SignType signType;
 

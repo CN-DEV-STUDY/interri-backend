@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
@@ -15,21 +16,21 @@ import java.util.List;
 public class ErrorResponse {
 
     private LocalDateTime timestamp = LocalDateTime.now();
-    private final HttpStatus httpStatus;
+    private final HttpStatusCode httpStatusCode;
     private final String message;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty("errors")
     private List<CustomFieldError> customFieldErrors = new ArrayList<>();
 
-    public ErrorResponse(HttpStatus httpStatus, String message) {
-        this.httpStatus = httpStatus;
+    public ErrorResponse(HttpStatusCode httpStatusCode, String message) {
+        this.httpStatusCode = httpStatusCode;
         this.message = message;
     }
 
     @Builder
-    public ErrorResponse(HttpStatus httpStatus, String message, List<FieldError> fieldErrors) {
-        this.httpStatus = httpStatus;
+    public ErrorResponse(HttpStatusCode httpStatusCode, String message, List<FieldError> fieldErrors) {
+        this.httpStatusCode = httpStatusCode;
         this.message = message;
 
         //BindingResult.getFieldErrors() 메소드를 통해 전달받은 fieldErrors

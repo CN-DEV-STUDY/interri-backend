@@ -1,12 +1,11 @@
 package com.cn.interri.user.domain.User;
 
 import com.cn.interri.user.enums.DesignType;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "scrab")
