@@ -10,13 +10,13 @@ import com.cn.interri.design.repository.*;
 import com.cn.interri.design.repository.custom.DesignResRepository;
 import com.cn.interri.design.service.RegisterDesignService;
 import com.cn.interri.user.domain.User.User;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

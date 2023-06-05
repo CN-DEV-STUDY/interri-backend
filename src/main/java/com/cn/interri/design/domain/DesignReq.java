@@ -2,12 +2,13 @@ package com.cn.interri.design.domain;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.domain.User.User;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

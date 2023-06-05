@@ -1,14 +1,15 @@
 package com.cn.interri.exception.handler;
 
-import com.cn.interri.exception.enums.CommonErrorCode;
+
 import com.cn.interri.exception.CustomException;
 import com.cn.interri.exception.ErrorCode;
 import com.cn.interri.exception.ErrorResponse;
+import com.cn.interri.exception.enums.CommonErrorCode;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @Valid 검증 실패 시 Catch
      */
     @Override
-    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.error("handleIllegalArgument", e);
 
         ErrorCode errorCode = CommonErrorCode.INVALID_PARAMETER;
@@ -44,11 +45,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(
-            Exception e, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+            Exception e, @Nullable Object body, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.error("handleExceptionInternal", e);
 
         ErrorResponse response = ErrorResponse.builder()
-                .httpStatus(status)
+                .httpStatusCode(status)
                 .message(e.getMessage())
                 .build();
 
@@ -63,11 +64,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("handleCustomException", e);
 
         ErrorResponse response = ErrorResponse.builder()
-                .httpStatus(e.getErrorCode().getHttpStatus())
+                .httpStatusCode(e.getErrorCode().getHttpStatus())
                 .message(e.getMessage())
                 .build();
 
-        return new ResponseEntity<>(response, response.getHttpStatus());
+        return new ResponseEntity<>(response, response.getHttpStatusCode());
     }
 
 
@@ -83,7 +84,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 CommonErrorCode.INTERNAL_SERVER_ERROR.getMessage()
         );
 
-        return new ResponseEntity<>(response, response.getHttpStatus());
+        return new ResponseEntity<>(response, response.getHttpStatusCode());
     }
 
     private ResponseEntity<Object> handleExceptionInternal(BindException e, ErrorCode errorCode) {
@@ -93,7 +94,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private ErrorResponse makeErrorResponse(BindException e, ErrorCode errorCode) {
         return ErrorResponse.builder()
-                .httpStatus(errorCode.getHttpStatus())
+                .httpStatusCode(errorCode.getHttpStatus())
                 .message(errorCode.getMessage())
                 .fieldErrors(e.getBindingResult().getFieldErrors())
                 .build();
