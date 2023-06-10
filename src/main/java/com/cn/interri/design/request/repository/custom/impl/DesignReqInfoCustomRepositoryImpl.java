@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.cn.interri.design.domain.QDesignReqInfo.designReqInfo;
-import static com.cn.interri.design.domain.QRoomType.roomType;
+import static com.cn.interri.common.entity.QRoomType.roomType;
+import static com.cn.interri.design.request.entity.QDesignReqInfo.designReqInfo;
 
 @Repository
 @RequiredArgsConstructor

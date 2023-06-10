@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cn.interri.design.domain.QDesignRes.designRes;
+import static com.cn.interri.design.request.entity.QDesignRes.designRes;
 import static com.cn.interri.user.entity.User.QUser.user;
 
 @Repository
