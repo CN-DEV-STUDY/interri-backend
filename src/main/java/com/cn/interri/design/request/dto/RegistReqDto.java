@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ReqRegistrationParam {
+public class RegistReqDto {
     private long userId; // 유저 아이디
     private int sizeId; // 평수
     private int housingTypeId; // 주거 형태
@@ -19,5 +19,5 @@ public class ReqRegistrationParam {
     private int styleId; // 스타일
     private String tempYn;
 
-    private List<ReqRegistrationDto> reqRegistrationDtoList;
+    private List<RegistReqDtos> registReqDtos;
 }

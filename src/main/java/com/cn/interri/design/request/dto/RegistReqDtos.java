@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class ReqRegistrationDto {
+public class RegistReqDtos {
     private List<MultipartFile> multipartFiles; // 사진
     private int roomTypeId; // 공간
     private String content; // 사진 설명

@@ -1,10 +1,11 @@
 package com.cn.interri.design.service.impl;
 
-import com.cn.interri.design.request.dto.ReqRegistrationDto;
-import com.cn.interri.design.request.dto.ReqRegistrationParam;
+import com.cn.interri.design.request.dto.RegistReqDtos;
+import com.cn.interri.design.request.dto.RegistReqDto;
 import com.cn.interri.design.request.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
 import com.cn.interri.design.request.service.RegisterDesignService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ class RegisterDesignServiceImplTest {
     @Autowired
     private RegisterDesignService registerDesignService;
 
-    public ReqRegistrationParam createReqRegistParam() {
-        ReqRegistrationParam param = new ReqRegistrationParam();
+    public RegistReqDto createReqRegistParam() {
+        RegistReqDto param = new RegistReqDto();
         param.setUserId(1);
         param.setSizeId(1);
         param.setHousingTypeId(1);
@@ -39,7 +39,7 @@ class RegisterDesignServiceImplTest {
         param.setStyleId(1);
         param.setTempYn("N");
 
-        List<ReqRegistrationDto> reqRegistrationDtoList = new ArrayList<>();
+        List<RegistReqDtos> reqRegistrationDtoList = new ArrayList<>();
         List<MultipartFile> multipartFiles = new ArrayList<>();
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -49,13 +49,13 @@ class RegisterDesignServiceImplTest {
                 "Hello, World!".getBytes()
         );
         multipartFiles.add(file);
-        ReqRegistrationDto dto = new ReqRegistrationDto();
+        RegistReqDtos dto = new RegistReqDtos();
         dto.setMultipartFiles(multipartFiles);
         dto.setRoomTypeId(1);
         dto.setContent("사진 설명 ㅋ");
 
         reqRegistrationDtoList.add(dto);
-        param.setReqRegistrationDtoList(reqRegistrationDtoList);
+        param.setRegistReqDtos(reqRegistrationDtoList);
 
 
         return param;
@@ -95,7 +95,7 @@ class RegisterDesignServiceImplTest {
     @Test
     void 디자인_요청_등록_유저_아이디_없음() throws Exception {
         // given
-        ReqRegistrationParam param = createReqRegistParam();
+        RegistReqDto param = createReqRegistParam();
 
         // when
         Assertions.assertThrows(EntityNotFoundException.class, () -> registerDesignService.saveDesignRequest(param));
@@ -105,7 +105,7 @@ class RegisterDesignServiceImplTest {
     @Test
     void 디자인_요청_등록_이미지_공간정보_내_없음() throws Exception {
         // given
-        ReqRegistrationParam param = createReqRegistParam();
+        RegistReqDto param = createReqRegistParam();
 
         // when
         Assertions.assertThrows(Exception.class, () -> registerDesignService.saveDesignRequest(param));
