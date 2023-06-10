@@ -1,8 +1,8 @@
 package com.cn.interri.index.service.impl;
 
-import com.cn.interri.design.domain.Style;
-import com.cn.interri.design.repository.DesignReqRepository;
-import com.cn.interri.design.repository.StyleRepository;
+import com.cn.interri.common.entity.Style;
+import com.cn.interri.design.request.repository.DesignReqRepository;
+import com.cn.interri.common.repository.StyleRepository;
 import com.cn.interri.index.dto.InteriorTrendsResponse;
 import com.cn.interri.index.service.TrendsService;
 import lombok.RequiredArgsConstructor;

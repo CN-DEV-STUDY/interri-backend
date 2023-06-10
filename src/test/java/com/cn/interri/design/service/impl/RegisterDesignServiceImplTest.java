@@ -1,10 +1,10 @@
 package com.cn.interri.design.service.impl;
 
-import com.cn.interri.design.dto.ReqRegistrationDto;
-import com.cn.interri.design.dto.ReqRegistrationParam;
-import com.cn.interri.design.dto.ResInfoRegistrationParam;
-import com.cn.interri.design.dto.ResRegistrationParam;
-import com.cn.interri.design.service.RegisterDesignService;
+import com.cn.interri.design.request.dto.ReqRegistrationDto;
+import com.cn.interri.design.request.dto.ReqRegistrationParam;
+import com.cn.interri.design.request.dto.ResInfoRegistrationParam;
+import com.cn.interri.design.request.dto.ResRegistrationParam;
+import com.cn.interri.design.request.service.RegisterDesignService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

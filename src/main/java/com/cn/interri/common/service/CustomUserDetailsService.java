@@ -1,6 +1,6 @@
 package com.cn.interri.common.service;
 
-import com.cn.interri.design.repository.UserRepository;
+import com.cn.interri.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @param user
      * @return
      */
-    private UserDetails createUserDetails(com.cn.interri.user.domain.User.User user) {
+    private UserDetails createUserDetails(com.cn.interri.user.entity.User.User user) {
         return User.builder()
                 .username(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))

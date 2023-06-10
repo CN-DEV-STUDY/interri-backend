@@ -1,10 +1,8 @@
 package com.cn.interri.design.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
-import com.cn.interri.design.dto.ReqRegistrationResource;
-import com.cn.interri.design.service.PageService;
+import com.cn.interri.design.request.service.PageService;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
