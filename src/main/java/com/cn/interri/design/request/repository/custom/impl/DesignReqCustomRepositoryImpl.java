@@ -14,12 +14,12 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cn.interri.design.domain.QDesignReq.designReq;
-import static com.cn.interri.design.domain.QDesignReqInfo.designReqInfo;
-import static com.cn.interri.design.domain.QFileDesignReq.fileDesignReq;
-import static com.cn.interri.design.domain.QHousingType.housingType;
-import static com.cn.interri.design.domain.QSize.size;
-import static com.cn.interri.design.domain.QStyle.*;
+import static com.cn.interri.common.entity.QHousingType.housingType;
+import static com.cn.interri.common.entity.QStyle.style;
+import static com.cn.interri.common.entity.QSize.size;
+import static com.cn.interri.design.request.entity.QDesignReq.designReq;
+import static com.cn.interri.design.request.entity.QDesignReqInfo.designReqInfo;
+import static com.cn.interri.design.request.entity.QFileDesignReq.fileDesignReq;
 import static com.cn.interri.user.entity.User.QUser.*;
 
 @Repository
