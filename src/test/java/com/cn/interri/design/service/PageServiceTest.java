@@ -1,6 +1,7 @@
 package com.cn.interri.design.service;
 
-import com.cn.interri.design.dto.ReqRegistrationResource;
+import com.cn.interri.design.request.dto.ReqRegistrationResource;
+import com.cn.interri.design.request.service.PageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class PageServiceTest {
 
-    @Autowired PageService pageService;
+    @Autowired
+    PageService pageService;
 
     @DisplayName("디자인 요청 등록 페이지에 필요한 자원을 조회한다.")
     @Test
