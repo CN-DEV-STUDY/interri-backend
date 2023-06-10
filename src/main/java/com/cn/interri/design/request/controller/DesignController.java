@@ -38,7 +38,7 @@ public class DesignController {
         registerDesignService.saveDesignRequest(designRequest);
         return ResponseEntity.ok()
                 .body(ResponseDto.<String>builder()
-                        .message("등록 성공")
+//                        .message("등록 성공")
                         .build());
     }
 

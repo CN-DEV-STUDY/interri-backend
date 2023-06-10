@@ -3,8 +3,8 @@ package com.cn.interri.design.request.repository.custom.impl;
 import com.cn.interri.design.request.dto.ReqDetailReqResource;
 import com.cn.interri.design.request.repository.custom.DesignReqCustomRepository;
 import com.cn.interri.common.entity.Style;
-import com.cn.interri.index.dto.InteriorTrendsInfo;
-import com.cn.interri.index.dto.InteriorTrendsResponse;
+import com.cn.interri.index.dto.StyleInfo;
+import com.cn.interri.index.dto.InteriorTrendsDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -56,17 +56,16 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
 
     /**
      * 인테리어 트렌드 조회
-     *
-     * @return
      */
     @Override
-    public List<InteriorTrendsResponse> getTrends(List<Style> styles) {
+    public List<InteriorTrendsDto> getTrends(List<Style> styles) {
         final Integer TRENDS_FETCH_SIZE = 10;
-        List<InteriorTrendsResponse> responses = new ArrayList<>();
+        List<InteriorTrendsDto> responses = new ArrayList<>();
 
         for(Style style : styles) {
-            List<InteriorTrendsInfo> interiorTrendsInfos = queryFactory
-                    .select(Projections.constructor(InteriorTrendsInfo.class,
+            List<StyleInfo> styleInfos = queryFactory
+                    .select(Projections.constructor(StyleInfo.class,
+                            designReq.id,
                             fileDesignReq.filePath,
                             designReq.maxPrice,
                             user.nickname,
@@ -81,7 +80,7 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                     .limit(TRENDS_FETCH_SIZE)
                     .fetch();
 
-            InteriorTrendsResponse response = new InteriorTrendsResponse(style.getId(), style.getStyleNm(), interiorTrendsInfos);
+            InteriorTrendsDto response = new InteriorTrendsDto(style.getId(), style.getStyleNm(), styleInfos);
             responses.add(response);
         }
 
@@ -90,7 +89,7 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
 
     private BooleanExpression styleIn(List<Style> styles) {
         return designReq.style.id.in(styles.stream()
-                .map(style -> style.getId())
+                .map(Style::getId)
                 .toList());
     }
 }
