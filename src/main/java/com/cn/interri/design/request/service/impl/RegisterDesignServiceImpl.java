@@ -10,8 +10,8 @@ import com.cn.interri.common.repository.SizeRepository;
 import com.cn.interri.common.repository.StyleRepository;
 import com.cn.interri.common.service.FileService;
 import com.cn.interri.design.request.entity.*;
-import com.cn.interri.design.request.dto.ReqRegistrationDto;
-import com.cn.interri.design.request.dto.ReqRegistrationParam;
+import com.cn.interri.design.request.dto.RegistReqDtos;
+import com.cn.interri.design.request.dto.RegistReqDto;
 import com.cn.interri.design.request.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
 import com.cn.interri.design.request.repository.*;
@@ -57,7 +57,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
 
     @Override
     @Transactional
-    public void saveDesignRequest(ReqRegistrationParam req) throws Exception {
+    public void saveDesignRequest(RegistReqDto req) throws Exception {
 
         // TODO: EntityNotFoundException > Exception Handler에 추가
         User user = getUser(req.getUserId());
@@ -66,7 +66,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
         Style style = getStyle(req.getStyleId());
 
         List<DesignReqInfo> designReqInfoList = new ArrayList<>();
-        for (ReqRegistrationDto reqDto : req.getReqRegistrationDtoList()) {
+        for (RegistReqDtos reqDto : req.getRegistReqDtos()) {
             uploadFiles(reqDto.getMultipartFiles() , REQUEST);
 
             // TODO: controller에서 파라미터에 대한 유효성 검사 필요

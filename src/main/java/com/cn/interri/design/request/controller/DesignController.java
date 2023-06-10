@@ -2,7 +2,7 @@ package com.cn.interri.design.request.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
 import com.cn.interri.design.request.dto.ReqDetailReqResource;
-import com.cn.interri.design.request.dto.ReqRegistrationParam;
+import com.cn.interri.design.request.dto.RegistReqDto;
 import com.cn.interri.design.request.dto.ReqRegistrationResource;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
 import com.cn.interri.design.request.service.PageService;
@@ -34,7 +34,7 @@ public class DesignController {
     }
 
     @PostMapping("/req")
-    public ResponseEntity<ResponseDto<String>> registerDesignRequest(@RequestBody ReqRegistrationParam designRequest) throws Exception {
+    public ResponseEntity<ResponseDto<String>> registerDesignRequest(@RequestBody RegistReqDto designRequest) throws Exception {
         registerDesignService.saveDesignRequest(designRequest);
         return ResponseEntity.ok()
                 .body(ResponseDto.<String>builder()
