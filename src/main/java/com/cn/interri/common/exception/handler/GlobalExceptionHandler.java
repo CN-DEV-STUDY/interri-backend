@@ -1,10 +1,10 @@
-package com.cn.interri.exception.handler;
+package com.cn.interri.common.exception.handler;
 
 
-import com.cn.interri.exception.CustomException;
-import com.cn.interri.exception.ErrorCode;
-import com.cn.interri.exception.ErrorResponse;
-import com.cn.interri.exception.enums.CommonErrorCode;
+import com.cn.interri.common.exception.CustomException;
+import com.cn.interri.common.exception.ErrorCode;
+import com.cn.interri.common.exception.ErrorResponse;
+import com.cn.interri.common.exception.enums.CommonErrorCode;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

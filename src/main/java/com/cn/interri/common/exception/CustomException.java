@@ -1,4 +1,4 @@
-package com.cn.interri.exception;
+package com.cn.interri.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

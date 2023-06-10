@@ -1,7 +1,7 @@
-package com.cn.interri.config.security;
+package com.cn.interri.common.config.security;
 
-import com.cn.interri.exception.ErrorResponse;
-import com.cn.interri.exception.enums.CommonErrorCode;
+import com.cn.interri.common.exception.ErrorResponse;
+import com.cn.interri.common.exception.enums.CommonErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletException;

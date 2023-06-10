@@ -1,7 +1,7 @@
 package com.cn.interri.user.service.impl;
 
 import com.cn.interri.common.dto.TokenDto;
-import com.cn.interri.config.jwt.JwtTokenProvider;
+import com.cn.interri.common.config.jwt.JwtTokenProvider;
 import com.cn.interri.design.repository.UserRepository;
 import com.cn.interri.user.service.AuthService;
 import lombok.RequiredArgsConstructor;

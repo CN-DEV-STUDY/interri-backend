@@ -1,4 +1,4 @@
-package com.cn.interri.exception;
+package com.cn.interri.common.exception;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,4 +1,4 @@
-package com.cn.interri.config;
+package com.cn.interri.common.config;
 
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

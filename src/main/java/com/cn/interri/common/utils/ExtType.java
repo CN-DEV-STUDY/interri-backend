@@ -1,6 +1,6 @@
 package com.cn.interri.common.utils;
-import com.cn.interri.exception.enums.CommonErrorCode;
-import com.cn.interri.exception.exceptions.FileExtNotFoundException;
+import com.cn.interri.common.exception.enums.CommonErrorCode;
+import com.cn.interri.common.exception.exceptions.FileExtNotFoundException;
 import lombok.Getter;
 
 import java.util.Arrays;

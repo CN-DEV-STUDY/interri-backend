@@ -1,4 +1,4 @@
-package com.cn.interri.exception;
+package com.cn.interri.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,4 +1,4 @@
-package com.cn.interri.config.jwt;
+package com.cn.interri.common.config.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

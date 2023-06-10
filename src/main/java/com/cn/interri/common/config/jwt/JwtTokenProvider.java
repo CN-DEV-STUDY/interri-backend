@@ -1,4 +1,4 @@
-package com.cn.interri.config.jwt;
+package com.cn.interri.common.config.jwt;
 
 import com.cn.interri.common.dto.TokenDto;
 import io.jsonwebtoken.*;

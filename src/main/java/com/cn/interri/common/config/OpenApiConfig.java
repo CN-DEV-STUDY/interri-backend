@@ -1,4 +1,4 @@
-package com.cn.interri.config;
+package com.cn.interri.common.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
