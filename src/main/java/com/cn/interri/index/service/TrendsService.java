@@ -1,10 +1,8 @@
 package com.cn.interri.index.service;
 
-import com.cn.interri.index.dto.InteriorTrendsResponse;
-
-import java.util.List;
+import com.cn.interri.index.dto.IndexDto;
 
 public interface TrendsService {
 
-    List<InteriorTrendsResponse> getTrends();
+    IndexDto getIndex();
 }

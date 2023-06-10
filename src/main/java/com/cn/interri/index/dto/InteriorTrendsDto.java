@@ -8,11 +8,11 @@ import java.util.List;
  * 인테리어 트렌트 스타일 별 리스트
  * @param styleId
  * @param styleName
- * @param interiorTrendsInfos
+ * @param styleInfos
  */
 @Builder
-public record InteriorTrendsResponse (
+public record InteriorTrendsDto(
         Integer styleId,
         String styleName,
-        List<InteriorTrendsInfo> interiorTrendsInfos
+        List<StyleInfo> styleInfos
 ) { }
