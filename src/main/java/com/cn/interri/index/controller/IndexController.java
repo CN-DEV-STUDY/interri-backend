@@ -21,7 +21,7 @@ public class IndexController {
     /**
      * TODO: batch에서 일주일 간의 데이터 연산해서 레디스에 저장한 데이터를 fetch하는 걸로 변경 필요
      */
-    @GetMapping("/trends")
+    @GetMapping
     public ResponseEntity<ResponseDto<IndexDto>> trends() {
         IndexDto response = trendsService.getIndex();
         return ResponseEntity.ok(ResponseDto.<IndexDto>builder()
