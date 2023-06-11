@@ -76,7 +76,7 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                     .leftJoin(designReq.user, user).on(user.enableYn.eq("Y"))
                     .leftJoin(designReq.designReqInfoList, designReqInfo).on(designReq.delYn.eq("N"))
                     .leftJoin(designReqInfo.fileDesignReqList, fileDesignReq).on(designReqInfo.delYn.eq("N"))
-                    .where(fileDesignReq.delYn.eq("N"), styleIn(styles))
+                    .where(fileDesignReq.delYn.eq("N"), designReq.style.id.eq(style.getId()))
                     .limit(TRENDS_FETCH_SIZE)
                     .fetch();
 
