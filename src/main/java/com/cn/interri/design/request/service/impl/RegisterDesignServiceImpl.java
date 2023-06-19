@@ -1,13 +1,5 @@
 package com.cn.interri.design.request.service.impl;
 
-import com.cn.interri.common.entity.HousingType;
-import com.cn.interri.common.entity.RoomType;
-import com.cn.interri.common.entity.Size;
-import com.cn.interri.common.entity.Style;
-import com.cn.interri.common.repository.HousingTypeRepository;
-import com.cn.interri.common.repository.RoomTypeRepository;
-import com.cn.interri.common.repository.SizeRepository;
-import com.cn.interri.common.repository.StyleRepository;
 import com.cn.interri.common.service.FileService;
 import com.cn.interri.design.request.entity.*;
 import com.cn.interri.design.request.dto.RegistReqDtos;

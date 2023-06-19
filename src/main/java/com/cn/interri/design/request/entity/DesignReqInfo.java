@@ -1,7 +1,7 @@
 package com.cn.interri.design.request.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
-import com.cn.interri.common.entity.RoomType;
+import com.cn.interri.common.entity.CommonTypeDesign;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,21 +35,20 @@ public class DesignReqInfo extends BaseTimeEntity {
     @JoinColumn(name = "design_req_id")
     private DesignReq designReq;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_type_id")
-    private RoomType roomType;
 
     @OneToMany(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
     private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "designReqInfo")
+    private List<CommonTypeDesign> commonTypeDesigns = new ArrayList<>();
 
     public void setDesignReq(DesignReq designReq) {
         this.designReq = designReq;
     }
 
-    public DesignReqInfo(String content, String delYn, RoomType roomType, List<FileDesignReq> fileDesignReqList) {
+    public DesignReqInfo(String content, String delYn, List<FileDesignReq> fileDesignReqList) {
         this.content = content;
         this.delYn = delYn;
-        this.roomType = roomType;
         for (FileDesignReq fileDesignReq : fileDesignReqList) {
             this.fileDesignReqList.add(fileDesignReq);
             fileDesignReq.setDesignReqInfo(this);
