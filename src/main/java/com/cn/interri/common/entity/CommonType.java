@@ -1,5 +1,6 @@
 package com.cn.interri.common.entity;
 
+import com.cn.interri.common.enums.DataType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,9 @@ public class CommonType {
 
     @Comment("구별 타입")
     @Column(name = "DTYPE")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private DataType type;
+
 
     @OneToMany(mappedBy = "commonType")
     private List<CommonTypeDesign> commonTypeDesigns = new ArrayList<>();

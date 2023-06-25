@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class SizeDto {
-    private Integer id;
+    private int id;
     private String name;
 }

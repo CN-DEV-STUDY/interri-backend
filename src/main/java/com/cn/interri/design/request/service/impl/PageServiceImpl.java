@@ -6,14 +6,17 @@ import com.cn.interri.common.dto.RoomTypeDto;
 import com.cn.interri.common.dto.SizeDto;
 import com.cn.interri.common.dto.StyleDto;
 import com.cn.interri.common.entity.CommonType;
-import com.cn.interri.common.entity.CommonTypeDesign;
+import com.cn.interri.common.enums.DataType;
 import com.cn.interri.common.repository.CommonTypeDesignRepository;
 import com.cn.interri.common.repository.CommonTypeRepository;
+import com.cn.interri.design.request.dto.ReqDetailReqResource;
+import com.cn.interri.design.request.dto.ReqDetailResResource;
+import com.cn.interri.design.request.dto.ReqInfoDetailResource;
+import com.cn.interri.design.request.dto.ReqRegistrationResource;
 import com.cn.interri.design.request.entity.DesignReq;
 import com.cn.interri.design.request.entity.DesignResInfo;
 import com.cn.interri.design.request.entity.FileDesignReq;
 import com.cn.interri.design.request.entity.FileDesignRes;
-import com.cn.interri.design.request.dto.*;
 import com.cn.interri.design.request.enums.Colors;
 import com.cn.interri.design.request.repository.*;
 import com.cn.interri.design.request.repository.custom.DesignResRepository;
@@ -51,16 +54,31 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
+        List<CommonType> commonTypes = commonTypeRepository.findAll();
+
         // 평수
-        List<SizeDto> sizeDtoList = sizeRepository.findAllSize();
+        List<SizeDto> sizeDtoList = commonTypes.stream()
+                        .filter(commonType -> commonType.getType() == DataType.SIZE)
+                        .map(commonType -> new SizeDto(commonType.getId(), commonType.getName()))
+                        .toList();
+
         // 주거 형태
-        List<HousingTypeDto> housingTypeList = housingTypeRepository.findAllHousingType();
+        List<HousingTypeDto> housingTypeList = commonTypes.stream()
+                        .filter(commonType -> commonType.getType() == DataType.HOUSING_TYPE)
+                        .map(commonType -> new HousingTypeDto(commonType.getId(), commonType.getName()))
+                        .toList();
         // 메인, 서브 컬러
         List<String> colorList = Colors.getList();
         // 공간
-        List<RoomTypeDto> roomTypeDtoList = roomTypeRepository.findAllRoomType();
+        List<RoomTypeDto> roomTypeDtoList = commonTypes.stream()
+                        .filter(commonType -> commonType.getType() == DataType.ROOM_TYPE)
+                        .map(commonType -> new RoomTypeDto(commonType.getId(), commonType.getName()))
+                        .toList();
         // 스타일
-        List<StyleDto> styleList = styleRepository.findAllStyle();
+        List<StyleDto> styleList = commonTypes.stream()
+                        .filter(commonType -> commonType.getType() == DataType.STYLE)
+                        .map(commonType -> new StyleDto(commonType.getId(), commonType.getName()))
+                        .toList();
 
         return new ReqRegistrationResource(sizeDtoList,
                 housingTypeList,
@@ -115,15 +133,10 @@ public class PageServiceImpl implements PageService {
 
         DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        designReq.getDesignReqInfoList().stream().map(info -> {
-            // design_req_info_id에 맞는 common_type_design 정보를 가져온다 (필요한 데이터 : common_type_id)
-            CommonTypeDesign common = commonTypeDesignRepository.findByDesignReqInfo_Id(info.getId());
-
-            // 위에서 구한 common_type_design 정보로 common_type_id를 구하고 이 id로 common_type 테이블에서 id에 맞는 common_type_nm을 가져온다.
-            CommonType commonType = commonTypeRepository.findById(common.getCommonType().getId()).orElseThrow(EntityNotFoundException::new);
-            roomTypeNmList.add(commonType.getName());
-            return info;
-        }).collect(Collectors.toList());
+//        designReq.getDesignReqInfoList().stream().map(info -> {
+//            roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
+//            return info;
+//        }).collect(Collectors.toList());
 
         return roomTypeNmList;
 

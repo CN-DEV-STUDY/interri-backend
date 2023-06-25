@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -20,7 +19,7 @@ import java.util.List;
 @Service
 public class TrendsServiceImpl implements TrendsService {
 
-    private final StyleRepository styleRepository;
+
     private final DesignReqRepository designReqRepository;
     private final UserRepository userRepository;
 
@@ -51,9 +50,13 @@ public class TrendsServiceImpl implements TrendsService {
     }
 
     private List<InteriorTrendsDto> getTrends() {
-        List<Style> styles = styleRepository.findAllById(Arrays.asList(1, 9));
-        List<InteriorTrendsDto> responses = designReqRepository.getTrends(styles);
+//        List<Style> styles = styleRepository.findAllById(Arrays.asList(1, 9));
+//        List<InteriorTrendsDto> responses = designReqRepository.getTrends(styles);
 
-        return responses;
+//        return responses;
+
+        return null;
     }
+
+
 }

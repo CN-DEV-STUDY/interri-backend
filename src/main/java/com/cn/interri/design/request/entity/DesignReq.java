@@ -1,6 +1,7 @@
 package com.cn.interri.design.request.entity;
 
-import com.cn.interri.common.entity.*;
+import com.cn.interri.common.entity.BaseTimeEntity;
+import com.cn.interri.common.entity.CommonTypeDesign;
 import com.cn.interri.user.entity.User.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
