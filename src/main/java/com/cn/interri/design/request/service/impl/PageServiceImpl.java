@@ -5,10 +5,10 @@ import com.cn.interri.common.dto.HousingTypeDto;
 import com.cn.interri.common.dto.RoomTypeDto;
 import com.cn.interri.common.dto.SizeDto;
 import com.cn.interri.common.dto.StyleDto;
-import com.cn.interri.common.repository.HousingTypeRepository;
-import com.cn.interri.common.repository.RoomTypeRepository;
-import com.cn.interri.common.repository.SizeRepository;
-import com.cn.interri.common.repository.StyleRepository;
+import com.cn.interri.common.entity.CommonType;
+import com.cn.interri.common.entity.CommonTypeDesign;
+import com.cn.interri.common.repository.CommonTypeDesignRepository;
+import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.design.request.entity.DesignReq;
 import com.cn.interri.design.request.entity.DesignResInfo;
 import com.cn.interri.design.request.entity.FileDesignReq;
@@ -35,16 +35,14 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class PageServiceImpl implements PageService {
 
-    private final SizeRepository sizeRepository;
-    private final HousingTypeRepository housingTypeRepository;
-    private final RoomTypeRepository roomTypeRepository;
-    private final StyleRepository styleRepository;
     private final DesignReqRepository designReqRepository;
     private final DesignReqInfoRepository designReqInfoRepository;
     private final DesignResInfoRepository designResInfoRepository;
     private final DesignResRepository designResRepository;
     private final FileDesignResRepository fileDesignResRepository;
     private final FileDesignReqRepository fileDesignReqRepository;
+    private final CommonTypeDesignRepository commonTypeDesignRepository;
+    private final CommonTypeRepository commonTypeRepository;
 
     private final AmazonS3Client amazonS3Client;
 
@@ -118,7 +116,12 @@ public class PageServiceImpl implements PageService {
         DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
         designReq.getDesignReqInfoList().stream().map(info -> {
-            roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
+            // design_req_info_id에 맞는 common_type_design 정보를 가져온다 (필요한 데이터 : common_type_id)
+            CommonTypeDesign common = commonTypeDesignRepository.findByDesignReqInfo_Id(info.getId());
+
+            // 위에서 구한 common_type_design 정보로 common_type_id를 구하고 이 id로 common_type 테이블에서 id에 맞는 common_type_nm을 가져온다.
+            CommonType commonType = commonTypeRepository.findById(common.getCommonType().getId()).orElseThrow(EntityNotFoundException::new);
+            roomTypeNmList.add(commonType.getName());
             return info;
         }).collect(Collectors.toList());
 

@@ -1,7 +1,5 @@
 package com.cn.interri.design.repository;
 
-import com.cn.interri.common.entity.Size;
-import com.cn.interri.common.repository.SizeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

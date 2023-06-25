@@ -1,9 +1,6 @@
 package com.cn.interri.design.request.entity;
 
-import com.cn.interri.common.entity.BaseTimeEntity;
-import com.cn.interri.common.entity.HousingType;
-import com.cn.interri.common.entity.Size;
-import com.cn.interri.common.entity.Style;
+import com.cn.interri.common.entity.*;
 import com.cn.interri.user.entity.User.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -66,22 +63,12 @@ public class DesignReq extends BaseTimeEntity {
     @Comment("디자인 요청 정보 리스트")
     private List<DesignReqInfo> designReqInfoList = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "housing_type_id")
-    @Comment("공간")
-    private HousingType housingType;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "style_id")
-    @Comment("스타일")
-    private Style style;
+    @OneToMany(mappedBy = "designReq")
+    private List<CommonTypeDesign> commonTypeDesigns = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "size_id")
-    @Comment("평답")
-    private Size size;
 
-    public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, String delYn, User user, List<DesignReqInfo> designReqInfoList, HousingType housingType, Style style, Size size) {
+    public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, String delYn, User user, List<DesignReqInfo> designReqInfoList) {
         this.mainColor = mainColor;
         this.subColor = subColor;
         this.maxPrice = maxPrice;
@@ -93,9 +80,6 @@ public class DesignReq extends BaseTimeEntity {
             this.designReqInfoList.add(designReqInfo);
             designReqInfo.setDesignReq(this);
         }
-        this.housingType = housingType;
-        this.style = style;
-        this.size = size;
     }
 
 }

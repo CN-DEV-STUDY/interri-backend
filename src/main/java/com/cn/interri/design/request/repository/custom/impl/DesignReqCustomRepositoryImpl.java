@@ -2,7 +2,6 @@ package com.cn.interri.design.request.repository.custom.impl;
 
 import com.cn.interri.design.request.dto.ReqDetailReqResource;
 import com.cn.interri.design.request.repository.custom.DesignReqCustomRepository;
-import com.cn.interri.common.entity.Style;
 import com.cn.interri.index.dto.StyleInfo;
 import com.cn.interri.index.dto.InteriorTrendsDto;
 import com.querydsl.core.types.Projections;
