@@ -1,7 +1,7 @@
 package com.cn.interri.design.request.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
-import com.cn.interri.common.entity.CommonTypeDesign;
+import com.cn.interri.common.entity.CommonCodeDesign;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,7 +40,7 @@ public class DesignReqInfo extends BaseTimeEntity {
     private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
 
     @OneToMany(mappedBy = "designReqInfo")
-    private List<CommonTypeDesign> commonTypeDesigns = new ArrayList<>();
+    private List<CommonCodeDesign> commonTypeDesigns = new ArrayList<>();
 
     public void setDesignReq(DesignReq designReq) {
         this.designReq = designReq;

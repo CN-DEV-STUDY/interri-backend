@@ -8,8 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RoomTypeDto {
-
-    private int id;
+    private String id;
     private String name;
 
 }
