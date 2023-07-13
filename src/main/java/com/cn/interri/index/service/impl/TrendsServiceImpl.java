@@ -1,5 +1,8 @@
 package com.cn.interri.index.service.impl;
 
+import com.cn.interri.common.entity.CommonCode;
+import com.cn.interri.common.enums.CodeType;
+import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.design.request.repository.DesignReqRepository;
 import com.cn.interri.index.dto.HeroDto;
 import com.cn.interri.index.dto.IndexDto;
@@ -19,9 +22,9 @@ import java.util.List;
 @Service
 public class TrendsServiceImpl implements TrendsService {
 
-
-    private final DesignReqRepository designReqRepository;
     private final UserRepository userRepository;
+    private final CommonTypeRepository commonTypeRepository;
+    private final DesignReqRepository designReqRepository;
 
 
     /**
@@ -50,12 +53,10 @@ public class TrendsServiceImpl implements TrendsService {
     }
 
     private List<InteriorTrendsDto> getTrends() {
-//        List<Style> styles = styleRepository.findAllById(Arrays.asList(1, 9));
-//        List<InteriorTrendsDto> responses = designReqRepository.getTrends(styles);
+        List<CommonCode> commonCodes = commonTypeRepository.findByCodeType(CodeType.STYLE);
+        List<InteriorTrendsDto> responses = designReqRepository.getTrends(commonCodes);
 
-//        return responses;
-
-        return null;
+        return responses;
     }
 
 

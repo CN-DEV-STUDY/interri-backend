@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Builder
 public record InteriorTrendsDto(
-        Integer styleId,
+        String styleId,
         String styleName,
         List<StyleInfo> styleInfos
 ) { }

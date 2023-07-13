@@ -5,8 +5,8 @@ import com.cn.interri.common.dto.HousingTypeDto;
 import com.cn.interri.common.dto.RoomTypeDto;
 import com.cn.interri.common.dto.SizeDto;
 import com.cn.interri.common.dto.StyleDto;
-import com.cn.interri.common.entity.CommonType;
-import com.cn.interri.common.enums.DataType;
+import com.cn.interri.common.entity.CommonCode;
+import com.cn.interri.common.enums.CodeType;
 import com.cn.interri.common.repository.CommonTypeDesignRepository;
 import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.design.request.dto.ReqDetailReqResource;
@@ -54,30 +54,30 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public ReqRegistrationResource getRegistrationPageResource() {
-        List<CommonType> commonTypes = commonTypeRepository.findAll();
+        List<CommonCode> commonTypes = commonTypeRepository.findAll();
 
         // 평수
         List<SizeDto> sizeDtoList = commonTypes.stream()
-                        .filter(commonType -> commonType.getType() == DataType.SIZE)
-                        .map(commonType -> new SizeDto(commonType.getId(), commonType.getName()))
+                        .filter(commonCode -> commonCode.getCodeType() == CodeType.SIZE)
+                        .map(commonCode -> new SizeDto(commonCode.getId(), commonCode.getCodeNm()))
                         .toList();
 
         // 주거 형태
         List<HousingTypeDto> housingTypeList = commonTypes.stream()
-                        .filter(commonType -> commonType.getType() == DataType.HOUSING_TYPE)
-                        .map(commonType -> new HousingTypeDto(commonType.getId(), commonType.getName()))
+                        .filter(commonCode -> commonCode.getCodeType() == CodeType.HOUSING_TYPE)
+                        .map(commonCode -> new HousingTypeDto(commonCode.getId(), commonCode.getCodeNm()))
                         .toList();
         // 메인, 서브 컬러
         List<String> colorList = Colors.getList();
         // 공간
         List<RoomTypeDto> roomTypeDtoList = commonTypes.stream()
-                        .filter(commonType -> commonType.getType() == DataType.ROOM_TYPE)
-                        .map(commonType -> new RoomTypeDto(commonType.getId(), commonType.getName()))
+                        .filter(commonCode -> commonCode.getCodeType() == CodeType.ROOM_TYPE)
+                        .map(commonCode -> new RoomTypeDto(commonCode.getId(), commonCode.getCodeNm()))
                         .toList();
         // 스타일
         List<StyleDto> styleList = commonTypes.stream()
-                        .filter(commonType -> commonType.getType() == DataType.STYLE)
-                        .map(commonType -> new StyleDto(commonType.getId(), commonType.getName()))
+                        .filter(commonCode -> commonCode.getCodeType() == CodeType.STYLE)
+                        .map(commonCode -> new StyleDto(commonCode.getId(), commonCode.getCodeNm()))
                         .toList();
 
         return new ReqRegistrationResource(sizeDtoList,

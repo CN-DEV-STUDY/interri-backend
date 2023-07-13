@@ -13,15 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Entity
-public class CommonTypeDesign {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "common_type_design_id")
+public class CommonCodeDesign {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "common_code_design_id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "common_type_id")
-    private CommonType commonType;
+    @JoinColumn(name = "common_code_id")
+    private CommonCode commonCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "design_req_id")

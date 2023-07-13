@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.cn.interri.common.entity.QRoomType.roomType;
 import static com.cn.interri.design.request.entity.QDesignReqInfo.designReqInfo;
 
 @Repository
@@ -23,11 +22,11 @@ public class DesignReqInfoCustomRepositoryImpl implements DesignReqInfoCustomRep
         return queryFactory
                 .select(Projections.fields(ReqInfoDetailResource.class,
                         designReqInfo.id.as("infoId"),
-                        roomType.roomTypeNm.as("roomTypeNm"),
+//                        roomType.roomTypeNm.as("roomTypeNm"),
                         designReqInfo.content.as("content")
                         ))
                 .from(designReqInfo)
-                .leftJoin(designReqInfo.roomType, roomType)
+//                .leftJoin(designReqInfo.roomType, roomType)
                 .where(designReqInfo.designReq.id.eq(id))
                 .fetch();
     }
