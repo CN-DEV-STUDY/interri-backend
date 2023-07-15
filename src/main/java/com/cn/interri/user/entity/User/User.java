@@ -2,11 +2,10 @@ package com.cn.interri.user.entity.User;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.design.request.entity.DesignReq;
+import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.enums.SignType;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +20,8 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
 public class User extends BaseTimeEntity implements UserDetails {
 
@@ -75,6 +76,25 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
     private List<Authorities> authorities = new ArrayList<>();
+
+    public static User dtoToUser(UserSignUpRequest dto) {
+        return User.builder()
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .nickname(dto.getNickname())
+                .profileImgNm(dto.getProfileImgNm())
+                .profileImgPath(dto.getProfileImgPath())
+                .address(dto.getAddress())
+                .phone(dto.getPhone())
+                .enableYn("Y")
+                .build();
+
+    }
+
+    public User changeEnabled(String enableYn){
+        this.enableYn = enableYn;
+        return this;
+    }
 
     // ### UserDetails 메서드 구현
     @Override
