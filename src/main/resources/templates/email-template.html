@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Template</title>
+</head>
+<body>
+<h1>[INTERRI]이메일 인증</h1>
+<p>인증을 완료하려면 다음 링크를 클릭하세요:</p>
+<a th:href="${verificationLink}">인증 링크</a>
+</body>
+</html>
