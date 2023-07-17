@@ -1,6 +1,6 @@
 package com.cn.interri.design.service.impl;
 
-import com.cn.interri.design.request.dto.RegistReqDtos;
+import com.cn.interri.design.request.dto.DesignRequestInfo;
 import com.cn.interri.design.request.dto.RegistReqDto;
 import com.cn.interri.design.request.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
@@ -29,17 +29,17 @@ class RegisterDesignServiceImplTest {
 
     public RegistReqDto createReqRegistParam() {
         RegistReqDto param = new RegistReqDto();
-        param.setUserId(1);
-        param.setSizeId(1);
-        param.setHousingTypeId(1);
+//        param.setUserId(1);
+//        param.setSizeId(1);
+//        param.setHousingTypeId(1);
         param.setMainColor("BLACK");
         param.setSubColor("BLACK");
         param.setMaxPrice(1000000);
         param.setDueDate(LocalDate.now());
-        param.setStyleId(1);
+//        param.setStyleId(1);
         param.setTempYn("N");
 
-        List<RegistReqDtos> reqRegistrationDtoList = new ArrayList<>();
+        List<DesignRequestInfo> reqRegistrationDtoList = new ArrayList<>();
         List<MultipartFile> multipartFiles = new ArrayList<>();
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -49,13 +49,13 @@ class RegisterDesignServiceImplTest {
                 "Hello, World!".getBytes()
         );
         multipartFiles.add(file);
-        RegistReqDtos dto = new RegistReqDtos();
-        dto.setMultipartFiles(multipartFiles);
-        dto.setRoomTypeId(1);
+        DesignRequestInfo dto = new DesignRequestInfo();
+//        dto.setImages(multipartFiles);
+//        dto.setRoomTypeId(1);
         dto.setContent("사진 설명 ㅋ");
 
         reqRegistrationDtoList.add(dto);
-        param.setRegistReqDtos(reqRegistrationDtoList);
+        param.setDesignRequestInfos(reqRegistrationDtoList);
 
 
         return param;

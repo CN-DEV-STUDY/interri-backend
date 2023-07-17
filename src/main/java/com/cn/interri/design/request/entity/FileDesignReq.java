@@ -6,12 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-
 import org.springframework.web.multipart.MultipartFile;
-
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "file_design_req")
@@ -55,14 +50,10 @@ public class FileDesignReq extends BaseTimeEntity {
         this.delYn = delYn;
     }
 
-    public static List<FileDesignReq> createFileDesignReq(List<MultipartFile> multipartFiles) {
-        return multipartFiles.stream()
-                    .map(multipartFile -> {
-                        String fileExt = FileUtils.getExt(multipartFile.getOriginalFilename());
-                        String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(fileExt);
+    public static FileDesignReq createFileDesignReq(MultipartFile multipartFile) {
+        String fileExt = FileUtils.getExt(multipartFile.getOriginalFilename());
+        String filePath = FileUtils.REQUEST_PATH + FileUtils.getUuidFileName(fileExt);
 
-                        return new FileDesignReq(filePath, multipartFile.getOriginalFilename(), "N");
-                    })
-                    .collect(Collectors.toList());
+        return new FileDesignReq(filePath, multipartFile.getOriginalFilename(), "N");
     }
 }

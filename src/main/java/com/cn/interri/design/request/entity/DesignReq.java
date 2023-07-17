@@ -66,7 +66,7 @@ public class DesignReq extends BaseTimeEntity {
 
 
     @OneToMany(mappedBy = "designReq")
-    private List<CommonCodeDesign> commonTypeDesigns = new ArrayList<>();
+    private List<CommonCodeDesign> commonCodeDesigns = new ArrayList<>();
 
 
     public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, String delYn, User user, List<DesignReqInfo> designReqInfoList) {
