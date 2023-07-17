@@ -1,8 +1,8 @@
 package com.cn.interri.design.request.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
-import com.cn.interri.design.request.dto.ReqDetailReqResource;
 import com.cn.interri.design.request.dto.RegistReqDto;
+import com.cn.interri.design.request.dto.ReqDetailReqResource;
 import com.cn.interri.design.request.dto.ReqRegistrationResource;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
 import com.cn.interri.design.request.service.PageService;
@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -33,8 +34,8 @@ public class DesignController {
                         .build());
     }
 
-    @PostMapping("/req")
-    public ResponseEntity<ResponseDto<String>> registerDesignRequest(@RequestBody RegistReqDto designRequest) throws Exception {
+    @PostMapping(value = "/req")
+    public ResponseEntity<ResponseDto<String>> registerDesignRequest(RegistReqDto designRequest) throws Exception {
         registerDesignService.saveDesignRequest(designRequest);
         return ResponseEntity.ok()
                 .body(ResponseDto.<String>builder()

@@ -2,8 +2,9 @@ package com.cn.interri.design.request.service.impl;
 
 import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.common.service.FileService;
+import com.cn.interri.common.utils.SecurityUtil;
 import com.cn.interri.design.request.dto.RegistReqDto;
-import com.cn.interri.design.request.dto.RegistReqDtos;
+import com.cn.interri.design.request.dto.DesignRequestInfo;
 import com.cn.interri.design.request.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.request.dto.ResRegistrationParam;
 import com.cn.interri.design.request.entity.DesignReq;
@@ -54,14 +55,14 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
     public void saveDesignRequest(RegistReqDto req) throws Exception {
 
         // TODO: EntityNotFoundException > Exception Handler에 추가
-        User user = getUser(req.getUserId());
+        User user = getUser();
 
         List<DesignReqInfo> designReqInfoList = new ArrayList<>();
-        for (RegistReqDtos reqDto : req.getRegistReqDtos()) {
-            uploadFiles(reqDto.getMultipartFiles() , REQUEST);
+        for (DesignRequestInfo reqDto : req.getDesignRequestInfos()) {
+//            uploadFiles(reqDto.getImages() , REQUEST);
 
             // TODO: controller에서 파라미터에 대한 유효성 검사 필요
-            DesignReqInfo designReqInfo = new DesignReqInfo(reqDto.getContent(), "N", createFileDesignReq(reqDto.getMultipartFiles()));
+            DesignReqInfo designReqInfo = new DesignReqInfo(reqDto.getContent(), "N", createFileDesignReq(reqDto.getImage()));
             designReqInfoList.add(designReqInfo);
         }
 
@@ -74,7 +75,7 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
     @Transactional
     public void saveDesignResponse(long designReqId, ResRegistrationParam res) throws Exception{
 
-        User user = getUser(res.getUserId()); // 글 등록자
+        User user = getUser(); // 글 등록자
 
         List<DesignResInfo> designResInfoList  = new ArrayList<>();
 
@@ -95,10 +96,8 @@ public class RegisterDesignServiceImpl implements RegisterDesignService {
         }
     }
 
-
-
-    private User getUser(long userId) {
-        return userRepository.findById(userId)
+    private User getUser() {
+        return userRepository.findByEmail(SecurityUtil.getCurrentUserEmail())
                 .orElseThrow(EntityNotFoundException::new);
     }
 

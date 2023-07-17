@@ -36,23 +36,23 @@ public class DesignReqInfo extends BaseTimeEntity {
     private DesignReq designReq;
 
 
-    @OneToMany(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
-    private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
+//    @OneToMany(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
+//    private List<FileDesignReq> fileDesignReqList = new ArrayList<>();
 
     @OneToMany(mappedBy = "designReqInfo")
-    private List<CommonCodeDesign> commonTypeDesigns = new ArrayList<>();
+    private List<CommonCodeDesign> commonCodeDesigns = new ArrayList<>();
 
     public void setDesignReq(DesignReq designReq) {
         this.designReq = designReq;
     }
 
-    public DesignReqInfo(String content, String delYn, List<FileDesignReq> fileDesignReqList) {
+    public DesignReqInfo(String content, String delYn, FileDesignReq fileDesignReqList) {
         this.content = content;
         this.delYn = delYn;
-        for (FileDesignReq fileDesignReq : fileDesignReqList) {
-            this.fileDesignReqList.add(fileDesignReq);
-            fileDesignReq.setDesignReqInfo(this);
-        }
-        this.fileDesignReqList = fileDesignReqList;
+//        for (FileDesignReq fileDesignReq : fileDesignReqList) {
+//            this.fileDesignReqList.add(fileDesignReq);
+//            fileDesignReq.setDesignReqInfo(this);
+//        }
+//        this.fileDesignReqList = fileDesignReqList;
     }
 }
