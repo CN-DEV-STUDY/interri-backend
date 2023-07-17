@@ -15,13 +15,15 @@ public class UserController {
 
     // 이메일 전송
     @PostMapping("/cert")
-    public void certificationEmail(String userEmail) throws MessagingException {
+    public void certificationEmail(@RequestParam(value = "email") String userEmail) throws MessagingException {
         registerService.certEmail(userEmail);
     }
 
     @GetMapping("/cert/ok")
-    public ResponseEntity<String> passedCertEmail() {
+    public ResponseEntity<String> passedCertEmail(@RequestParam(value = "email") String userEmail) {
         // 사용자를 enabledYn = N으로 넣고 추후 회원가입이 완료되면 enabledYn=Y로 변경하기
+
+        registerService.passedCertEmail(userEmail);
         return ResponseEntity.ok()
                 .body("ok");
     }

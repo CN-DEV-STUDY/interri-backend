@@ -7,4 +7,6 @@ public interface RegisterService {
     void signUp(UserSignUpRequest request);
 
     void certEmail(String userEmail) throws MessagingException;
+
+    void passedCertEmail(String userEmail) ;
 }
