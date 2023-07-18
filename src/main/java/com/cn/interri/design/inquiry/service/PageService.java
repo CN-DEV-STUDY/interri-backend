@@ -11,5 +11,4 @@ public interface PageService {
 
     ReqDetailReqResource getDesignReqDetails(Long id, String sortType);
 
-    List<String> getResRoomTypeNm(Long id);
 }

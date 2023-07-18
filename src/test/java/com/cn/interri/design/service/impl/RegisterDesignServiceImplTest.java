@@ -2,8 +2,8 @@ package com.cn.interri.design.service.impl;
 
 import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
-import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
-import com.cn.interri.design.inquiry.dto.ResRegistrationParam;
+import com.cn.interri.design.reply.dto.ResInfoRegistrationParam;
+import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.RegisterDesignService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;

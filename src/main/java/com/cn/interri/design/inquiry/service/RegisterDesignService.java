@@ -1,7 +1,7 @@
 package com.cn.interri.design.inquiry.service;
 
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
-import com.cn.interri.design.inquiry.dto.ResRegistrationParam;
+import com.cn.interri.design.reply.dto.ResRegistrationParam;
 
 public interface RegisterDesignService {
 
