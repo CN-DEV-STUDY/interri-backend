@@ -22,14 +22,7 @@ public class ReplyPageServiceImpl implements ReplyPageService {
     @Override
     public List<String> getResRoomTypeNm(Long id) {
 
-
-//        DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-//        designReq.getDesignReqInfoList().stream().map(info -> {
-//            roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
-//            return info;
-//        }).collect(Collectors.toList());
-
-        List<Integer> commonCodeDesignIdList = commonTypeDesignRepository.getDesignInquiryCommonCode(id);
+        List<String> commonCodeDesignIdList = commonTypeDesignRepository.getDesignInquiryCommonCode(id);
         List<String> roomTypeNmList = commonTypeRepository.getDesignInquiryRoomList(commonCodeDesignIdList);
 
         return roomTypeNmList;

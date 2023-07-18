@@ -10,6 +10,6 @@ import java.util.List;
 public interface CommonTypeDesignRepository extends JpaRepository<CommonCodeDesign, Integer> {
     CommonCodeDesign findByDesignReqInfo_Id(Long id);
 
-    @Query("select  cd.id from CommonCodeDesign cd where cd.designReq.id = :reqId")
-    List<Integer> getDesignInquiryCommonCode(@Param("reqId") Long reqId);
+    @Query("select  cd.commonCode.id from CommonCodeDesign cd where cd.designReq.id = :reqId")
+    List<String> getDesignInquiryCommonCode(@Param("reqId") Long reqId);
 }
