@@ -1,7 +1,7 @@
 package com.cn.interri.common.entity;
 
-import com.cn.interri.design.request.entity.DesignReq;
-import com.cn.interri.design.request.entity.DesignReqInfo;
+import com.cn.interri.design.inquiry.entity.DesignReq;
+import com.cn.interri.design.inquiry.entity.DesignReqInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

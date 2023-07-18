@@ -1,6 +1,6 @@
 package com.cn.interri.design.enums;
 
-import com.cn.interri.design.request.enums.Colors;
+import com.cn.interri.design.inquiry.enums.Colors;
 import org.junit.jupiter.api.Test;
 
 class MainColorsTest {

@@ -1,7 +1,7 @@
 package com.cn.interri.design.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
-import com.cn.interri.design.request.service.PageService;
+import com.cn.interri.design.inquiry.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

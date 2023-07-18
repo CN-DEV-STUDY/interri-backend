@@ -1,7 +1,7 @@
 package com.cn.interri.design.service;
 
-import com.cn.interri.design.request.dto.ReqRegistrationResource;
-import com.cn.interri.design.request.service.PageService;
+import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
+import com.cn.interri.design.inquiry.service.PageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
