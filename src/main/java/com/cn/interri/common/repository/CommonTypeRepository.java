@@ -12,6 +12,6 @@ public interface CommonTypeRepository extends JpaRepository<CommonCode, String> 
 
     List<CommonCode> findByCodeType(CodeType type);
 
-    @Query("select cc.codeNm from CommonCode cc where cc.id in (:commonCodeDesignIdList) and cc.codeNm like 'RT%'")
-    List<String> getDesignInquiryRoomList(@Param("commonCodeDesignIdList") List<Integer> commonCodeDesignIdList);
+    @Query("select cc.codeNm from CommonCode cc where cc.id in (:commonCodeDesignIdList) and cc.id like 'RT%'")
+    List<String> getDesignInquiryRoomList(@Param("commonCodeDesignIdList") List<String> commonCodeDesignIdList);
 }
