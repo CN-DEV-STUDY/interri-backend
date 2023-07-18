@@ -1,7 +1,7 @@
 package com.cn.interri.user.entity.User;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
-import com.cn.interri.design.request.entity.DesignReq;
+import com.cn.interri.design.inquiry.entity.DesignReq;
 import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.enums.SignType;
 import jakarta.persistence.*;

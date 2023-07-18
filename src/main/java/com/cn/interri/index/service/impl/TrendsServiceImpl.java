@@ -3,7 +3,7 @@ package com.cn.interri.index.service.impl;
 import com.cn.interri.common.entity.CommonCode;
 import com.cn.interri.common.enums.CodeType;
 import com.cn.interri.common.repository.CommonTypeRepository;
-import com.cn.interri.design.request.repository.DesignReqRepository;
+import com.cn.interri.design.inquiry.repository.DesignReqRepository;
 import com.cn.interri.index.dto.HeroDto;
 import com.cn.interri.index.dto.IndexDto;
 import com.cn.interri.index.dto.InteriorTrendsDto;
