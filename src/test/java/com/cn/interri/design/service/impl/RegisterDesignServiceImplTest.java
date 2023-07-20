@@ -102,7 +102,7 @@ class RegisterDesignServiceImplTest {
         RegistReqDto param = createReqRegistParam();
 
         // when
-        Assertions.assertThrows(EntityNotFoundException.class, () -> designInquiryService.saveDesignRequest(param));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> designInquiryService.saveDesignInquiry(param));
     }
 
     @DisplayName("디자인 요청 등록 시 유저 아이디 없음")
@@ -112,13 +112,13 @@ class RegisterDesignServiceImplTest {
         RegistReqDto param = createReqRegistParam();
 
         // when
-        Assertions.assertThrows(Exception.class, () -> designInquiryService.saveDesignRequest(param));
+        Assertions.assertThrows(Exception.class, () -> designInquiryService.saveDesignInquiry(param));
     }
 
     @DisplayName("디자인 요청 정상 등록 케이스")
     @Test
     void reqRegister() throws Exception {
-        designInquiryService.saveDesignRequest(createReqRegistParam());
+        designInquiryService.saveDesignInquiry(createReqRegistParam());
     }
 
     @DisplayName("디자인 응답 정상 등록 케이스")
