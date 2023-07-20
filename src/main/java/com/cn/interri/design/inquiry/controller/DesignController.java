@@ -6,6 +6,7 @@ import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
 import com.cn.interri.design.inquiry.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
+import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.PageService;
 import com.cn.interri.design.inquiry.service.RegisterService;
 import lombok.RequiredArgsConstructor;
@@ -56,31 +57,4 @@ public class DesignController {
                         .data(resource)
                         .build());
     }
-
-    /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
-    @GetMapping("/res/{id}/room")
-    public ResponseEntity<ResponseDto<List<String>>> getResRegistrationPage(
-            @PathVariable("id") long id
-    ){
-        List<String> resource = pageService.getResRoomTypeNm(id);
-        return ResponseEntity.ok()
-                .body(ResponseDto.<List<String>>builder()
-                        .data(resource)
-                        .build());
-    }
-
-    /**
-     * formData postman test 방법
-     * @See https://velog.io/@myway00/postman-list-DTO%EB%A5%BC-form-data%EB%A1%9C-%EB%B3%B4%EB%82%B4%EA%B8%B0
-     */
-    @PostMapping("/res/{id}")
-    public ResponseEntity<ResponseDto<String>> registerDesignResponse(
-            @PathVariable("id") long id,
-            ResRegistrationParam res
-    ) throws Exception {
-        registerDesignService.saveDesignResponse(id, res);
-        return null;
-    }
-
-
 }

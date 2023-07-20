@@ -126,21 +126,4 @@ public class PageServiceImpl implements PageService {
         return reqDetail;
     }
 
-    @Override
-    public List<String> getResRoomTypeNm(Long id) {
-
-        List<String> roomTypeNmList = new ArrayList<>();
-
-        DesignReq designReq = designReqRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-
-//        designReq.getDesignReqInfoList().stream().map(info -> {
-//            roomTypeNmList.add(info.getRoomType().getRoomTypeNm());
-//            return info;
-//        }).collect(Collectors.toList());
-
-        return roomTypeNmList;
-
-    }
-
-
 }

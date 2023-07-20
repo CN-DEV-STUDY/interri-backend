@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.dto;
+package com.cn.interri.design.reply.dto;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
