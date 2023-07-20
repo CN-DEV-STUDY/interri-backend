@@ -4,6 +4,7 @@ import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.common.entity.CommonCodeDesign;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -35,21 +36,22 @@ public class DesignReqInfo extends BaseTimeEntity {
     @JoinColumn(name = "design_req_id")
     private DesignReq designReq;
 
-    @OneToOne(mappedBy = "designReqInfo")
+    @OneToOne(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
     private FileDesignReq fileDesignReq;
 
-    @OneToMany(mappedBy = "designReqInfo")
+    @OneToMany(mappedBy = "designReqInfo", cascade = CascadeType.ALL)
     private List<CommonCodeDesign> commonCodeDesigns = new ArrayList<>();
 
     public void setDesignReq(DesignReq designReq) {
         this.designReq = designReq;
     }
 
-    public DesignReqInfo(String content, String delYn, FileDesignReq fileDesignReq) {
+    @Builder
+    public DesignReqInfo(String content, FileDesignReq fileDesignReq) {
         this.content = content;
-        this.delYn = delYn;
+        this.delYn = "N";
 
-
+        // 연관관계 매핑
         this.fileDesignReq = fileDesignReq;
         fileDesignReq.setDesignReqInfo(this);
     }
