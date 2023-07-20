@@ -1,16 +1,11 @@
 package com.cn.interri.design.inquiry.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
-import com.cn.interri.common.utils.FileUtils;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "file_design_res")
@@ -51,11 +46,11 @@ public class FileDesignRes extends BaseTimeEntity {
     }
 
 
-    public static List<FileDesignRes> createFileDesignRes(List<MultipartFile> multipartFiles, String resPath){
-        return multipartFiles.stream()
-                .map(multipartFile -> {
-                    String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
-                    return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
-                }).collect(Collectors.toList());
-    }
+//    public static List<FileDesignRes> createFileDesignRes(List<MultipartFile> multipartFiles, String resPath){
+//        return multipartFiles.stream()
+//                .map(multipartFile -> {
+//                    String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
+//                    return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
+//                }).collect(Collectors.toList());
+//    }
 }

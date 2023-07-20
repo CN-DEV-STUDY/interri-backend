@@ -5,6 +5,7 @@ import com.cn.interri.common.entity.CommonCodeDesign;
 import com.cn.interri.user.entity.User.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -69,13 +70,14 @@ public class DesignReq extends BaseTimeEntity {
     private List<CommonCodeDesign> commonCodeDesigns = new ArrayList<>();
 
 
-    public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, String delYn, User user, List<DesignReqInfo> designReqInfoList) {
+    @Builder
+    public DesignReq(String mainColor, String subColor, Integer maxPrice, LocalDate dueDate, String tempYn, User user, List<DesignReqInfo> designReqInfoList) {
         this.mainColor = mainColor;
         this.subColor = subColor;
         this.maxPrice = maxPrice;
         this.dueDate = dueDate;
         this.tempYn = tempYn;
-        this.delYn = delYn;
+        this.delYn = "N";
         this.user = user;
         for (DesignReqInfo designReqInfo : designReqInfoList) {
             this.designReqInfoList.add(designReqInfo);
