@@ -4,5 +4,5 @@ import com.cn.interri.design.inquiry.dto.RegistReqDto;
 
 public interface DesignInquiryService {
 
-    void saveDesignRequest(RegistReqDto reqRegistrationParam) throws Exception;
+    void saveDesignInquiry(RegistReqDto reqRegistrationParam) throws Exception;
 }

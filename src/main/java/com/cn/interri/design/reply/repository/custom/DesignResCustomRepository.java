@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.repository.custom;
+package com.cn.interri.design.reply.repository.custom;
 
 import com.cn.interri.design.inquiry.dto.ReqDetailResResource;
 

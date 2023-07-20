@@ -33,7 +33,7 @@ public class DesignInquiryServiceImpl implements DesignInquiryService {
     private final String REQUEST="request/";
 
     @Override
-    public void saveDesignRequest(RegistReqDto req) throws Exception {
+    public void saveDesignInquiry(RegistReqDto req) throws Exception {
         // TODO: EntityNotFoundException > Exception Handler에 추가
         User user = getUser();
 

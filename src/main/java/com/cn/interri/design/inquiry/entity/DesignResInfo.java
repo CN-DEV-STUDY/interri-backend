@@ -48,13 +48,14 @@ public class DesignResInfo extends BaseTimeEntity {
     }
 
     //=== 생성 메서드  ===//
-    public static DesignResInfo createDesignResInfo(String content , String delYn, FileDesignRes fileDesignResList){
+    public static DesignResInfo createDesignResInfo(String content , String delYn, FileDesignRes file){
         DesignResInfo info = new DesignResInfo();
 
         info.content = content;
         info.delYn = delYn;
 
-        info.addFileDesignRes(fileDesignResList);
+
+        info.addFileDesignRes(file);
 
 
         return info;

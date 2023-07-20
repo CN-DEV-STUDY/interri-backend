@@ -4,7 +4,6 @@ import com.cn.interri.common.dto.ResponseDto;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
 import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
-import com.cn.interri.design.inquiry.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.PageService;

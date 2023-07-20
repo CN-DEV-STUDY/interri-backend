@@ -4,6 +4,7 @@ import com.cn.interri.common.dto.ResponseDto;
 
 import com.cn.interri.design.inquiry.service.RegisterDesignService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
+import com.cn.interri.design.reply.service.RegisterReplyService;
 import com.cn.interri.design.reply.service.ReplyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DesignReplyController {
     private final ReplyPageService pageService;
-    private final RegisterDesignService registerDesignService;
+    private final RegisterReplyService registerReplyService;
 
 
     /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
@@ -39,10 +40,10 @@ public class DesignReplyController {
      */
     @PostMapping("/reply/{id}")
     public ResponseEntity<ResponseDto<String>> registerDesignResponse(
-            @PathVariable("id") long id,
+            @PathVariable("id") long id, // 디자인 요청 id
             ResRegistrationParam res
     ) throws Exception {
-        registerDesignService.saveDesignResponse(id, res);
+        registerReplyService.saveDesignResponse(id, res);
         return null;
     }
 }
