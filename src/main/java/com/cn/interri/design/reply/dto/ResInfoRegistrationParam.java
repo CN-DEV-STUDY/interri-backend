@@ -1,11 +1,10 @@
-package com.cn.interri.design.reply.dto;
+package com.cn.interri.design.inquiry.dto;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Getter
 @Setter

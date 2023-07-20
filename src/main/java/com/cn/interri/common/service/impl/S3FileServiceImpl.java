@@ -32,7 +32,7 @@ public class S3FileServiceImpl implements FileService {
      * https://wakestand.tistory.com/300
      */
     @Override
-    public String uploadFile(MultipartFile multipartFile , String purpose) {
+    public String uploadFile(MultipartFile multipartFile , String purpose) throws FileUploadFailedException, EmptyFileException {
         // 1. 파일 유효성 검사
         validateFileExists(multipartFile);
 
@@ -57,7 +57,7 @@ public class S3FileServiceImpl implements FileService {
 
     }
 
-    private void validateFileExists(MultipartFile multipartFile) {
+    private void validateFileExists(MultipartFile multipartFile) throws EmptyFileException {
         if(multipartFile.isEmpty()) {
             throw new EmptyFileException(CommonErrorCode.EMPTY_FILE_EXCEPTION);
         }

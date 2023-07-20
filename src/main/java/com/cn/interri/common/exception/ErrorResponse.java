@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.validation.FieldError;
 
@@ -23,6 +22,7 @@ public class ErrorResponse {
     @JsonProperty("errors")
     private List<CustomFieldError> customFieldErrors = new ArrayList<>();
 
+    @Builder
     public ErrorResponse(HttpStatusCode httpStatusCode, String message) {
         this.httpStatusCode = httpStatusCode;
         this.message = message;

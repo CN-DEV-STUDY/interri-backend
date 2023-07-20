@@ -2,9 +2,10 @@ package com.cn.interri.design.service.impl;
 
 import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
-import com.cn.interri.design.reply.dto.ResInfoRegistrationParam;
+import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
+import com.cn.interri.design.inquiry.service.DesignInquiryService;
+import com.cn.interri.design.inquiry.service.RegisterService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
-import com.cn.interri.design.inquiry.service.RegisterDesignService;
 import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -25,8 +26,9 @@ import java.util.List;
 @Transactional
 class RegisterDesignServiceImplTest {
 
+
     @Autowired
-    private RegisterDesignService registerDesignService;
+    private DesignInquiryService designInquiryService;
 
     @Autowired
     private RegisterReplyService registerReplyService;
@@ -74,7 +76,6 @@ class RegisterDesignServiceImplTest {
 
 
         List<ResInfoRegistrationParam> resInfoList = new ArrayList<>();
-        List<MultipartFile> multipartFiles = new ArrayList<>();
 
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -89,7 +90,7 @@ class RegisterDesignServiceImplTest {
         infoParam.setImgFile(file);
         resInfoList.add(infoParam);
 
-        param.setParams(resInfoList);
+//        param.setParams(resInfoList);
 
         return param;
     }
@@ -101,7 +102,7 @@ class RegisterDesignServiceImplTest {
         RegistReqDto param = createReqRegistParam();
 
         // when
-        Assertions.assertThrows(EntityNotFoundException.class, () -> registerDesignService.saveDesignRequest(param));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> designInquiryService.saveDesignRequest(param));
     }
 
     @DisplayName("디자인 요청 등록 시 유저 아이디 없음")
@@ -111,13 +112,13 @@ class RegisterDesignServiceImplTest {
         RegistReqDto param = createReqRegistParam();
 
         // when
-        Assertions.assertThrows(Exception.class, () -> registerDesignService.saveDesignRequest(param));
+        Assertions.assertThrows(Exception.class, () -> designInquiryService.saveDesignRequest(param));
     }
 
     @DisplayName("디자인 요청 정상 등록 케이스")
     @Test
     void reqRegister() throws Exception {
-        registerDesignService.saveDesignRequest(createReqRegistParam());
+        designInquiryService.saveDesignRequest(createReqRegistParam());
     }
 
     @DisplayName("디자인 응답 정상 등록 케이스")
