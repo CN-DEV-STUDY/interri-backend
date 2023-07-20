@@ -1,4 +1,5 @@
 package com.cn.interri.design.reply.dto;
+import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 

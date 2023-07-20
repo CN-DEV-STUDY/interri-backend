@@ -1,15 +1,17 @@
 package com.cn.interri.design.reply.service.impl;
 
+import com.cn.interri.common.exception.exceptions.EmptyFileException;
+import com.cn.interri.common.exception.exceptions.FileUploadFailedException;
 import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.common.service.FileService;
 import com.cn.interri.common.utils.SecurityUtil;
+import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.inquiry.entity.DesignRes;
 import com.cn.interri.design.inquiry.entity.DesignResInfo;
-import com.cn.interri.design.reply.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.reply.repository.DesignResInfoRepository;
 import com.cn.interri.design.reply.repository.DesignResRepository;
-import com.cn.interri.design.reply.service.RegisterReplyService;
+import com.cn.interri.design.reply.service.DesignRegisterReplyService;
 import com.cn.interri.user.entity.User.User;
 import com.cn.interri.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,7 +30,7 @@ import static com.cn.interri.design.inquiry.entity.FileDesignRes.createFileDesig
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class RegisterReplyServiceImpl implements RegisterReplyService{
+public class DesignRegisterReplyServiceImpl implements DesignRegisterReplyService {
 
     private final DesignResRepository designResRepository;
     private final DesignResInfoRepository designResInfoRepository;
@@ -57,7 +59,7 @@ public class RegisterReplyServiceImpl implements RegisterReplyService{
         designResRepository.save(designRes);
     }
 
-    private void uploadFiles(MultipartFile multipartFile , String purpose) {
+    private void uploadFiles(MultipartFile multipartFile , String purpose) throws FileUploadFailedException, EmptyFileException {
 
         fileService.uploadFile(multipartFile , purpose);
 

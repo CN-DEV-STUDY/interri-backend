@@ -2,9 +2,8 @@ package com.cn.interri.design.reply.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
 
-import com.cn.interri.design.inquiry.service.RegisterDesignService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
-import com.cn.interri.design.reply.service.RegisterReplyService;
+import com.cn.interri.design.reply.service.DesignRegisterReplyService;
 import com.cn.interri.design.reply.service.ReplyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DesignReplyController {
     private final ReplyPageService pageService;
-    private final RegisterReplyService registerReplyService;
+    private final DesignRegisterReplyService registerReplyService;
 
 
     /* 디자인 응답 등록 페이지 로드 시 [공간] 데이터 조회 */
