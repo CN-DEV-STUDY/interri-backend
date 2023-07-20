@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.repository;
+package com.cn.interri.design.reply.repository;
 
 import com.cn.interri.design.inquiry.entity.DesignResInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

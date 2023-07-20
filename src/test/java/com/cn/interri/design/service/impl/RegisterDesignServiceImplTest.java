@@ -5,6 +5,7 @@ import com.cn.interri.design.inquiry.dto.RegistReqDto;
 import com.cn.interri.design.reply.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.inquiry.service.RegisterDesignService;
+import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +27,9 @@ class RegisterDesignServiceImplTest {
 
     @Autowired
     private RegisterDesignService registerDesignService;
+
+    @Autowired
+    private RegisterReplyService registerReplyService;
 
     public RegistReqDto createReqRegistParam() {
         RegistReqDto param = new RegistReqDto();
@@ -79,11 +83,10 @@ class RegisterDesignServiceImplTest {
                 MediaType.TEXT_PLAIN_VALUE,
                 "Hello, World!".getBytes()
         );
-        multipartFiles.add(file);
 
         infoParam.setContent("원룸은 이렇게 꾸미는 거예yo!");
         infoParam.setRoomType(1);
-        infoParam.setImgFiles(multipartFiles);
+        infoParam.setImgFile(file);
         resInfoList.add(infoParam);
 
         param.setParams(resInfoList);
@@ -120,6 +123,6 @@ class RegisterDesignServiceImplTest {
     @DisplayName("디자인 응답 정상 등록 케이스")
     @Test
     void resRegister() throws Exception {
-        registerDesignService.saveDesignResponse(1,createResRegistParam());
+        registerReplyService.saveDesignResponse(1,createResRegistParam());
     }
 }

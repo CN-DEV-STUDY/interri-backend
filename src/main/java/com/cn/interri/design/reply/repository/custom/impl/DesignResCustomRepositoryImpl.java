@@ -1,7 +1,7 @@
-package com.cn.interri.design.inquiry.repository.custom.impl;
+package com.cn.interri.design.reply.repository.custom.impl;
 
 import com.cn.interri.design.inquiry.dto.ReqDetailResResource;
-import com.cn.interri.design.inquiry.repository.custom.DesignResCustomRepository;
+import com.cn.interri.design.reply.repository.custom.DesignResCustomRepository;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

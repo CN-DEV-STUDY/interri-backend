@@ -51,11 +51,10 @@ public class FileDesignRes extends BaseTimeEntity {
     }
 
 
-    public static List<FileDesignRes> createFileDesignRes(List<MultipartFile> multipartFiles, String resPath){
-        return multipartFiles.stream()
-                .map(multipartFile -> {
-                    String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
-                    return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
-                }).collect(Collectors.toList());
+    public static FileDesignRes createFileDesignRes(MultipartFile multipartFile, String resPath){
+        String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
+
+        return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
+
     }
 }
