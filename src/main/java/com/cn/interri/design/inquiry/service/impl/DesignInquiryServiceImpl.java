@@ -9,7 +9,7 @@ import com.cn.interri.design.inquiry.dto.RegistReqDto;
 import com.cn.interri.design.inquiry.entity.DesignReq;
 import com.cn.interri.design.inquiry.entity.DesignReqInfo;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
-import com.cn.interri.design.inquiry.service.RegisterService;
+import com.cn.interri.design.inquiry.service.DesignRegisterService;
 import com.cn.interri.user.entity.User.User;
 import com.cn.interri.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,7 +27,7 @@ import static com.cn.interri.design.inquiry.entity.FileDesignReq.createFileDesig
 public class DesignInquiryServiceImpl implements DesignInquiryService {
 
     private final FileService fileService;
-    private final RegisterService registerService;
+    private final DesignRegisterService registerService;
     private final UserRepository userRepository;
 
     private final String REQUEST="request/";

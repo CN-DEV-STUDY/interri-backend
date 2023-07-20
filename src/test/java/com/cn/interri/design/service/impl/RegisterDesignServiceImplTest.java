@@ -4,9 +4,8 @@ import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
 import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
-import com.cn.interri.design.inquiry.service.RegisterService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
-import com.cn.interri.design.reply.service.RegisterReplyService;
+import com.cn.interri.design.reply.service.DesignRegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +30,7 @@ class RegisterDesignServiceImplTest {
     private DesignInquiryService designInquiryService;
 
     @Autowired
-    private RegisterReplyService registerReplyService;
+    private DesignRegisterReplyService registerReplyService;
 
     public RegistReqDto createReqRegistParam() {
         RegistReqDto param = new RegistReqDto();
