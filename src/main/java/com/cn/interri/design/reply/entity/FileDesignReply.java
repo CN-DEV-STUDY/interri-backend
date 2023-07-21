@@ -32,10 +32,10 @@ public class FileDesignReply extends BaseTimeEntity {
     @Comment("삭제 여부")
     private String delYn;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "design_reply_info_id")
     @Comment("디자인 응답 정보 id")
-    private DesignReplyInfo designResInfo;
+    private DesignReplyInfo designReplyInfo;
 
     public FileDesignReply(String filePath, String fileNm , String delYn) {
         this.filePath = filePath;
@@ -44,11 +44,11 @@ public class FileDesignReply extends BaseTimeEntity {
     }
 
     public void setDesignResInfo(DesignReplyInfo designResInfo) {
-        this.designResInfo = designResInfo;
+        this.designReplyInfo = designResInfo;
     }
 
 
-    public static FileDesignReply createFileDesignRes(MultipartFile multipartFile, String resPath){
+    public static FileDesignReply createFileDesignReply(MultipartFile multipartFile, String resPath){
         String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
 
         return new FileDesignReply(filePath, multipartFile.getOriginalFilename(),"N");

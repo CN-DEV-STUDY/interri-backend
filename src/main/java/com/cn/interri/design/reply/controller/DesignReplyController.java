@@ -42,7 +42,7 @@ public class DesignReplyController {
             @PathVariable("id") long id, // 디자인 요청 id
             ReplyRegistParam res
     ) throws Exception {
-        registerReplyService.saveDesignResponse(id, res);
+        registerReplyService.saveDesignReply(id, res);
         return null;
     }
 }

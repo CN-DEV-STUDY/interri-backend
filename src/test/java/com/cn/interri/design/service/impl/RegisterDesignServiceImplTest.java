@@ -125,6 +125,6 @@ class RegisterDesignServiceImplTest {
     @DisplayName("디자인 응답 정상 등록 케이스")
     @Test
     void resRegister() throws Exception {
-        registerReplyService.saveDesignResponse(1,createResRegistParam());
+        registerReplyService.saveDesignReply(1,createResRegistParam());
     }
 }
