@@ -52,6 +52,5 @@ public class FileDesignReply extends BaseTimeEntity {
         String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
 
         return new FileDesignReply(filePath, multipartFile.getOriginalFilename(),"N");
-
     }
 }
