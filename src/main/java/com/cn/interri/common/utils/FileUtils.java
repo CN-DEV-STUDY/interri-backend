@@ -14,7 +14,7 @@ public class FileUtils {
         String fileExt = getExt(fileName);
 
         UUID uuid = UUID.randomUUID();
-        return uuid.toString() + fileExt;
+        return uuid.toString() +"."+ fileExt;
     }
 
     /**
