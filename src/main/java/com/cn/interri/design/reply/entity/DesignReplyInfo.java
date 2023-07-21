@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.entity;
+package com.cn.interri.design.reply.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "design_res_info")
+@Table(name = "design_reply_info")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class DesignResInfo extends BaseTimeEntity {
+public class DesignReplyInfo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "design_res_info_id")
+    @Column(name = "design_reply_info_id")
     private Long id;
 
     @Column(length = 500)
@@ -31,25 +31,25 @@ public class DesignResInfo extends BaseTimeEntity {
     private String delYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_res_id")
-    private DesignRes designRes;
+    @JoinColumn(name = "design_reply_id")
+    private DesignReply designRes;
 
     @OneToMany(mappedBy = "designResInfo" , cascade = CascadeType.ALL)
-    private List<FileDesignRes> fileDesignResList = new ArrayList<>();
+    private List<FileDesignReply> fileDesignResList = new ArrayList<>();
 
-    public void setDesignRes(DesignRes designRes) {
+    public void setDesignRes(DesignReply designRes) {
         this.designRes = designRes;
     }
 
     //=== 양방향 메서드 ===//
-    public void addFileDesignRes(FileDesignRes file){
+    public void addFileDesignRes(FileDesignReply file){
         fileDesignResList.add(file);
         file.setDesignResInfo(this);
     }
 
     //=== 생성 메서드  ===//
-    public static DesignResInfo createDesignResInfo(String content , String delYn, FileDesignRes file){
-        DesignResInfo info = new DesignResInfo();
+    public static DesignReplyInfo createDesignReplyInfo(String content , String delYn, FileDesignReply file){
+        DesignReplyInfo info = new DesignReplyInfo();
 
         info.content = content;
         info.delYn = delYn;

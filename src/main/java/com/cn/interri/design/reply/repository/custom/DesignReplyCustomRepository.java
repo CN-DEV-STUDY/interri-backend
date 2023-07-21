@@ -4,6 +4,6 @@ import com.cn.interri.design.inquiry.dto.ReqDetailResResource;
 
 import java.util.List;
 
-public interface DesignResCustomRepository {
+public interface DesignReplyCustomRepository {
     List<ReqDetailResResource> getReqDetailRes(Long id , String sortType);
 }

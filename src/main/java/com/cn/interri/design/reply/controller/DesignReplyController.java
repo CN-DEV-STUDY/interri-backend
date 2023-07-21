@@ -2,7 +2,7 @@ package com.cn.interri.design.reply.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
 
-import com.cn.interri.design.reply.dto.ResRegistrationParam;
+import com.cn.interri.design.reply.dto.ReplyRegistParam;
 import com.cn.interri.design.reply.service.DesignRegisterReplyService;
 import com.cn.interri.design.reply.service.ReplyPageService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class DesignReplyController {
     @PostMapping("/reply/{id}")
     public ResponseEntity<ResponseDto<String>> registerDesignResponse(
             @PathVariable("id") long id, // 디자인 요청 id
-            ResRegistrationParam res
+            ReplyRegistParam res
     ) throws Exception {
         registerReplyService.saveDesignResponse(id, res);
         return null;
