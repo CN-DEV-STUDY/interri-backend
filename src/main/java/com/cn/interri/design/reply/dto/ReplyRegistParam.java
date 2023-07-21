@@ -1,6 +1,8 @@
 package com.cn.interri.design.reply.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
 
 import java.util.List;

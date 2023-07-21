@@ -6,6 +6,8 @@ import com.cn.interri.design.inquiry.dto.ReplyInfoRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
 import com.cn.interri.design.reply.dto.ReplyRegistParam;
 import com.cn.interri.design.reply.service.DesignRegisterReplyService;
+import com.cn.interri.design.reply.dto.ResRegistrationParam;
+import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

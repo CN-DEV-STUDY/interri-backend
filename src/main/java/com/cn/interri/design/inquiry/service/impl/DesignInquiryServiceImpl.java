@@ -60,8 +60,8 @@ public class DesignInquiryServiceImpl implements DesignInquiryService {
         registerService.saveDesignInquiry(designReq);
     }
 
-    private void uploadFiles(MultipartFile multipartFile , String purpose) throws FileUploadFailedException, EmptyFileException {
-        fileService.uploadFile(multipartFile , purpose);
+    private void uploadFiles(MultipartFile multipartFile, String purpose) throws FileUploadFailedException, EmptyFileException {
+        fileService.uploadFile(multipartFile, purpose);
     }
 
     private User getUser() {
