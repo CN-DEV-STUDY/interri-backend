@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.entity;
+package com.cn.interri.design.reply.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.common.utils.FileUtils;
@@ -9,17 +9,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Entity
-@Table(name = "file_design_res")
+@Table(name = "file_design_reply")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class FileDesignRes extends BaseTimeEntity {
+public class FileDesignReply extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "file_design_res_id")
+    @Column(name = "file_design_reply_id")
     @Comment("파일 id")
     private Long id;
 
@@ -36,25 +33,25 @@ public class FileDesignRes extends BaseTimeEntity {
     private String delYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "design_res_info_id")
+    @JoinColumn(name = "design_reply_info_id")
     @Comment("디자인 응답 정보 id")
-    private DesignResInfo designResInfo;
+    private DesignReplyInfo designResInfo;
 
-    public FileDesignRes(String filePath, String fileNm , String delYn) {
+    public FileDesignReply(String filePath, String fileNm , String delYn) {
         this.filePath = filePath;
         this.fileNm = fileNm;
         this.delYn = delYn;
     }
 
-    public void setDesignResInfo(DesignResInfo designResInfo) {
+    public void setDesignResInfo(DesignReplyInfo designResInfo) {
         this.designResInfo = designResInfo;
     }
 
 
-    public static FileDesignRes createFileDesignRes(MultipartFile multipartFile, String resPath){
+    public static FileDesignReply createFileDesignRes(MultipartFile multipartFile, String resPath){
         String filePath = resPath + FileUtils.getUuidFileName(multipartFile.getOriginalFilename());
 
-        return new FileDesignRes(filePath, multipartFile.getOriginalFilename(),"N");
+        return new FileDesignReply(filePath, multipartFile.getOriginalFilename(),"N");
 
     }
 }

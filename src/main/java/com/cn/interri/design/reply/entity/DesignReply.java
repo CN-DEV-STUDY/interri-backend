@@ -1,4 +1,4 @@
-package com.cn.interri.design.inquiry.entity;
+package com.cn.interri.design.reply.entity;
 
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.entity.User.User;
@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "design_res")
+@Table(name = "design_reply")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 @Builder
-public class DesignRes extends BaseTimeEntity {
+public class DesignReply extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "design_res_id")
+    @Column(name = "design_reply_id")
     @Comment("디자인 응답 id")
     private Long id;
 
@@ -42,7 +42,7 @@ public class DesignRes extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "designRes" , cascade = CascadeType.ALL)
     @Comment("디자인 응답 정보 리스트")
-    private List<DesignResInfo> designResInfoList = new ArrayList<>();
+    private List<DesignReplyInfo> designResInfoList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -50,21 +50,21 @@ public class DesignRes extends BaseTimeEntity {
     private User user; // 사용자
 
     //=== 양방향 메서드 ===//
-    public void addDesignResInfo(DesignResInfo info){
+    public void addDesignResInfo(DesignReplyInfo info){
         designResInfoList.add(info);
         info.setDesignRes(this);
     }
 
     //=== 생성 메서드  ===//
-    public static DesignRes createDesignRes(Long designReqId, User user, int price, String delYn, List<DesignResInfo> designResInfoList){
-        DesignRes res = new DesignRes();
+    public static DesignReply createDesignReply(Long designReqId, User user, int price, String delYn, List<DesignReplyInfo> designResInfoList){
+        DesignReply res = new DesignReply();
         res.designReqId = designReqId;
         res.user = user;
         res.price = price;
         res.delYn = delYn;
 
         // 양방향으로 데이터 넣어줌
-        for (DesignResInfo info : designResInfoList) {
+        for (DesignReplyInfo info : designResInfoList) {
             res.addDesignResInfo(info);
         }
 

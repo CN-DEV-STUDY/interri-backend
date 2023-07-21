@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * 한번이라도 디자인 응답에 글을 작성한 사람은 디자이너이다.
      */
-    @Query("select count(*) from User u join DesignRes dr on u.id = dr.user.id")
+    @Query("select count(*) from User u join DesignReply dr on u.id = dr.user.id")
     Long countAllDesigners();
 }

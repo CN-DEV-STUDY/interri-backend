@@ -1,5 +1,5 @@
 package com.cn.interri.design.reply.dto;
-import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
+
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ResRegistrationParam {
+public class ReplyRegistParam {
     @Comment("글 등록 사용자 id")
     private long userId;
 
@@ -16,6 +16,6 @@ public class ResRegistrationParam {
     private int price;
 
     @Comment("디자인 응답 목록")
-    private List<ResInfoRegistrationParam> params;
+    private List<ReplyInfoRegistrationParam> params;
 
 }

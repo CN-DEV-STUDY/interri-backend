@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ResInfoDetailResource {
+public class ReplyInfoDetailResource {
     Long infoId;
 
     // TODO 공간
