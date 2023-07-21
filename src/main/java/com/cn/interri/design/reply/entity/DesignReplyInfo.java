@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.Fetch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,17 @@ public class DesignReplyInfo extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "design_reply_id")
-    private DesignReply designRes;
+    private DesignReply designReply;
 
-    @OneToMany(mappedBy = "designResInfo" , cascade = CascadeType.ALL)
-    private List<FileDesignReply> fileDesignResList = new ArrayList<>();
+    @OneToOne(mappedBy = "designReplyInfo" , cascade = CascadeType.ALL)
+    private FileDesignReply fileDesignReply;
 
-    public void setDesignRes(DesignReply designRes) {
-        this.designRes = designRes;
+    public void setDesignRes(DesignReply designReply) {
+        this.designReply = designReply;
     }
 
     //=== 양방향 메서드 ===//
     public void addFileDesignRes(FileDesignReply file){
-        fileDesignResList.add(file);
         file.setDesignResInfo(this);
     }
 
@@ -53,8 +53,7 @@ public class DesignReplyInfo extends BaseTimeEntity {
 
         info.content = content;
         info.delYn = delYn;
-
-
+        info.fileDesignReply = file;
         info.addFileDesignRes(file);
 
 

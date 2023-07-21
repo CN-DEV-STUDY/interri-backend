@@ -18,6 +18,6 @@ public class ReplyRegistParam {
     private int price;
 
     @Comment("디자인 응답 목록")
-    private List<ReplyInfoRegistrationParam> params;
+    private List<ReplyInfoRegistParam> params;
 
 }

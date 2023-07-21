@@ -40,7 +40,7 @@ public class DesignReply extends BaseTimeEntity {
     @Comment("디자인 요청 id")
     private Long designReqId;
 
-    @OneToMany(mappedBy = "designRes" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "designReply" , cascade = CascadeType.ALL)
     @Comment("디자인 응답 정보 리스트")
     private List<DesignReplyInfo> designResInfoList = new ArrayList<>();
 
