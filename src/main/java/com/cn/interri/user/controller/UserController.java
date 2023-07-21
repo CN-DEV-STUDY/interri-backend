@@ -1,5 +1,6 @@
 package com.cn.interri.user.controller;
 
+import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.service.RegisterService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,10 @@ public class UserController {
         registerService.passedCertEmail(userEmail);
         return ResponseEntity.ok()
                 .body("ok");
+    }
+
+    @PostMapping("/signUp")
+    public void signUp(@RequestBody UserSignUpRequest request){
+        registerService.signUp(request);
     }
 }

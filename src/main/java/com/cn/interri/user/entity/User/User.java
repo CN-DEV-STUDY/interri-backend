@@ -82,10 +82,10 @@ public class User extends BaseTimeEntity implements UserDetails {
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .nickname(dto.getNickname())
-                .profileImgNm(dto.getProfileImgNm())
-                .profileImgPath(dto.getProfileImgPath())
-                .address(dto.getAddress())
-                .phone(dto.getPhone())
+//                .profileImgNm(dto.getProfileImgNm())
+//                .profileImgPath(dto.getProfileImgPath())
+//                .address(dto.getAddress())
+//                .phone(dto.getPhone())
                 .enableYn("Y")
                 .build();
 
