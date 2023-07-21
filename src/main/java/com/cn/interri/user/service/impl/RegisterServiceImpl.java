@@ -20,7 +20,8 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public void signUp(UserSignUpRequest request) {
-        userRepository.save(User.dtoToUser(request));
+        User user = userRepository.save(User.dtoToUser(request));
+        user.changeEnabled("Y");
     }
 
     @Override

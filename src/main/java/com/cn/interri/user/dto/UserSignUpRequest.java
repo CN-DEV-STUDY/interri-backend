@@ -24,16 +24,16 @@ public class UserSignUpRequest {
     @Length(max = 20)
     private String signType;
 
-    @Length(max = 50)
-    private String address;
+//    @Length(max = 50)
+//    private String address;
 
-    @NotNull
-    @Length(max = 20)
-    private String phone;
+//    @NotNull
+//    @Length(max = 20)
+//    private String phone;
 
-    @Length(max = 100)
-    private String profileImgNm;
+//    @Length(max = 100)
+//    private String profileImgNm;
 
-    @Length(max = 100)
-    private String profileImgPath;
+//    @Length(max = 100)
+//    private String profileImgPath;
 }
