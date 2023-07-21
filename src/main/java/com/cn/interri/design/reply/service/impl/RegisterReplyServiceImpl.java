@@ -1,11 +1,13 @@
 package com.cn.interri.design.reply.service.impl;
 
+import com.cn.interri.common.exception.exceptions.EmptyFileException;
+import com.cn.interri.common.exception.exceptions.FileUploadFailedException;
 import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.common.service.FileService;
 import com.cn.interri.common.utils.SecurityUtil;
+import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.inquiry.entity.DesignRes;
 import com.cn.interri.design.inquiry.entity.DesignResInfo;
-import com.cn.interri.design.reply.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.reply.repository.DesignResInfoRepository;
 import com.cn.interri.design.reply.repository.DesignResRepository;
@@ -57,7 +59,7 @@ public class RegisterReplyServiceImpl implements RegisterReplyService{
         designResRepository.save(designRes);
     }
 
-    private void uploadFiles(MultipartFile multipartFile , String purpose) {
+    private void uploadFiles(MultipartFile multipartFile , String purpose) throws FileUploadFailedException, EmptyFileException {
 
         fileService.uploadFile(multipartFile , purpose);
 

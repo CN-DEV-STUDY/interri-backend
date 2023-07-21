@@ -20,7 +20,7 @@ public enum ExtType {
         this.fileExt = fileExt;
     }
 
-    public static ExtType find(String fileExt){
+    public static ExtType find(String fileExt) throws FileExtNotFoundException {
         return Arrays.stream(values())
                 .filter(e -> e.fileExt.equals(fileExt))
                 .findAny().orElseThrow(()->new FileExtNotFoundException(CommonErrorCode.FILE_EXT_NOT_FOUND));

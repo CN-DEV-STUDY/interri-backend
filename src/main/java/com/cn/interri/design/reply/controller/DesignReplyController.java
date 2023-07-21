@@ -2,7 +2,6 @@ package com.cn.interri.design.reply.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
 
-import com.cn.interri.design.inquiry.service.RegisterDesignService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.reply.service.RegisterReplyService;
 import com.cn.interri.design.reply.service.ReplyPageService;

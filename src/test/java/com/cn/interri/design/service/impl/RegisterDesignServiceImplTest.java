@@ -4,7 +4,6 @@ import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
 import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
-import com.cn.interri.design.inquiry.service.RegisterService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
