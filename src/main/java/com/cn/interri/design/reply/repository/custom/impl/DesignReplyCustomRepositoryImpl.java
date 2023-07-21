@@ -1,7 +1,8 @@
 package com.cn.interri.design.reply.repository.custom.impl;
 
 import com.cn.interri.design.inquiry.dto.ReqDetailResResource;
-import com.cn.interri.design.reply.repository.custom.DesignResCustomRepository;
+import com.cn.interri.design.reply.entity.QDesignReply;
+import com.cn.interri.design.reply.repository.custom.DesignReplyCustomRepository;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,12 +13,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cn.interri.design.inquiry.entity.QDesignRes.designRes;
+import static com.cn.interri.design.reply.entity.QDesignReply.designReply;
 import static com.cn.interri.user.entity.User.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
-public class DesignResCustomRepositoryImpl implements DesignResCustomRepository {
+public class DesignReplyCustomRepositoryImpl implements DesignReplyCustomRepository {
     private final JPAQueryFactory queryFactory;
     @Override
     public List<ReqDetailResResource> getReqDetailRes(Long id, String sortType) {
@@ -26,25 +27,25 @@ public class DesignResCustomRepositoryImpl implements DesignResCustomRepository 
 
 
         if(sortType == null || sortType.equals("new")){ // 정렬 조건 - 가격순
-            OrderSpecifier<LocalDateTime> orderCond1 = designRes.regDate.desc();
+            OrderSpecifier<LocalDateTime> orderCond1 = designReply.regDate.desc();
             orderCond.add(orderCond1);
         } else if (sortType.equals("price")){ // 정렬 조건 - 최신순(default)
-            OrderSpecifier<Integer> orderCond2 = designRes.price.asc();
+            OrderSpecifier<Integer> orderCond2 = designReply.price.asc();
             orderCond.add(orderCond2);
         }
 
         return queryFactory
                 .select(Projections.fields(ReqDetailResResource.class,
-                        designRes.id,
+                        designReply.id,
                         user.nickname,
                         user.profileImgNm,
                         user.profileImgPath,
-                        designRes.price,
+                        designReply.price,
                         user.adoptionCnt
                         ))
-                .from(designRes)
-                .leftJoin(designRes.user, user)
-                .where(designRes.designReqId.eq(id),designRes.delYn.eq("N"))
+                .from(designReply)
+                .leftJoin(designReply.user, user)
+                .where(designReply.designReqId.eq(id),designReply.delYn.eq("N"))
                 .orderBy(orderCond.toArray(new OrderSpecifier[0])) // OrderSpecifier[0]은 빈 배열을 생성하여 사용하며 이를 통해 orderCond 리스트가 비어있는 경우에도 정상적으로 동작
                 .fetch();
     }

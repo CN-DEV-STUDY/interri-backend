@@ -2,8 +2,10 @@ package com.cn.interri.design.service.impl;
 
 import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
-import com.cn.interri.design.inquiry.dto.ResInfoRegistrationParam;
+import com.cn.interri.design.inquiry.dto.ReplyInfoRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
+import com.cn.interri.design.reply.dto.ReplyRegistParam;
+import com.cn.interri.design.reply.service.DesignRegisterReplyService;
 import com.cn.interri.design.reply.dto.ResRegistrationParam;
 import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,7 +32,7 @@ class RegisterDesignServiceImplTest {
     private DesignInquiryService designInquiryService;
 
     @Autowired
-    private RegisterReplyService registerReplyService;
+    private DesignRegisterReplyService registerReplyService;
 
     public RegistReqDto createReqRegistParam() {
         RegistReqDto param = new RegistReqDto();
@@ -66,15 +68,15 @@ class RegisterDesignServiceImplTest {
         return param;
     }
 
-    public ResRegistrationParam createResRegistParam(){
-        ResRegistrationParam param = new ResRegistrationParam();
-        ResInfoRegistrationParam infoParam = new ResInfoRegistrationParam();
+    public ReplyRegistParam createResRegistParam(){
+        ReplyRegistParam param = new ReplyRegistParam();
+        ReplyInfoRegistrationParam infoParam = new ReplyInfoRegistrationParam();
 
         param.setUserId(1);
         param.setPrice(170000);
 
 
-        List<ResInfoRegistrationParam> resInfoList = new ArrayList<>();
+        List<ReplyInfoRegistrationParam> resInfoList = new ArrayList<>();
 
         MockMultipartFile file
                 = new MockMultipartFile(

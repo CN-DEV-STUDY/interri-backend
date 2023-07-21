@@ -13,12 +13,12 @@ import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.dto.ReqDetailResResource;
 import com.cn.interri.design.inquiry.dto.ReqInfoDetailResource;
 import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
-import com.cn.interri.design.inquiry.entity.DesignResInfo;
+import com.cn.interri.design.reply.entity.DesignReplyInfo;
 import com.cn.interri.design.inquiry.entity.FileDesignReq;
-import com.cn.interri.design.inquiry.entity.FileDesignRes;
+import com.cn.interri.design.reply.entity.FileDesignReply;
 import com.cn.interri.design.inquiry.enums.Colors;
 import com.cn.interri.design.inquiry.repository.*;
-import com.cn.interri.design.reply.repository.DesignResRepository;
+import com.cn.interri.design.reply.repository.DesignReplyRepository;
 import com.cn.interri.design.inquiry.service.PageService;
 import com.cn.interri.design.reply.repository.DesignResInfoRepository;
 import com.cn.interri.design.reply.repository.FileDesignResRepository;
@@ -41,7 +41,7 @@ public class PageServiceImpl implements PageService {
     private final DesignReqRepository designReqRepository;
     private final DesignReqInfoRepository designReqInfoRepository;
     private final DesignResInfoRepository designResInfoRepository;
-    private final DesignResRepository designResRepository;
+    private final DesignReplyRepository designResRepository;
     private final FileDesignResRepository fileDesignResRepository;
     private final FileDesignReqRepository fileDesignReqRepository;
     private final CommonTypeDesignRepository commonTypeDesignRepository;
@@ -113,8 +113,8 @@ public class PageServiceImpl implements PageService {
         List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id , sortType);
 
         List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
-            DesignResInfo designResInfo = designResInfoRepository.findTopByDesignRes_IdAndDelYn(id,"N");
-            FileDesignRes fileDesignRes = fileDesignResRepository.findTopByDesignResInfo_IdAndDelYn(designResInfo.getId(),"N");
+            DesignReplyInfo designResInfo = designResInfoRepository.findTopByDesignRes_IdAndDelYn(id,"N");
+            FileDesignReply fileDesignRes = fileDesignResRepository.findTopByDesignResInfo_IdAndDelYn(designResInfo.getId(),"N");
 
             res.setRepImgPath(amazonS3Client.getUrl(bucketName,fileDesignRes.getFilePath()).toString());
             return res;
