@@ -1,18 +1,21 @@
 package com.cn.interri.design.service;
 
-import com.cn.interri.design.dto.ReqDetailReqResource;
-import com.cn.interri.design.dto.ReqRegistrationResource;
+import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
+import com.cn.interri.design.inquiry.service.PageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PageServiceTest {
 
-    @Autowired PageService pageService;
+    @Autowired
+    PageService pageService;
 
     @DisplayName("디자인 요청 등록 페이지에 필요한 자원을 조회한다.")
     @Test
@@ -43,23 +46,14 @@ class PageServiceTest {
                 .hasSize(8);
     }
 
-    @DisplayName("디자인 요청 상세 페이지에 필요한 자원을 조회한다.")
+
+    @DisplayName("디자인 응답 등록 페이지 로드 시 [공간] 목록 조회")
     @Test
-    void getDesignReqDetails() {
+    void getResRoomTypeNm() {
+        Long id = Long.valueOf(1);
+        List<String> resRoomTypeNmList = pageService.getResRoomTypeNm(id);
 
-        // given
-//        ReqDetailReqResource designReqDetails = pageService.getDesignReqDetails();
-
-        // then
-//        assertThat(designReqDetails.getUserId().equals("sumon"));
-//        assertThat(designReqDetails.getSizeNm().equals("10평 미만"));
-//        assertThat(designReqDetails.getHousingTypeNm().equals("원룸"));
-//        assertThat(designReqDetails.getMainColor().equals("black"));
-//        assertThat(designReqDetails.getSubColor().equals("white"));
-
+        assertThat(resRoomTypeNmList).containsExactly("거실", "침실");
 
     }
-
-
-
 }
