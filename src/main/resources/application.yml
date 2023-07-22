@@ -4,6 +4,11 @@ server:
 spring:
   profiles:
     default: dev
+  batch:
+    job:
+      enabled: false # 애플리케이션이 기동되는 시점에서 잡이 실행되지 않게 하는 설정
+    jdbc:
+      initialize-schema: always # 스프링 부트가 스프링 배치 스키마 스크립트를 실행하도록 지시하는 데 사용
 logging:
   level:
     com:
