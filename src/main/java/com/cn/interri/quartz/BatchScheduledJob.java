@@ -4,8 +4,6 @@ import com.cn.interri.batch.job.WeeklyRankingJobConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.core.QuartzScheduler;
-import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.explore.JobExplorer;
@@ -25,11 +23,11 @@ public class BatchScheduledJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
-                .getNextJobParameters(WeeklyRankingJobConfiguration.weeklyRankingJob())
+                .getNextJobParameters(WeeklyRankingJobConfiguration.weeklyRankingJob(null, null))
                 .toJobParameters();
 
         try {
-            jobLauncher.run(WeeklyRankingJobConfiguration.weeklyRankingJob(), jobParameters);
+            jobLauncher.run(WeeklyRankingJobConfiguration.weeklyRankingJob(null, null), jobParameters);
         } catch (Exception e) {
             e.printStackTrace();
         }
