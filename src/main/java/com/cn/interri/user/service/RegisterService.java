@@ -9,4 +9,6 @@ public interface RegisterService {
     void certEmail(String userEmail) throws MessagingException;
 
     void passedCertEmail(String userEmail) ;
+
+    boolean checkEmailCertStatus(String email) throws Exception;
 }
