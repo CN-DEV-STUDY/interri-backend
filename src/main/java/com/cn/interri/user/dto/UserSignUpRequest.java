@@ -20,9 +20,9 @@ public class UserSignUpRequest {
     @Length(max = 20)
     private String password;
 
-    @NotNull
-    @Length(max = 20)
-    private String signType;
+//    @NotNull
+//    @Length(max = 20)
+//    private String signType;
 
 //    @Length(max = 50)
 //    private String address;

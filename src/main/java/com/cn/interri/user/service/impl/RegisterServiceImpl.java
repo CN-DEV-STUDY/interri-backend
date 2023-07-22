@@ -8,6 +8,7 @@ import com.cn.interri.user.repository.UserRepository;
 import com.cn.interri.user.service.RegisterService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
@@ -30,10 +31,7 @@ public class RegisterServiceImpl implements RegisterService {
         Context context = new Context();
         context.setVariable("verificationLink", "http://localhost:8080/user/cert/ok?email=" + userEmail);
         emailService.sendEmail(userEmail, "이메일 인증", "email-template", context);
-    }
 
-    @Override
-    public void passedCertEmail(String userEmail) {
         userRepository.save(
                 User.builder()
                         .email(userEmail)
@@ -43,6 +41,23 @@ public class RegisterServiceImpl implements RegisterService {
                         .signType(SignType.I)
                         .build()
         );
+    }
+
+    @Override
+    public void passedCertEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+        user.changeEnabled("C");
+    }
+
+    @Override
+    public boolean checkEmailCertStatus(String email) throws Exception{
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+
+        if (!user.getEnableYn().equals("C")){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

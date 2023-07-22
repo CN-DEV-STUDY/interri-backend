@@ -1,5 +1,7 @@
 package com.cn.interri.user.controller;
 
+import com.cn.interri.common.dto.ResponseDto;
+import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
 import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.service.RegisterService;
 import jakarta.mail.MessagingException;
@@ -26,7 +28,16 @@ public class UserController {
 
         registerService.passedCertEmail(userEmail);
         return ResponseEntity.ok()
-                .body("ok");
+                .body("이메일 인증이 완료되었습니다.");
+    }
+
+    @GetMapping("/cert/status/check")
+    public ResponseEntity<ResponseDto<Boolean>> checkEmailCertStatus(@RequestParam(value = "email") String userEmail) throws Exception {
+        boolean status = registerService.checkEmailCertStatus(userEmail);
+        return ResponseEntity.ok()
+                .body(ResponseDto.<Boolean>builder()
+                        .data(status)
+                        .build());
     }
 
     @PostMapping("/signUp")
