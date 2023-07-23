@@ -31,6 +31,10 @@ public class UserController {
                 .body("이메일 인증이 완료되었습니다.");
     }
 
+    /**
+     * 이메일 인증 버튼을 클릭한 순간부터 5초간격으로 해당 api를 호출한다.
+     * 이메일 인증이 완료 됐다면 해당 api는 호출되지 않는다.
+     */
     @GetMapping("/cert/status/check")
     public ResponseEntity<ResponseDto<Boolean>> checkEmailCertStatus(@RequestParam(value = "email") String userEmail) throws Exception {
         boolean status = registerService.checkEmailCertStatus(userEmail);

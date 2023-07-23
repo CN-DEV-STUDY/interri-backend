@@ -46,7 +46,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public void passedCertEmail(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
-        user.changeEnabled("C");
+        user.changeEnabled("C"); // C : 이메일 인증 상태
     }
 
     @Override
