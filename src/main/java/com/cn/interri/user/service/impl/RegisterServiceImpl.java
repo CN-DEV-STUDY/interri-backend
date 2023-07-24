@@ -1,5 +1,7 @@
 package com.cn.interri.user.service.impl;
 
+import com.cn.interri.common.exception.enums.CommonErrorCode;
+import com.cn.interri.common.exception.exceptions.AlreadyCertEmailException;
 import com.cn.interri.common.service.EmailService;
 import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.entity.User.User;
@@ -26,7 +28,12 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public void certEmail(String userEmail) throws MessagingException {
+    public void certEmail(String userEmail) throws MessagingException, AlreadyCertEmailException {
+        boolean exist = userRepository.existsByEmailAndEnableYn(userEmail, "Y");
+
+        if (exist) { // 이미 이메일 인증을 했다면 예외 처리
+            throw new AlreadyCertEmailException(CommonErrorCode.INVALID_PARAMETER);
+        }
 
         Context context = new Context();
         context.setVariable("verificationLink", "http://localhost:8080/user/cert/ok?email=" + userEmail);

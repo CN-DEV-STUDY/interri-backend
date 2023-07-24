@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     @Query("select count(*) from User u join DesignReply dr on u.id = dr.user.id")
     Long countAllDesigners();
+
+    boolean existsByEmailAndEnableYn(String email, String enableYn);
 }
