@@ -1,6 +1,7 @@
 package com.cn.interri.user.controller;
 
 import com.cn.interri.common.dto.ResponseDto;
+import com.cn.interri.common.exception.exceptions.AlreadyCertEmailException;
 import com.cn.interri.design.inquiry.dto.ReqRegistrationResource;
 import com.cn.interri.user.dto.UserSignUpRequest;
 import com.cn.interri.user.service.RegisterService;
@@ -18,7 +19,7 @@ public class UserController {
 
     // 이메일 전송
     @PostMapping("/cert")
-    public void certificationEmail(@RequestParam(value = "email") String userEmail) throws MessagingException {
+    public void certificationEmail(@RequestParam(value = "email") String userEmail) throws MessagingException, AlreadyCertEmailException {
         registerService.certEmail(userEmail);
     }
 
