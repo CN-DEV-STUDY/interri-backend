@@ -2,7 +2,8 @@ package com.cn.interri.batch.job;
 
 import com.cn.interri.batch.listener.JobLoggerListener;
 import com.cn.interri.batch.listener.StepLoggerListener;
-import com.cn.interri.user.entity.User.User;
+import com.cn.interri.design.inquiry.repository.DesignReqRepository;
+import com.cn.interri.index.dto.InteriorTrendsDto;
 import com.cn.interri.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,12 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,9 +34,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WeeklyRankingJobConfiguration {
 
-//    private final JobBuilderFactory jobBuilderFactory;
-//    private final StepBuilderFactory stepBUilderFactory;
     private final UserRepository userRepository;
+    private final DesignReqRepository designReqRepository;
+    private final RedisTemplate<String, InteriorTrendsDto> redisTemplate;
 
     @Bean
     public Job weeklyRankingJob(JobRepository jobRepository, Step weeklyRankingStep) {
@@ -55,11 +60,14 @@ public class WeeklyRankingJobConfiguration {
     @Bean
     public Tasklet weeklyRankingTasklet() {
         return (stepContribution, chunkContext) -> {
+
+            List<InteriorTrendsDto> weekTrends = designReqRepository.getWeekTrends();
+
+            ListOperations<String, InteriorTrendsDto> listOperations = redisTemplate.opsForList();
+            listOperations.leftPush("2", weekTrends.get(0));
+            redisTemplate.expireAt("2", Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
+
             log.info("@@@@@@@@@@@@@@@@@@@ BATCH @@@@@@@@@@@@@@@@@@@");
-            List<User> users = userRepository.findAll();
-            for (User user : users) {
-                log.info(user.getUsername() + user.getEmail());
-            }
             return RepeatStatus.FINISHED;
         };
     }

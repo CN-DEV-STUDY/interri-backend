@@ -11,5 +11,7 @@ public interface DesignReqCustomRepository {
 
     List<InteriorTrendsDto> getTrends(List<CommonCode> commonTypes);
 
+    List<InteriorTrendsDto> getWeekTrends();
+
 //    List<InteriorTrendsDto> getTrends(List<Style> styles);
 }
