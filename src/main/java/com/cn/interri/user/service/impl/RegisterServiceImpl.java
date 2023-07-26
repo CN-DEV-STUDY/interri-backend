@@ -10,12 +10,16 @@ import com.cn.interri.user.repository.UserRepository;
 import com.cn.interri.user.service.RegisterService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RegisterServiceImpl implements RegisterService {
 
     private final UserRepository userRepository;
@@ -23,8 +27,10 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public void signUp(UserSignUpRequest request) {
-        User user = userRepository.save(User.dtoToUser(request));
-        user.changeEnabled("Y");
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+
+        user.changeInfo(request);
+
     }
 
     @Override

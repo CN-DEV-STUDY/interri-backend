@@ -96,6 +96,14 @@ public class User extends BaseTimeEntity implements UserDetails {
         return this;
     }
 
+    public User changeInfo(UserSignUpRequest request){
+        this.nickname = request.getNickname();
+        this.password = request.getPassword();
+        this.enableYn = "Y";
+        return this;
+    }
+
+
     // ### UserDetails 메서드 구현
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
