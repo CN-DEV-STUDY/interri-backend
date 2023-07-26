@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FileDesignReqRepository extends JpaRepository<FileDesignReq, Long> {
-    List<FileDesignReq> findByDesignReqInfo_Id(Long id);
+    FileDesignReq findByDesignReqInfo_IdAndDelYn(Long id, String delYn);
 }

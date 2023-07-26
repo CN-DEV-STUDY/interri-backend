@@ -95,29 +95,21 @@ public class PageServiceImpl implements PageService {
         List<ReqInfoDetailResource> reqInfoDetail = designReqInfoRepository.getReqInfoDetail(id);
 
         // 디자인 요청 상세 정보는 여러 개가 올 수 있으며, 상세 정보에서도 이미지가 여러 개 올 수있다.
-        reqInfoDetail.stream().map(req->{
-            List<FileDesignReq> designReqInfo = fileDesignReqRepository.findByDesignReqInfo_Id(req.getInfoId()); // 디자인 요청 상세에 맞는 file을 가져온다.
+        reqInfoDetail.stream().peek(req->{
+            FileDesignReq file = fileDesignReqRepository.findByDesignReqInfo_IdAndDelYn(req.getInfoId(), "N"); // 디자인 요청 상세에 맞는 file을 가져온다.
 
-            List<String> reqImgPathList = new ArrayList<>();
-
-            for (FileDesignReq file : designReqInfo) { // file 개수만큼 반복문을 돌며 s3 이미지 저장 경로로 바꿔서 List에 넣어준다.
-                reqImgPathList.add(amazonS3Client.getUrl(bucketName, file.getFilePath()).toString());
-            }
-
-            req.setImgPathList(reqImgPathList); // dto의 imageList를 s3 bucket 경로로 바뀐 데이터로 업데이트 한다.
-            return req;
+//            req.setImgPathList(amazonS3Client.getUrl(bucketName, file.getFilePath()).toString()); // dto의 imageList를 s3 bucket 경로로 바뀐 데이터로 업데이트 한다.
         }).collect(Collectors.toList());
 
 
         // 디자인 요청에 대한 답변 내용
         List<ReqDetailResResource> reqDetailRes = designResRepository.getReqDetailRes(id , sortType);
 
-        List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().map(res -> {
-            DesignReplyInfo designResInfo = designResInfoRepository.findTopByDesignReply_IdAndDelYn(id,"N");
-            FileDesignReply fileDesignRes = fileDesignResRepository.findTopByDesignReplyInfo_IdAndDelYn(designResInfo.getId(),"N");
+        List<ReqDetailResResource> reqDetailResList = reqDetailRes.stream().peek(res -> {
+            DesignReplyInfo replyInfo = designResInfoRepository.findTopByDesignReply_IdAndDelYn(res.getId(), "N");
+            FileDesignReply fileDesignRes = fileDesignResRepository.findTopByDesignReplyInfo_IdAndDelYn(replyInfo.getId(),"N");
 
-            res.setRepImgPath(amazonS3Client.getUrl(bucketName,fileDesignRes.getFilePath()).toString());
-            return res;
+//            res.setRepImgPath(amazonS3Client.getUrl(bucketName,fileDesignRes.getFilePath()).toString());
         }).collect(Collectors.toList());
 
         reqDetail.setReqInfoDetailResources(reqInfoDetail);
