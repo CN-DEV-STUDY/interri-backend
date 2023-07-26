@@ -18,7 +18,7 @@ public class ReqInfoDetailResource {
     String roomTypeNm;
 
     // 이미지 저장 경로
-    List<String> imgPathList;
+    String imgPathList;
 
     // 사진 설명
     String content;
