@@ -1,6 +1,5 @@
 package com.cn.interri.common.config;
 
-import com.cn.interri.common.entity.Index;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -48,7 +47,7 @@ public class RedisRepositoryConfig extends CachingConfigurerSupport {
     //RedisTemplate을 통해 RedisConnection에서 넘겨준 byte 값을 객체 직렬화합니다.
     @Bean
     public RedisTemplate<?,?> redisTemplate(){
-        RedisTemplate<String, Index> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<String, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(objectMapper()));

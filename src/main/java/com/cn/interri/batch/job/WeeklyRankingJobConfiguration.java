@@ -36,7 +36,7 @@ public class WeeklyRankingJobConfiguration {
 
     private final UserRepository userRepository;
     private final DesignReqRepository designReqRepository;
-    private final RedisTemplate<String, InteriorTrendsDto> redisTemplate;
+    private final RedisTemplate<String, List<?>> redisTemplate;
 
     @Bean
     public Job weeklyRankingJob(JobRepository jobRepository, Step weeklyRankingStep) {
@@ -60,14 +60,11 @@ public class WeeklyRankingJobConfiguration {
     @Bean
     public Tasklet weeklyRankingTasklet() {
         return (stepContribution, chunkContext) -> {
-
             List<InteriorTrendsDto> weekTrends = designReqRepository.getWeekTrends();
 
-            ListOperations<String, InteriorTrendsDto> listOperations = redisTemplate.opsForList();
-            listOperations.leftPush("2", weekTrends.get(0));
-            redisTemplate.expireAt("2", Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
-
-            log.info("@@@@@@@@@@@@@@@@@@@ BATCH @@@@@@@@@@@@@@@@@@@");
+            ListOperations<String, List<?>> listOperations = redisTemplate.opsForList();
+            listOperations.leftPush("weekTrends", weekTrends);
+            redisTemplate.expireAt("weekTrends", Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
             return RepeatStatus.FINISHED;
         };
     }
