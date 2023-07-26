@@ -1,5 +1,7 @@
 package com.cn.interri.index.dto;
 
+import java.io.Serializable;
+
 /**
  * 인테리어 트렌드 카드에 들어가는 정보
  */
@@ -11,4 +13,4 @@ public record StyleInfo(
         Integer scrabCnt,    // 스크랩 수
         Integer viewCnt      // 조회수
 
-) {}
+) implements Serializable {}

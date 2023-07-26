@@ -2,6 +2,7 @@ package com.cn.interri.batch.job;
 
 import com.cn.interri.batch.listener.JobLoggerListener;
 import com.cn.interri.batch.listener.StepLoggerListener;
+import com.cn.interri.common.dto.RedisKey;
 import com.cn.interri.design.inquiry.repository.DesignReqRepository;
 import com.cn.interri.index.dto.InteriorTrendsDto;
 import com.cn.interri.user.repository.UserRepository;
@@ -36,7 +37,7 @@ public class WeeklyRankingJobConfiguration {
 
     private final UserRepository userRepository;
     private final DesignReqRepository designReqRepository;
-    private final RedisTemplate<String, List<?>> redisTemplate;
+    private final RedisTemplate<String, InteriorTrendsDto> redisTemplate;
 
     @Bean
     public Job weeklyRankingJob(JobRepository jobRepository, Step weeklyRankingStep) {
@@ -62,9 +63,11 @@ public class WeeklyRankingJobConfiguration {
         return (stepContribution, chunkContext) -> {
             List<InteriorTrendsDto> weekTrends = designReqRepository.getWeekTrends();
 
-            ListOperations<String, List<?>> listOperations = redisTemplate.opsForList();
-            listOperations.leftPush("weekTrends", weekTrends);
-            redisTemplate.expireAt("weekTrends", Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
+            redisTemplate.delete(RedisKey.INDEX_PAGE);
+            ListOperations<String, InteriorTrendsDto> listOperations = redisTemplate.opsForList();
+            listOperations.rightPushAll(RedisKey.INDEX_PAGE, weekTrends);
+
+            redisTemplate.expireAt(RedisKey.INDEX_PAGE, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
             return RepeatStatus.FINISHED;
         };
     }

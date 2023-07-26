@@ -1,7 +1,9 @@
 package com.cn.interri.index.dto;
 
 import lombok.Builder;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,9 +12,10 @@ import java.util.List;
  * @param styleName
  * @param styleInfos
  */
+@RedisHash("InteriorTrendsDto")
 @Builder
 public record InteriorTrendsDto(
         String styleId,
         String styleName,
         List<StyleInfo> styleInfos
-) { }
+) implements Serializable { }
