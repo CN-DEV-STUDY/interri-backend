@@ -4,8 +4,8 @@ import com.cn.interri.common.entity.CommonCode;
 import com.cn.interri.common.enums.CodeType;
 import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.repository.custom.DesignReqCustomRepository;
-import com.cn.interri.index.dto.InteriorTrendsDto;
-import com.cn.interri.index.dto.StyleInfo;
+import com.cn.interri.batch.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.StyleInfoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -65,8 +65,8 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
         final Integer TRENDS_FETCH_SIZE = 10;
         List<InteriorTrendsDto> responses = new ArrayList<>();
         for(CommonCode code : commonCodes) {
-            List<StyleInfo> styleInfos = queryFactory
-                    .select(Projections.constructor(StyleInfo.class,
+            List<StyleInfoDto> styleInfos = queryFactory
+                    .select(Projections.constructor(StyleInfoDto.class,
                             designReq.id,
                             fileDesignReq.filePath,
                             designReq.maxPrice,

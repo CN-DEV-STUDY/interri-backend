@@ -1,10 +1,11 @@
 package com.cn.interri.batch.job;
 
+import com.cn.interri.batch.dto.WeeklyRankingDto;
 import com.cn.interri.batch.listener.JobLoggerListener;
 import com.cn.interri.batch.listener.StepLoggerListener;
 import com.cn.interri.common.dto.RedisKey;
 import com.cn.interri.design.inquiry.repository.DesignReqRepository;
-import com.cn.interri.index.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendsDto;
 import com.cn.interri.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,15 +34,15 @@ import java.util.List;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class WeeklyRankingJobConfiguration {
+public class WeeklyJobConfiguration {
 
     private final UserRepository userRepository;
     private final DesignReqRepository designReqRepository;
     private final RedisTemplate<String, InteriorTrendsDto> redisTemplate;
 
     @Bean
-    public Job weeklyRankingJob(JobRepository jobRepository, Step weeklyRankingStep) {
-        return new JobBuilder("weeklyRankingJob", jobRepository)
+    public Job weeklyJob(JobRepository jobRepository, Step weeklyRankingStep) {
+        return new JobBuilder("weeklyJob", jobRepository)
                 .listener(JobListenerFactoryBean.getListener(new JobLoggerListener()))
 //                .incrementer(new WeeklyJobTimeStamper())
                 .incrementer(new RunIdIncrementer())
@@ -50,8 +51,8 @@ public class WeeklyRankingJobConfiguration {
     }
 
     @Bean
-    public Step weeklyRankingStep(JobRepository jobRepository, Tasklet weeklyRankingTasklet, PlatformTransactionManager transactionManager) {
-        return new StepBuilder("weeklyRandingStep", jobRepository)
+    public Step weeklyStep(JobRepository jobRepository, Tasklet weeklyRankingTasklet, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("weeklyStep", jobRepository)
                 .listener(new StepLoggerListener())
                 .tasklet(weeklyRankingTasklet, transactionManager)
                 .allowStartIfComplete(true)
@@ -59,16 +60,23 @@ public class WeeklyRankingJobConfiguration {
     }
 
     @Bean
-    public Tasklet weeklyRankingTasklet() {
+    public Tasklet weeklyTasklet() {
         return (stepContribution, chunkContext) -> {
-            List<InteriorTrendsDto> weekTrends = designReqRepository.getWeekTrends();
+            List<InteriorTrendsDto> weeklyTrends = designReqRepository.getWeekTrends();
+            List<WeeklyRankingDto> weeklyRanking = userRepository.getWeeklyRanking();
 
-            redisTemplate.delete(RedisKey.INDEX_PAGE);
+
+            // 인테리어 트렌드
+            redisTemplate.delete(RedisKey.INTERIOR_TREND);
             ListOperations<String, InteriorTrendsDto> listOperations = redisTemplate.opsForList();
-            listOperations.rightPushAll(RedisKey.INDEX_PAGE, weekTrends);
+            listOperations.rightPushAll(RedisKey.INTERIOR_TREND, weeklyTrends);
+            redisTemplate.expireAt(RedisKey.INTERIOR_TREND, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
 
-            redisTemplate.expireAt(RedisKey.INDEX_PAGE, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
+            // 주간 랭킹
+
+
             return RepeatStatus.FINISHED;
+
         };
     }
 }

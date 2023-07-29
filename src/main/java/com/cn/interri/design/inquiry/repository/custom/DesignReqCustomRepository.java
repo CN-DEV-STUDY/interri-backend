@@ -1,7 +1,7 @@
 package com.cn.interri.design.inquiry.repository.custom;
 
 import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
-import com.cn.interri.index.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendsDto;
 
 import java.util.List;
 

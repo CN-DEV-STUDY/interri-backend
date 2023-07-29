@@ -1,4 +1,4 @@
-package com.cn.interri.index.dto;
+package com.cn.interri.batch.dto;
 
 import lombok.Builder;
 import org.springframework.data.redis.core.RedisHash;
@@ -17,5 +17,5 @@ import java.util.List;
 public record InteriorTrendsDto(
         String styleId,
         String styleName,
-        List<StyleInfo> styleInfos
+        List<StyleInfoDto> styleInfos
 ) implements Serializable { }
