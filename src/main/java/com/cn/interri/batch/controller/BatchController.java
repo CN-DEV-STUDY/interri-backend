@@ -1,6 +1,6 @@
 package com.cn.interri.batch.controller;
 
-import com.cn.interri.batch.job.WeeklyRankingJobConfiguration;
+import com.cn.interri.batch.job.WeeklyJobConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BatchController {
 
     private final JobLauncher jobLauncher;
-    private final WeeklyRankingJobConfiguration weeklyRankingJobConfiguration;
+    private final WeeklyJobConfiguration weeklyRankingJobConfiguration;
 
 
     @GetMapping("/weekly-ranking")
     public ExitStatus runWeeklyRankingJob () throws Exception {
-        Job job = weeklyRankingJobConfiguration.weeklyRankingJob(null, null);
+        Job job = weeklyRankingJobConfiguration.weeklyJob(null, null);
 
         return jobLauncher.run(job, new JobParameters())
                 .getExitStatus();

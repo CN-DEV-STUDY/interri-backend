@@ -1,6 +1,6 @@
 package com.cn.interri.common.entity;
 
-import com.cn.interri.index.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendsDto;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;

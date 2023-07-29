@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @Slf4j
 @RequestMapping("/index")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class IndexController {
      * TODO: batch에서 일주일 간의 데이터 연산해서 레디스에 저장한 데이터를 fetch하는 걸로 변경 필요
      */
     @GetMapping
-    public ResponseEntity<ResponseDto<IndexDto>> trends() {
+    public ResponseEntity<ResponseDto<IndexDto>> trends() throws IOException {
         IndexDto response = trendsService.getIndex();
         return ResponseEntity.ok(ResponseDto.<IndexDto>builder()
                         .data(response)

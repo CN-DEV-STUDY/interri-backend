@@ -4,8 +4,8 @@ import com.cn.interri.common.entity.CommonCode;
 import com.cn.interri.common.enums.CodeType;
 import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.repository.custom.DesignReqCustomRepository;
-import com.cn.interri.index.dto.InteriorTrendsDto;
-import com.cn.interri.index.dto.StyleInfo;
+import com.cn.interri.batch.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.StyleInfoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -49,43 +49,6 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
     }
 
     /**
-     * 인테리어 트렌드 조회
-     */
-    @Override
-    public List<InteriorTrendsDto> getTrends(List<CommonCode> commonCodes) {
-        final Integer TRENDS_FETCH_SIZE = 10;
-        List<InteriorTrendsDto> responses = new ArrayList<>();
-
-        for(CommonCode commonCode : commonCodes) {
-            List<StyleInfo> styleInfos = queryFactory
-                    .select(Projections.constructor(StyleInfo.class,
-                            designReq.id,
-                            fileDesignReq.filePath,
-                            designReq.maxPrice,
-                            user.nickname,
-                            designReq.scrabCnt,
-                            designReq.viewCnt
-                    ))
-                    .from(designReq)
-                    .leftJoin(designReq.user, user).on(user.enableYn.eq("Y"))
-                    .leftJoin(designReq.designReqInfoList, designReqInfo).on(designReq.delYn.eq("N"))
-                    .leftJoin(designReqInfo.fileDesignReq, fileDesignReq).on(designReqInfo.delYn.eq("N"))
-                    .where(fileDesignReq.delYn.eq("N"))
-                    .limit(TRENDS_FETCH_SIZE)
-                    .fetch();
-
-            InteriorTrendsDto response = InteriorTrendsDto.builder()
-                    .styleId(commonCode.getId())
-                    .styleName(commonCode.getCodeNm())
-                    .styleInfos(styleInfos)
-                    .build();
-            responses.add(response);
-        }
-
-        return responses;
-    }
-
-    /**
      * 조회된 스타일(총 2개) 당 최대 10개의 데이터를 보여준다.
      */
     @Override
@@ -102,8 +65,8 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
         final Integer TRENDS_FETCH_SIZE = 10;
         List<InteriorTrendsDto> responses = new ArrayList<>();
         for(CommonCode code : commonCodes) {
-            List<StyleInfo> styleInfos = queryFactory
-                    .select(Projections.constructor(StyleInfo.class,
+            List<StyleInfoDto> styleInfos = queryFactory
+                    .select(Projections.constructor(StyleInfoDto.class,
                             designReq.id,
                             fileDesignReq.filePath,
                             designReq.maxPrice,
@@ -112,12 +75,13 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                             designReq.viewCnt
                     ))
                     .from(designReq)
-                    .leftJoin(designReq.user, user)
-                    .leftJoin(designReq.designReqInfoList, designReqInfo)
-                    .leftJoin(designReq.commonCodeDesigns, commonCodeDesign)
-                    .leftJoin(commonCodeDesign.commonCode, commonCode)
-                    .leftJoin(designReqInfo.fileDesignReq, fileDesignReq)
+                        .leftJoin(designReq.user, user)
+                        .leftJoin(designReq.designReqInfoList, designReqInfo)
+                        .leftJoin(designReq.commonCodeDesigns, commonCodeDesign)
+                        .leftJoin(commonCodeDesign.commonCode, commonCode)
+                        .leftJoin(designReqInfo.fileDesignReq, fileDesignReq)
                     .where(commonCode.id.eq(code.getId()), fileDesignReq.delYn.eq("N"), user.enableYn.eq("Y"), designReq.delYn.eq("N"), designReqInfo.delYn.eq("N"))
+                    .orderBy(designReq.scrabCnt.desc())
                     .limit(TRENDS_FETCH_SIZE)
                     .fetch();
 

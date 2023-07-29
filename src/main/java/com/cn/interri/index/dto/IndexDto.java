@@ -1,5 +1,6 @@
 package com.cn.interri.index.dto;
 
+import com.cn.interri.batch.dto.InteriorTrendsDto;
 import lombok.Builder;
 
 import java.util.List;

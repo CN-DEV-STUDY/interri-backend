@@ -49,8 +49,16 @@ public class RedisRepositoryConfig extends CachingConfigurerSupport {
     public RedisTemplate<?,?> redisTemplate(){
         RedisTemplate<String, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
+
+        // String serializer 설정 (키 값은 문자열로)
+        // Key serializer 설정
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+
+        // Value serializer 설정
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(objectMapper()));
+        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer(objectMapper()));
+
         return redisTemplate;
     }
 
