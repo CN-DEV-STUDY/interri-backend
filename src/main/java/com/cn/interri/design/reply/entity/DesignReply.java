@@ -1,5 +1,6 @@
 package com.cn.interri.design.reply.entity;
 
+import com.cn.interri.batch.entity.AdoptionHistory;
 import com.cn.interri.common.entity.BaseTimeEntity;
 import com.cn.interri.user.entity.User.User;
 import jakarta.persistence.*;
@@ -48,6 +49,10 @@ public class DesignReply extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     @Comment("디자인 응답 글쓴이")
     private User user; // 사용자
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "designReply")
+    List<AdoptionHistory> adoptionHistories = new ArrayList<>();
+
 
     //=== 양방향 메서드 ===//
     public void addDesignResInfo(DesignReplyInfo info){

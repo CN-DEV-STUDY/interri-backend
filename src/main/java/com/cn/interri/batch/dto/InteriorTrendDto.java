@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RedisHash("InteriorTrendsDto")
 @Builder
-public record InteriorTrendsDto(
+public record InteriorTrendDto(
         String styleId,
         String styleName,
         List<StyleInfoDto> styleInfos

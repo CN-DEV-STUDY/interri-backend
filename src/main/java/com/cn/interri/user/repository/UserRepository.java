@@ -1,14 +1,13 @@
 package com.cn.interri.user.repository;
 
-import com.cn.interri.batch.dto.WeeklyRankingDto;
 import com.cn.interri.user.entity.User.User;
+import com.cn.interri.user.repository.custom.UserCustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
 
     Optional<User> findByEmail(String email);
 
@@ -19,6 +18,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Long countAllDesigners();
 
     boolean existsByEmailAndEnableYn(String email, String enableYn);
-
-    List<WeeklyRankingDto> getWeeklyRanking();
 }

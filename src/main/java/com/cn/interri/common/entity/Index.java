@@ -1,6 +1,6 @@
 package com.cn.interri.common.entity;
 
-import com.cn.interri.batch.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendDto;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
@@ -11,5 +11,5 @@ public class Index {
 
     @Id
     private Long idx;
-    private InteriorTrendsDto interiorTrendsDto;
+    private InteriorTrendDto interiorTrendsDto;
 }

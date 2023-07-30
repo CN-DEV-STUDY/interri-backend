@@ -5,7 +5,7 @@ import com.cn.interri.batch.listener.JobLoggerListener;
 import com.cn.interri.batch.listener.StepLoggerListener;
 import com.cn.interri.common.dto.RedisKey;
 import com.cn.interri.design.inquiry.repository.DesignReqRepository;
-import com.cn.interri.batch.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendDto;
 import com.cn.interri.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,8 @@ public class WeeklyJobConfiguration {
 
     private final UserRepository userRepository;
     private final DesignReqRepository designReqRepository;
-    private final RedisTemplate<String, InteriorTrendsDto> redisTemplate;
+    private final RedisTemplate<String, InteriorTrendDto> interiorTrendRedisTemplate;
+    private final RedisTemplate<String, WeeklyRankingDto> weeklyRankingRedisTemplate;
 
     @Bean
     public Job weeklyJob(JobRepository jobRepository, Step weeklyRankingStep) {
@@ -62,18 +63,21 @@ public class WeeklyJobConfiguration {
     @Bean
     public Tasklet weeklyTasklet() {
         return (stepContribution, chunkContext) -> {
-            List<InteriorTrendsDto> weeklyTrends = designReqRepository.getWeekTrends();
+            List<InteriorTrendDto> weeklyTrends = designReqRepository.getWeekTrends();
             List<WeeklyRankingDto> weeklyRanking = userRepository.getWeeklyRanking();
 
 
             // 인테리어 트렌드
-            redisTemplate.delete(RedisKey.INTERIOR_TREND);
-            ListOperations<String, InteriorTrendsDto> listOperations = redisTemplate.opsForList();
-            listOperations.rightPushAll(RedisKey.INTERIOR_TREND, weeklyTrends);
-            redisTemplate.expireAt(RedisKey.INTERIOR_TREND, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
+            interiorTrendRedisTemplate.delete(RedisKey.INTERIOR_TREND);
+            ListOperations<String, InteriorTrendDto> interiorTrendListOperations = interiorTrendRedisTemplate.opsForList();
+            interiorTrendListOperations.rightPushAll(RedisKey.INTERIOR_TREND, weeklyTrends);
+            interiorTrendRedisTemplate.expireAt(RedisKey.INTERIOR_TREND, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
 
             // 주간 랭킹
-
+            interiorTrendRedisTemplate.delete(RedisKey.WEEKLY_RANKING);
+            ListOperations<String, WeeklyRankingDto> weeklyRankingListOperations = weeklyRankingRedisTemplate.opsForList();
+            weeklyRankingListOperations.rightPushAll(RedisKey.WEEKLY_RANKING, weeklyRanking);
+            weeklyRankingRedisTemplate.expireAt(RedisKey.WEEKLY_RANKING, Date.from(ZonedDateTime.now().plusDays(7).toInstant())); // 일주일
 
             return RepeatStatus.FINISHED;
 
