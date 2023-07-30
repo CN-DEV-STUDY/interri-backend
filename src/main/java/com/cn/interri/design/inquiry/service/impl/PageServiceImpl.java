@@ -99,7 +99,7 @@ public class PageServiceImpl implements PageService {
             FileDesignReq file = fileDesignReqRepository.findByDesignReqInfo_IdAndDelYn(req.getInfoId(), "N"); // 디자인 요청 상세에 맞는 file을 가져온다.
 
 //            req.setImgPathList(amazonS3Client.getUrl(bucketName, file.getFilePath()).toString()); // dto의 imageList를 s3 bucket 경로로 바뀐 데이터로 업데이트 한다.
-        }).collect(Collectors.toList());
+        }).toList();
 
 
         // 디자인 요청에 대한 답변 내용

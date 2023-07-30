@@ -6,7 +6,12 @@ import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.repository.custom.DesignReqCustomRepository;
 import com.cn.interri.batch.dto.InteriorTrendsDto;
 import com.cn.interri.batch.dto.StyleInfoDto;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,13 +36,17 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
 
     @Override
     public ReqDetailReqResource getReqDetail(Long id) {
+
         return queryFactory
                 .select(Projections.fields(ReqDetailReqResource.class,
                         designReq.id,
-                        user.nickname.as("userId"),
                         designReq.mainColor,
-                        designReq.subColor,
                         designReq.maxPrice,
+                        designReq.subColor,
+                        user.nickname.as("userId"),
+                        getCode(id, "ST%", "styleNm"),
+                        getCode(id, "S_", "sizeNm"),
+                        getCode(id, "HT%", "housingTypeNm"),
                         designReq.dueDate,
                         designReq.viewCnt,
                         designReq.scrabCnt
@@ -95,4 +104,33 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
 
         return responses;
     }
+
+/*    private Expression<String> getCode(Long id, String query, String alias) {
+        return ExpressionUtils.as(
+                JPAExpressions
+                        .select(commonCode.codeNm)
+                        .from(commonCode)
+                        .leftJoin(commonCodeDesign).on(commonCode.id.eq(commonCodeDesign.commonCode.id))
+                        .innerJoin(designReq).on(commonCodeDesign.designReq.id.eq(designReq.id))
+                        .where(designReq.id.eq(id).and(commonCode.id.like(query))),
+                alias
+        );
+    }*/
+
+    private Expression<String> getCode(Long id, String query, String alias) {
+        return ExpressionUtils.as(
+                JPAExpressions
+                        .select(Expressions.stringTemplate("group_concat({0})", commonCode.codeNm))
+                        .from(commonCode)
+                        .where(commonCode.id.in(
+                                JPAExpressions
+                                        .select(commonCodeDesign.commonCode.id)
+                                        .from(commonCodeDesign)
+                                        .where(commonCodeDesign.designReq.id.eq(id).and(commonCode.id.like(query)))
+                        ))
+                        .groupBy(commonCode.codeType),
+                alias
+        );
+    }
+
 }
