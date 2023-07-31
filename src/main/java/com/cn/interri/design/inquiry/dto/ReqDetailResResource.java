@@ -28,6 +28,9 @@ public class ReqDetailResResource {
     // 채택수
     int adoptionCnt;
 
+    // 조회수
+    int viewCnt;
+
     // 대표 이미지 저장 경로
     String repImgPath;
 }

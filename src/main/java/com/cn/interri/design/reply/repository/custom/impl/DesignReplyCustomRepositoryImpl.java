@@ -41,7 +41,8 @@ public class DesignReplyCustomRepositoryImpl implements DesignReplyCustomReposit
                         user.profileImgNm,
                         user.profileImgPath,
                         designReply.price,
-                        user.adoptionCnt
+                        user.adoptionCnt,
+                        designReply.viewCnt
                         ))
                 .from(designReply)
                 .leftJoin(designReply.user, user)
