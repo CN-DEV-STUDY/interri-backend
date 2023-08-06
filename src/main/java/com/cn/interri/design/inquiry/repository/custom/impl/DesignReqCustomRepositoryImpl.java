@@ -87,6 +87,15 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                 .groupBy(commonCode.id)
                 .orderBy(aliasCount.desc())
                 .limit(2)
+                .join(designReq.commonCodeDesigns, commonCodeDesign)
+                .join(commonCodeDesign.commonCode, commonCode)
+                .where(
+                        commonCode.codeType.eq(CodeType.STYLE),
+                        designReq.regDate.between(startDateTimeExpression, endDateTimeExpression)
+                )
+                .groupBy(commonCode.id)
+                .orderBy(aliasCount.desc())
+                .limit(2)
                 .fetch();
 
 
