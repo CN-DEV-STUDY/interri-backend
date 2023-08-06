@@ -5,7 +5,7 @@ import com.cn.interri.common.repository.CommonTypeRepository;
 import com.cn.interri.design.inquiry.repository.DesignReqRepository;
 import com.cn.interri.index.dto.HeroDto;
 import com.cn.interri.index.dto.IndexDto;
-import com.cn.interri.batch.dto.InteriorTrendsDto;
+import com.cn.interri.batch.dto.InteriorTrendDto;
 import com.cn.interri.index.service.TrendsService;
 import com.cn.interri.user.repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,7 +42,7 @@ public class TrendsServiceImpl implements TrendsService {
         HeroDto heroDto = getHero();
 
         // 2. 인테리어 트렌드 section
-        List<InteriorTrendsDto> interiorTrendsDto = getTrends();
+        List<InteriorTrendDto> interiorTrendsDto = getTrends();
 
         return IndexDto.builder()
                 .heroSection(heroDto)
@@ -58,15 +58,15 @@ public class TrendsServiceImpl implements TrendsService {
                 .build();
     }
 
-    private List<InteriorTrendsDto> getTrends() throws IOException {
+    private List<InteriorTrendDto> getTrends() throws IOException {
         ListOperations<String, String> listOperations = redisTemplate.opsForList();
         long size = listOperations.size(RedisKey.INTERIOR_TREND) == null ? 0 : listOperations.size(RedisKey.INTERIOR_TREND);
         List<String> redisValues = listOperations.range(RedisKey.INTERIOR_TREND, 0, size);
 
-        List<InteriorTrendsDto> interiorTrendsDtos = new ArrayList<>();
+        List<InteriorTrendDto> interiorTrendsDtos = new ArrayList<>();
         for (String redisValue : redisValues) {
             log.info("reading data from redis");
-            InteriorTrendsDto interiorTrendsDto = new ObjectMapper().readValue(redisValue, new TypeReference<>() {});
+            InteriorTrendDto interiorTrendsDto = new ObjectMapper().readValue(redisValue, new TypeReference<>() {});
             interiorTrendsDtos.add(interiorTrendsDto);
         }
 

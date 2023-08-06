@@ -2,12 +2,9 @@ package com.cn.interri.design.service.impl;
 
 import com.cn.interri.design.inquiry.dto.DesignRequestInfo;
 import com.cn.interri.design.inquiry.dto.RegistReqDto;
-import com.cn.interri.design.inquiry.dto.ReplyInfoRegistrationParam;
 import com.cn.interri.design.inquiry.service.DesignInquiryService;
 import com.cn.interri.design.reply.dto.ReplyRegistParam;
 import com.cn.interri.design.reply.service.DesignRegisterReplyService;
-import com.cn.interri.design.reply.dto.ResRegistrationParam;
-import com.cn.interri.design.reply.service.RegisterReplyService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -70,13 +67,13 @@ class RegisterDesignServiceImplTest {
 
     public ReplyRegistParam createResRegistParam(){
         ReplyRegistParam param = new ReplyRegistParam();
-        ReplyInfoRegistrationParam infoParam = new ReplyInfoRegistrationParam();
+//        ReplyInfoRegistrationParam infoParam = new ReplyInfoRegistrationParam();
 
         param.setUserId(1);
         param.setPrice(170000);
 
 
-        List<ReplyInfoRegistrationParam> resInfoList = new ArrayList<>();
+//        List<ReplyInfoRegistrationParam> resInfoList = new ArrayList<>();
 
         MockMultipartFile file
                 = new MockMultipartFile(
@@ -86,10 +83,10 @@ class RegisterDesignServiceImplTest {
                 "Hello, World!".getBytes()
         );
 
-        infoParam.setContent("원룸은 이렇게 꾸미는 거예yo!");
-        infoParam.setRoomType(1);
-        infoParam.setImgFile(file);
-        resInfoList.add(infoParam);
+//        infoParam.setContent("원룸은 이렇게 꾸미는 거예yo!");
+//        infoParam.setRoomType(1);
+//        infoParam.setImgFile(file);
+//        resInfoList.add(infoParam);
 
 //        param.setParams(resInfoList);
 
