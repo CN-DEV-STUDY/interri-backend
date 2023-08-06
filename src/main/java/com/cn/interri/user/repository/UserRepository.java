@@ -5,6 +5,8 @@ import com.cn.interri.user.repository.custom.UserCustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
@@ -18,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long>, UserCustomRep
     Long countAllDesigners();
 
     boolean existsByEmailAndEnableYn(String email, String enableYn);
+
+    List<User> findByRegDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
 }

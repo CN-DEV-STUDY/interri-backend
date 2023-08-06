@@ -82,7 +82,7 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                 .join(commonCodeDesign.commonCode, commonCode)
                 .where(
                         commonCode.codeType.eq(CodeType.STYLE),
-                        designReq.regDate.between(startDateTimeExpression, endDateTimeExpression)
+                        designReq.regDate.between(LocalDateTime.now().minusWeeks(1), LocalDateTime.now())
                 )
                 .groupBy(commonCode.id)
                 .orderBy(aliasCount.desc())
