@@ -1,14 +1,15 @@
 package com.cn.interri.design.inquiry.repository.custom.impl;
 
-import com.cn.interri.common.entity.CommonCode;
+import com.cn.interri.batch.dto.InteriorTrendDto;
+import com.cn.interri.batch.dto.StyleInfoDto;
 import com.cn.interri.common.enums.CodeType;
 import com.cn.interri.design.inquiry.dto.ReqDetailReqResource;
 import com.cn.interri.design.inquiry.repository.custom.DesignReqCustomRepository;
-import com.cn.interri.batch.dto.InteriorTrendsDto;
-import com.cn.interri.batch.dto.StyleInfoDto;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.JPAExpressions;
@@ -61,19 +62,37 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
      * 조회된 스타일(총 2개) 당 최대 10개의 데이터를 보여준다.
      */
     @Override
-    public List<InteriorTrendsDto> getWeekTrends() {
+    public List<InteriorTrendDto> getWeekTrends() {
 
-        List<CommonCode> commonCodes = queryFactory
-                .select(commonCode)
+        LocalDateTime startDateTime = LocalDateTime.now().minusWeeks(1);
+        LocalDateTime endDateTime = LocalDateTime.now();
+
+        DateTimeExpression<LocalDateTime> startDateTimeExpression = Expressions.dateTimeTemplate(
+            LocalDateTime.class, "{0}", startDateTime
+        );
+        DateTimeExpression<LocalDateTime> endDateTimeExpression = Expressions.dateTimeTemplate(
+            LocalDateTime.class, "{0}", endDateTime
+        );
+
+        NumberPath<Long> aliasCount = Expressions.numberPath(Long.class, "count");
+        List<Tuple> tupleList = queryFactory
+                .select(commonCode, commonCode.id.count().as(aliasCount))
                 .from(designReq)
-                    .join(designReq.commonCodeDesigns, commonCodeDesign)
-                    .join(commonCodeDesign.commonCode, commonCode)
-                .where(commonCode.codeType.eq(CodeType.STYLE), designReq.regDate.between(LocalDateTime.now().minusWeeks(1), LocalDateTime.now()))
+                .join(designReq.commonCodeDesigns, commonCodeDesign)
+                .join(commonCodeDesign.commonCode, commonCode)
+                .where(
+                        commonCode.codeType.eq(CodeType.STYLE),
+                        designReq.regDate.between(startDateTimeExpression, endDateTimeExpression)
+                )
+                .groupBy(commonCode.id)
+                .orderBy(aliasCount.desc())
+                .limit(2)
                 .fetch();
 
+
         final Integer TRENDS_FETCH_SIZE = 10;
-        List<InteriorTrendsDto> responses = new ArrayList<>();
-        for(CommonCode code : commonCodes) {
+        List<InteriorTrendDto> responses = new ArrayList<>();
+        for(Tuple tuple : tupleList) {
             List<StyleInfoDto> styleInfos = queryFactory
                     .select(Projections.constructor(StyleInfoDto.class,
                             designReq.id,
@@ -89,14 +108,15 @@ public class DesignReqCustomRepositoryImpl implements DesignReqCustomRepository 
                         .leftJoin(designReq.commonCodeDesigns, commonCodeDesign)
                         .leftJoin(commonCodeDesign.commonCode, commonCode)
                         .leftJoin(designReqInfo.fileDesignReq, fileDesignReq)
-                    .where(commonCode.id.eq(code.getId()), fileDesignReq.delYn.eq("N"), user.enableYn.eq("Y"), designReq.delYn.eq("N"), designReqInfo.delYn.eq("N"))
+                    // TODO: for문 지우고 in절로 변경하기
+                    .where(commonCode.id.eq(tuple.get(commonCode.id)), fileDesignReq.delYn.eq("N"), user.enableYn.eq("Y"), designReq.delYn.eq("N"), designReqInfo.delYn.eq("N"))
                     .orderBy(designReq.scrabCnt.desc())
                     .limit(TRENDS_FETCH_SIZE)
                     .fetch();
 
-            InteriorTrendsDto response = InteriorTrendsDto.builder()
-                    .styleId(code.getId())
-                    .styleName(code.getCodeNm())
+            InteriorTrendDto response = InteriorTrendDto.builder()
+                    .styleId(tuple.get(commonCode.id))
+                    .styleName(tuple.get(commonCode.codeNm))
                     .styleInfos(styleInfos)
                     .build();
             responses.add(response);

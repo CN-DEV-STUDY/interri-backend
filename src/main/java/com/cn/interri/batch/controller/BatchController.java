@@ -6,6 +6,7 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +21,13 @@ public class BatchController {
 
 
     @GetMapping("/weekly-ranking")
-    public ExitStatus runWeeklyRankingJob () throws Exception {
+    public ResponseEntity<ExitStatus> runWeeklyRankingJob () throws Exception {
         Job job = weeklyRankingJobConfiguration.weeklyJob(null, null);
 
-        return jobLauncher.run(job, new JobParameters())
-                .getExitStatus();
+        return ResponseEntity.ok()
+                .body(jobLauncher
+                        .run(job, new JobParameters())
+                        .getExitStatus()
+                );
     }
 }
